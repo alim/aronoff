@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "some_email@example.com"
+  default from: "#{ENV["CONTACT_FROM"]}"
   
   ######################################################################
   # Email for new user account. It will email the user their login,
