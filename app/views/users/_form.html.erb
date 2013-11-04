@@ -55,16 +55,18 @@
     </div>
   </div>
 
-  <% if controller.action_name == 'edit' %>
-    <div id="credit_card_area">
-      <dl class="dl-horizontal">
-        <dt></dt>
-        <dd>
-          <%= render partial: 'shared/account_button_link',
-            locals: {user: @user}  %>
-        </dd>
-      </dl>
-    </div>
+  <% if ENV['SUBSCRIPTION_ENABLED'] =~ /true/i %>
+    <% if controller.action_name == 'edit' %>
+      <div id="credit_card_area">
+        <dl class="dl-horizontal">
+          <dt></dt>
+          <dd>
+            <%= render partial: 'shared/account_button_link',
+              locals: {user: @user}  %>
+          </dd>
+        </dl>
+      </div>
+    <% end %>
   <% end %>
   
   <div class="form-actions">

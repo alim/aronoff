@@ -41,6 +41,7 @@ development:
   
   API_KEY: <%= ENV['TEST_API_KEY'] %>
   PUB_KEY: <%= ENV['TEST_PUB_KEY'] %>
+  SUBSCRIPTION_ENABLED: false
 
 test:
   SMTP_HOST: <%= ENV['SMTP_HOST'] %>
@@ -58,6 +59,8 @@ test:
   API_KEY: <%= ENV['TEST_API_KEY'] %>
   PUB_KEY: <%= ENV['TEST_PUB_KEY'] %>
   
+  SUBSCRIPTION_ENABLED: false
+  
 production:
   SMTP_HOST: <%= ENV['SMTP_HOST'] %>
   SMTP_PORT: <%= ENV['SMTP_PORT'] %>
@@ -73,4 +76,6 @@ production:
   
   API_KEY: <%= ENV['PROD_API_KEY'] %>
   PUB_KEY: <%= ENV['PROD_PUB_KEY'] %>
+  
+  SUBSCRIPTION_ENABLED: false
   

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Ignition" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Aronoff Lab" %></title>
     <%= csrf_meta_tags %>
 		<%= javascript_include_tag "https://js.stripe.com/v2/" %>
 		<%= tag :meta, name: "pub_key", content: ENV['PUB_KEY'] %>	
@@ -82,10 +82,13 @@
                 </li>
 
                 <!-- Subscription -->
-                <li <%= @subscriptions_active %> >
-                  <%= link_to '<i class="icon-repeat"></i> Subscribe'.html_safe,
-                    new_subscription_url %>
-                </li>
+                <% if ENV['SUBSCRIPTION_ENABLED'] =~ /true/i %>
+                  <li <%= @subscriptions_active %> >
+                    <%= link_to '<i class="icon-repeat"></i> Subscribe'.html_safe,
+                      new_subscription_url %>
+                  </li>
+                <% end %>
+                
            		</ul>
             </div> <!-- collapsible section -->
           </ul> <!-- Main menu -->
@@ -118,9 +121,12 @@
           <%= yield %>
         </div>
       </div><!--/row-->
-
+      
+      <br/><br/>
       <footer>
-        <p>&copy; Company 2013</p>
+        <br/>
+        <p>&nbsp; &nbsp; &copy; Aronoff Lab 2013</p>
+        <br/>
       </footer>
 
     </div> <!-- /container -->
@@ -137,7 +143,7 @@
         mode : "specific_textareas",
         editor_selector : "tinymce",
         resize: "both",
-        width: "75%",
+        width: "80%",
         browser_spellcheck : true,
         content_css : "/assets/tinymce_content.css",
         body_class: "tinymce_body",
