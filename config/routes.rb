@@ -1,4 +1,6 @@
 Ignition::Application.routes.draw do
+  resources :macrophages
+
   resources :projects
 
   resources :subscriptions

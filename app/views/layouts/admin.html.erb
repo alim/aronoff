@@ -51,8 +51,11 @@
           <ul class="well nav nav-list">
             <li class="nav-header">Main Menu</li>
             <li <%= @admin_active %>>
-              <%= link_to '<i class="icon-home"></i> Dashboard'.html_safe, admin_url  %></li>
-            
+              <%= link_to '<i class="icon-home"></i> Dashboard'.html_safe, admin_url  %>
+            </li>
+            <li <%= @macrophage_active %>>
+              <%= link_to '<i class="icon-tasks"></i> Macrophage'.html_safe, macrophages_url  %>
+            </li>
             <!-- accordion menu item -->
 
          		<li <%= @settings_active %> >

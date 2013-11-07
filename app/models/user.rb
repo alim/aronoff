@@ -86,7 +86,8 @@ class User
   
   ## RESOURCES MANAGED BY A USER
   
-  has_many :projects, dependent: :destroy  # Example primary resource
+  has_many :projects, dependent: :destroy 
+  has_many :macrophages, dependent: :destroy
 
   
   ## QUERY SCOPES ------------------------------------------------------

@@ -29,6 +29,7 @@ class Project
   ## RELATIONSHIPS -----------------------------------------------------
   
   belongs_to :user
+  has_many :macrophages
   has_and_belongs_to_many :groups
   has_mongoid_attached_file :charter_doc
   

@@ -93,6 +93,12 @@
   
     <li><a href="./HomeHelper.html">HomeHelper</a>
   
+    <li><a href="./Macrophage.html">Macrophage</a>
+  
+    <li><a href="./MacrophagesController.html">MacrophagesController</a>
+  
+    <li><a href="./MacrophagesHelper.html">MacrophagesHelper</a>
+  
     <li><a href="./Oops.html">Oops</a>
   
     <li><a href="./Project.html">Project</a>
@@ -123,11 +129,11 @@
 
 <div id="documentation" class="description">
   
-<h1 id="label-Ignition">Ignition</h1>
+<h1 id="label-Introduction">Introduction</h1>
 
-<p>The Ignition project is a small effort to provide a Quickstart framework
-for building online web-based subscription services. This particular
-project is targeted to support Openshift deployment.</p>
+<p>This project is a prototype application designed to support a specific
+medical research project. The goal is to be able to generalize this 
+project to support multiple types of medical research.</p>
 
 <h1 id="label-Components">Components</h1>
 
@@ -151,81 +157,6 @@ project is targeted to support Openshift deployment.</p>
 </li><li>
 <p>Openshift PaaS hosting integration scripts</p>
 </li></ul>
-
-<h1 id="label-Getting+Started">Getting Started</h1>
-
-<p>To get this web-based application framework up and running, you will need
-to do the following:</p>
-<ol><li>
-<p>Create an account on the <a href="http://www.openshift.com">Openshift</a>
-service.</p>
-</li><li>
-<p>Set up your local machine with the <a
-href="https://www.openshift.com/developers/rhc-client-tools-install">RedHat
-client</a> tools</p>
-</li><li>
-<p>Create a rails application and check the results. You can name the
-application whatever you want. In the example, we use “someapp”.</p>
-
-<pre>rhc app create someapp ruby-1.9 mongodb-2.2 rockmongo-1.1 --from-code https://github.com/alim/ignition.git
-rhc app show-app someapp</pre>
-</li><li>
-<p>Create a text file to hold environment varilables for setting up email and
-default administrator login. We will call this file ‘varaibles.txt’. This
-file should not be included in your git repository. Example file contents
-are below:</p>
-
-<pre>SMTP_HOST=smtpout.someserver.net
-SMTP_PORT=3535
-SMTP_DOMAIN=somedomain.com
-SMTP_USER=someuser@somedomain.com
-SMTP_PASSWORD=somepassword
-
-ADMIN_FIRST_NAME=Some
-ADMIN_LAST_NAME=Admin
-ADMIN_PHONE=800.555.1212
-ADMIN_EMAIL=sadmin@example.com
-ADMIN_PASSWORD=somepassword
-
-TEST_API_KEY='your stripe test api/private key'
-TEST_PUB_KEY='your stripe test public key'
-PROD_API_KEY='your stripe production api/private key'
-PROD_PUB_KEY='your stripe production public key'
-
-export CONTACT_EMAILBOX='operations@example.com'
-export CONTACT_FROM='no-reply-mailbox@example.com'
-export CONTACT_SUBJECT='New Contact Request'
-
-export GROUP_FROM_EMAIL=&quot;no-reply-mailbox@example.com&quot;
-export GROUP_EMAIL_SUBJECT=&quot;Group Membership Notification&quot;</pre>
-</li><li>
-<p>Run the rhc command to install these environment variables for your
-application. You can then destroy the text file you created in the previous
-step.</p>
-
-<pre>rhc set-env /path/to/variables.txt -a someapp</pre>
-</li><li>
-<p>Generate a new secret token and copy the output of the following command.</p>
-
-<pre>cd someapp
-rake secret</pre>
-</li><li>
-<p>Replace the secret token stored in the config/initializers/secret_token.rb
-file with the one generated from the rake secret command.</p>
-</li><li>
-<p>Commit the merged changes</p>
-
-<pre>git add --all
-git commit -m &quot;Put your commit message here&quot;</pre>
-</li><li>
-<p>Push the application</p>
-
-<pre>git push</pre>
-</li><li>
-<p>Point your browser to the applicatin URL. You should now be able to log
-into the application using the email and password that you entered in the
-application.yml file.</p>
-</li></ol>
 
 <h1 id="label-License">License</h1>
 
