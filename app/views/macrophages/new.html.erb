@@ -1,5 +1,10 @@
 <%- model_class = Macrophage -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+  <h1>New Macrophage Results</h1>
+  <p>
+    You can enter results for a new Macrophage experiment using the form
+    below. Please remember to attach original data file to the results
+    record.
+  </p>
 </div>
 <%= render :partial => 'form' %>

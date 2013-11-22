@@ -1,38 +1,48 @@
 <%- model_class = Macrophage -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>Macrophage Experimental Result List</h1>
+  <p>
+    This page shows a listing of all the Macrophage experimental results
+    that you can access. You can see more information about the
+    experiment by clicking the 'Experiment ID'
+  </p>
 </div>
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th>Experiment ID</th>
       <th><%= model_class.human_attribute_name(:strain_name) %></th>
-      <th><%= model_class.human_attribute_name(:experiment_id) %></th>
       <th><%= model_class.human_attribute_name(:macrophage_type) %></th>
       <th><%= model_class.human_attribute_name(:treatment) %></th>
       <th><%= model_class.human_attribute_name(:dose) %></th>
       <th><%= model_class.human_attribute_name(:data) %></th>
       <th><%= model_class.human_attribute_name(:data_type) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @macrophages.each do |macrophage| %>
       <tr>
-        <td><%= link_to macrophage.id, macrophage_path(macrophage) %></td>
+        <td>
+          <%= link_to macrophage.experiment_id, macrophage_url(macrophage) %>
+        </td>
         <td><%= macrophage.strain_name %></td>
-        <td><%= macrophage.experiment_id %></td>
-        <td><%= macrophage.macrophage_type %></td>
-        <td><%= macrophage.treatment %></td>
-        <td><%= macrophage.dose %></td>
+        <td><%= macrophage.macrophage_type_str %></td>
+        <td><%= macrophage.treatment_str %></td>
+        <td><%= macrophage.doseage_str %></td>
         <td><%= macrophage.data %></td>
-        <td><%= macrophage.data_type %></td>
-        <td><%= macrophage.user_id %></td>
-        <td><%= macrophage.project_id %></td>
-        <td><%=l macrophage.created_at %></td>
+        <td><%= macrophage.datatype_str %></td>
+        
+        <td>
+          <% if macrophage.project.present? %>
+            <%= macrophage.project.name %>
+          <% else %>
+            None
+          <% end %>
+        </td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_macrophage_path(macrophage), :class => 'btn btn-mini' %>

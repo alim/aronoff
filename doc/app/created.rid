@@ -1,11 +1,11 @@
-Wed, 06 Nov 2013 19:49:08 -0500
+Fri, 22 Nov 2013 15:59:54 -0500
 README.rdoc	Wed, 06 Nov 2013 14:56:55 -0500
 app/controllers/accounts_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/admin_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/application_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/groups_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/home_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/controllers/macrophages_controller.rb	Wed, 06 Nov 2013 15:47:31 -0500
+app/controllers/macrophages_controller.rb	Fri, 22 Nov 2013 15:57:50 -0500
 app/controllers/projects_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/subscriptions_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/users_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
@@ -14,7 +14,7 @@ app/helpers/admin_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/application_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/groups_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/home_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/helpers/macrophages_helper.rb	Wed, 06 Nov 2013 15:28:37 -0500
+app/helpers/macrophages_helper.rb	Fri, 22 Nov 2013 15:45:40 -0500
 app/helpers/projects_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/subscriptions_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/users_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
@@ -25,7 +25,7 @@ app/models/ability.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/account.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/contact.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/group.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/models/macrophage.rb	Wed, 06 Nov 2013 16:15:44 -0500
+app/models/macrophage.rb	Fri, 22 Nov 2013 14:21:17 -0500
 app/models/project.rb	Wed, 06 Nov 2013 15:35:54 -0500
 app/models/subscription.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/user.rb	Wed, 06 Nov 2013 15:35:10 -0500

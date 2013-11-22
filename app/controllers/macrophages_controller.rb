@@ -24,17 +24,22 @@ class MacrophagesController < ApplicationController
   # GET /macrophages/new
   def new
     @macrophage = Macrophage.new
+    @projects = Project.where(user_id: current_user)
+    @strains = get_strain_list
   end
 
   # GET /macrophages/1/edit
   def edit
+    @projects = Project.where(user_id: current_user)
+    @strains = get_strain_list
   end
 
   # POST /macrophages
   # POST /macrophages.json
   def create
     @macrophage = Macrophage.new(macrophage_params)
-
+    @macrophage.user = current_user if @macrophage.user.nil?
+   
     respond_to do |format|
       if @macrophage.save
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully created.' }
@@ -49,6 +54,8 @@ class MacrophagesController < ApplicationController
   # PATCH/PUT /macrophages/1
   # PATCH/PUT /macrophages/1.json
   def update
+    @macrophage.user = current_user if @macrophage.user.nil?
+    
     respond_to do |format|
       if @macrophage.update(macrophage_params)
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully updated.' }
@@ -82,6 +89,16 @@ class MacrophagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def macrophage_params
-      params.require(:macrophage).permit(:strain_name, :experiment_id, :macrophage_type, :treatment, :dose, :data, :data_type)
+      params.require(:macrophage).permit(:strain_name, :experiment_id, 
+        :macrophage_type, :treatment, :dose, :data, :data_type, :notes,
+        :raw_datafile, :project_id)
+    end
+    
+    ####################################################################
+    # The get_strain_list method is responsible for pulling a list
+    # of GBS strains from the MLST system.
+    ####################################################################
+    def get_strain_list
+      # Implmentation needed
     end
 end

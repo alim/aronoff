@@ -1,3 +1,8 @@
+########################################################################
+# The Macrophage model class is used to respresent the data storage
+# for macrophage expirements. The model is designed to hold the
+# results of the experiment, not all the detailed experimental data.
+########################################################################
 class Macrophage
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -5,6 +10,9 @@ class Macrophage
 
   # Add call to strip leading and trailing white spaces from all atributes
   strip_attributes  # See strip_attributes for more information
+  
+  ## CALLBACKS ---------------------------------------------------------
+  before_destroy :delete_file
   
   ## CONSTANTS ---------------------------------------------------------
   
@@ -71,13 +79,20 @@ class Macrophage
   field :dose, type: Integer
   field :data, type: Float
   field :data_type, type: Integer
-  
+  field :notes, type: String
+   
   ## RELATIONSHIPS -----------------------------------------------------
   
   belongs_to :user
   belongs_to :project
+  has_mongoid_attached_file :raw_datafile
   
   ## INSTANCE METHODS --------------------------------------------------
+  
+  def delete_file
+    self.raw_datafile = nil
+    self.save
+  end
   
   def macrophage_type_str
     case macrophage_type
@@ -111,7 +126,7 @@ class Macrophage
     return str
   end
   
-  def dosage_str
+  def doseage_str
     case dose
     when Zero_uM
       str = '0 um'
@@ -126,4 +141,17 @@ class Macrophage
     end
     return str
   end
+  
+  def datatype_str
+    case data_type
+    when NUM_PER_THP1_CELL
+      str = '# per THP1 cell'
+    when NOMALIZED_PHAGO_ACTIVITY
+      str = 'Normalized phago activity'
+    else
+      str = 'Unkown'
+    end
+    return str
+  end
+  
 end

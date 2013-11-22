@@ -90,7 +90,11 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-dosage_str">#dosage_str</a>
+    <li><a href="#method-i-datatype_str">#datatype_str</a>
+    
+    <li><a href="#method-i-delete_file">#delete_file</a>
+    
+    <li><a href="#method-i-doseage_str">#doseage_str</a>
     
     <li><a href="#method-i-macrophage_type_str">#macrophage_type_str</a>
     
@@ -190,6 +194,11 @@
 
   <div id="description" class="description">
     
+<p>The <a href="Macrophage.html">Macrophage</a> model class is used to
+respresent the data storage for macrophage expirements. The model is
+designed to hold the results of the experiment, not all the detailed
+experimental data.</p>
+
   </div><!-- description -->
 
   
@@ -308,10 +317,10 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-dosage_str" class="method-detail ">
+      <div id="method-i-datatype_str" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">dosage_str</span><span
+          <span class="method-name">datatype_str</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -323,9 +332,78 @@
           
 
           
-          <div class="method-source-code" id="dosage_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 114</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dosage_str</span>
+          <div class="method-source-code" id="datatype_str-source">
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">datatype_str</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">data_type</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">NUM_PER_THP1_CELL</span>
+    <span class="ruby-identifier">str</span> = <span class="ruby-string">'# per THP1 cell'</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">NOMALIZED_PHAGO_ACTIVITY</span>
+    <span class="ruby-identifier">str</span> = <span class="ruby-string">'Normalized phago activity'</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">str</span> = <span class="ruby-string">'Unkown'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- datatype_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- datatype_str-method -->
+
+    
+      <div id="method-i-delete_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_file</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>INSTANCE METHODS ————————————————–</p>
+          
+
+          
+          <div class="method-source-code" id="delete_file-source">
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_file</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">raw_datafile</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_file-method -->
+
+    
+      <div id="method-i-doseage_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">doseage_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="doseage_str-source">
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">doseage_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">dose</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">Zero_uM</span>
     <span class="ruby-identifier">str</span> = <span class="ruby-string">'0 um'</span>
@@ -340,14 +418,14 @@
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- dosage_str-source -->
+          </div><!-- doseage_str-source -->
           
         </div>
 
         
 
         
-      </div><!-- dosage_str-method -->
+      </div><!-- doseage_str-method -->
 
     
       <div id="method-i-macrophage_type_str" class="method-detail ">
@@ -361,12 +439,12 @@
 
         <div class="method-description">
           
-          <p>INSTANCE METHODS ————————————————–</p>
+          
           
 
           
           <div class="method-source-code" id="macrophage_type_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 82</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">macrophage_type_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">macrophage_type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">THP1</span>
@@ -410,7 +488,7 @@
 
           
           <div class="method-source-code" id="treatment_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 100</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">treatment_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">treatment</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">NONE</span>

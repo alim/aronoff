@@ -1,27 +1,70 @@
 <%- model_class = Macrophage -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1>Macrophage Results</h1>
+  <p>
+      The results of the macrophage experiment are shown below. You can
+      update or delete the results by using the buttons at the bottom
+      of the page.
+  </p>
 </div>
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:strain_name) %>:</strong></dt>
-  <dd><%= @macrophage.strain_name %></dd>
+  
   <dt><strong><%= model_class.human_attribute_name(:experiment_id) %>:</strong></dt>
   <dd><%= @macrophage.experiment_id %></dd>
+  
+  <dt><strong><%= model_class.human_attribute_name(:strain_name) %>:</strong></dt>
+  <dd><%= @macrophage.strain_name %></dd>
+    
   <dt><strong><%= model_class.human_attribute_name(:macrophage_type) %>:</strong></dt>
-  <dd><%= @macrophage.macrophage_type %></dd>
+  <dd><%= @macrophage.macrophage_type_str %></dd>
+  
   <dt><strong><%= model_class.human_attribute_name(:treatment) %>:</strong></dt>
-  <dd><%= @macrophage.treatment %></dd>
+  <dd><%= @macrophage.treatment_str %></dd>
+  
   <dt><strong><%= model_class.human_attribute_name(:dose) %>:</strong></dt>
-  <dd><%= @macrophage.dose %></dd>
+  <dd><%= @macrophage.doseage_str %></dd>
+  
+  <dt><strong><%= model_class.human_attribute_name(:data_type) %>:</strong></dt>
+  <dd><%= @macrophage.datatype_str %></dd>  
+  
   <dt><strong><%= model_class.human_attribute_name(:data) %>:</strong></dt>
   <dd><%= @macrophage.data %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:data_type) %>:</strong></dt>
-  <dd><%= @macrophage.data_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @macrophage.user_id %></dd>
+
+  <dt><strong>Notes:</strong></dt>
+  <dd><%= @macrophage.notes.html_safe %></dd>
+  
+  <br/>
+  <dt><strong>User/Owner</strong></dt>
+  <dd>
+    <% if @macrophage.user.present? %>
+      <%= @macrophage.user.first_name %>  <%= @macrophage.user.last_name %><br/>
+      <%= @macrophage.user.email %>
+    <% else %>
+      None
+    <% end %>
+  </dd>
+  
   <dt><strong><%= model_class.human_attribute_name(:project_id) %>:</strong></dt>
-  <dd><%= @macrophage.project_id %></dd>
+  <dd>
+    <% if @macrophage.project.present? %>
+      <%= @macrophage.project.name %>
+    <% else %>
+      None
+    <% end %>
+  </dd>
+  
+  <br/>
+  <dt><strong>Data File: </strong></dt>
+  <dd>
+    <% if @macrophage.raw_datafile.present? %>
+      <%= link_to @macrophage.raw_datafile_file_name, 
+        @macrophage.raw_datafile.url, class: 'btn btn-mini' %>
+    <% else %>
+      None
+    <% end %>
+  </dd>
 </dl>
 
 <div class="form-actions">
@@ -33,5 +76,5 @@
               macrophage_path(@macrophage),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+              :class => 'btn btn-danger pull-right' %>
 </div>

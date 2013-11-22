@@ -214,10 +214,11 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 35</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@macrophage</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">macrophage_params</span>)
-
+  <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
+ 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">save</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@macrophage</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Macrophage was successfully created.'</span> }
@@ -254,7 +255,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 65</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -288,8 +289,10 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>)
+  <span class="ruby-ivar">@strains</span> = <span class="ruby-identifier">get_strain_list</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -350,6 +353,8 @@
             <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@macrophage</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>)
+  <span class="ruby-ivar">@strains</span> = <span class="ruby-identifier">get_strain_list</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -406,8 +411,10 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 51</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
+  
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">macrophage_params</span>)
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@macrophage</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Macrophage was successfully updated.'</span> }
