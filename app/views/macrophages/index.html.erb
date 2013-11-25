@@ -6,6 +6,26 @@
     that you can access. You can see more information about the
     experiment by clicking the 'Experiment ID'
   </p>
+  
+  <div class='row-fluid'>
+    <div class='form-inline'>
+      <!-- Form for submitting a search request -->
+      <%= form_tag macrophages_url, method: :get do %>
+        <div class='input-prepend'>
+
+            <%= select_tag(:stype, options_for_select(@search_options), 
+              class: 'btn span5') %>
+            <%= text_field_tag :search, nil, placeholder: "Search term" %>
+        </div>
+        
+        <%= submit_tag 'Search/Filter', class: 'btn pull-right' %>
+
+      <% end %>
+
+    </div> <!-- form inline -->
+    
+  </div> <!-- row -->  
+  
 </div>
 <%= render partial: 'shared/flash', locals: { flash: flash } %>
 
@@ -32,7 +52,7 @@
         <td><%= macrophage.strain_name %></td>
         <td><%= macrophage.macrophage_type_str %></td>
         <td><%= macrophage.treatment_str %></td>
-        <td><%= macrophage.doseage_str %></td>
+        <td><%= macrophage.dosage_str %></td>
         <td><%= macrophage.data %></td>
         <td><%= macrophage.datatype_str %></td>
         

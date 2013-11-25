@@ -8,6 +8,9 @@ class Macrophage
   include Mongoid::Timestamps
   include Mongoid::Paperclip
 
+  # Shared class methods for restricted searching
+  extend SharedClassMethods
+
   # Add call to strip leading and trailing white spaces from all atributes
   strip_attributes  # See strip_attributes for more information
   
@@ -80,20 +83,50 @@ class Macrophage
   field :data, type: Float
   field :data_type, type: Integer
   field :notes, type: String
-   
+  
+  ## VALIDATIONS -------------------------------------------------------
+  
+  validates_uniqueness_of :experiment_id
+  validates_presence_of :experiment_id
+  validates_presence_of :strain_name
+  validates_presence_of :macrophage_type
+  validates_presence_of :data
+  validates_presence_of :data_type
+  
+  ## INDICES -----------------------------------------------------------
+  
+  index({strain_name: 1}, {unique: true, name: "strain_index" })
+  index({experiment_id: 1}, {unique: true, name: "experiment_index" })
+  index({strain_name: 1}, {unique: false, name: "strain_index"})
+  index({macrophage_type: 1}, {unique: false, name: "macrophage_type_index"})
+  index({treatment: 1}, {unique: false, name: "treatment_index"})
+
+  ## PREDEFINED SCOPES -------------------------------------------------
+  
+  scope :by_strain, ->(strain){ where(strain_name: strain) }
+  
   ## RELATIONSHIPS -----------------------------------------------------
   
   belongs_to :user
   belongs_to :project
   has_mongoid_attached_file :raw_datafile
   
-  ## INSTANCE METHODS --------------------------------------------------
   
+  ## PUBLIC INSTANCE METHODS -------------------------------------------
+  
+  ######################################################################
+  # This callback method will delete attached file, if the corresponding
+  # Macrophage model object is destroyed.
+  ######################################################################
   def delete_file
     self.raw_datafile = nil
     self.save
   end
   
+  ######################################################################
+  # The macrophage_type_str method will return the human readable form
+  # of the macrophage type identifier.
+  ######################################################################
   def macrophage_type_str
     case macrophage_type
     when THP1
@@ -112,6 +145,10 @@ class Macrophage
     return str
   end
   
+  ######################################################################
+  # The treatment_str helper method returns the human readable string 
+  # that represents the treatment identifier.
+  ######################################################################
   def treatment_str
     case treatment
     when NONE
@@ -125,8 +162,12 @@ class Macrophage
     end
     return str
   end
-  
-  def doseage_str
+
+  ######################################################################
+  # The dosage_str helper method returns the human readable string 
+  # that represents the dosage identifier.
+  ######################################################################
+  def dosage_str
     case dose
     when Zero_uM
       str = '0 um'
@@ -141,7 +182,11 @@ class Macrophage
     end
     return str
   end
-  
+
+  ######################################################################
+  # The datatype_str helper method returns the human readable string 
+  # that represents the data type identifier.
+  ######################################################################
   def datatype_str
     case data_type
     when NUM_PER_THP1_CELL

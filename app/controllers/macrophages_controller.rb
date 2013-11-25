@@ -1,3 +1,7 @@
+########################################################################
+# The MacrophagesController class is responsible for managing the views
+# and data interactions for the Macrophage experimental results.
+########################################################################
 class MacrophagesController < ApplicationController
   
   ## RESCUE SETTINGS ---------------------------------------------------
@@ -10,10 +14,25 @@ class MacrophagesController < ApplicationController
   before_action :set_macrophage, only: [:show, :edit, :update, :destroy]
   before_action :set_macrophage_class
   
+  ######################################################################
   # GET /macrophages
   # GET /macrophages.json
+  #
+  # The index method provides the ability to view all the macrophage
+  # results that are permitted to be viewed by the user.
+  ######################################################################
   def index
+    @search_options = [
+      ['Strain', 'strain'], 
+      ['Macrophage', 'macrophage'],
+    ]
     @macrophages = Macrophage.all
+    
+    # Check to see if we want to search for a subset of users
+    if params[:search].present? && params[:stype].present?
+    else
+      # Get all Macrophages for the user and/or group
+    end
   end
 
   # GET /macrophages/1
