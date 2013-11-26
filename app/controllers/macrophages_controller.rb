@@ -31,6 +31,12 @@ class MacrophagesController < ApplicationController
       # ['Macrophage', 'macrophage'],
     ]
 
+    # Number of entries per page to display
+		pcount = 10
+		
+		# Get page number
+		page = params[:page].nil? ? 1 : params[:page]
+		
     # Check to see if we want to search for a subset of users
     if params[:search].present? && params[:stype].present?
       @search = params[:search]
@@ -38,17 +44,17 @@ class MacrophagesController < ApplicationController
       
       case @stype
       when 'experiment'
-         @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search)
+         @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search).paginate(page: page,	per_page: pcount)	
       when 'strain'
-        @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search)
+        @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search).paginate(page: page,	per_page: pcount)	
       # when 'macrophage'
       else
         @macrophages = Macrophage.find_with_groups(current_user).order_by(
-          [[:experiment_id, :asc]])
+          [[:experiment_id, :asc]]).paginate(page: page,	per_page: pcount)	
       end
     else
       @macrophages = Macrophage.find_with_groups(current_user).order_by(
-        [[:experiment_id, :asc]])
+        [[:experiment_id, :asc]]).paginate(page: page,	per_page: pcount)	
     end
     
     respond_to do |format|
