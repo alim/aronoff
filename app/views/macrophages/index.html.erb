@@ -29,58 +29,66 @@
 </div>
 <%= render partial: 'shared/flash', locals: { flash: flash } %>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Experiment ID</th>
-      <th><%= model_class.human_attribute_name(:strain_name) %></th>
-      <th><%= model_class.human_attribute_name(:macrophage_type) %></th>
-      <th><%= model_class.human_attribute_name(:treatment) %></th>
-      <th><%= model_class.human_attribute_name(:dose) %></th>
-      <th><%= model_class.human_attribute_name(:data) %></th>
-      <th><%= model_class.human_attribute_name(:data_type) %></th>
-      <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @macrophages.each do |macrophage| %>
+<% if @macrophages.present? %>
+
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td>
-          <%= link_to macrophage.experiment_id, macrophage_url(macrophage) %>
-        </td>
-        <td><%= macrophage.strain_name %></td>
-        <td><%= macrophage.macrophage_type_str %></td>
-        <td><%= macrophage.treatment_str %></td>
-        <td><%= macrophage.dosage_str %></td>
-        <td><%= macrophage.data %></td>
-        <td><%= macrophage.datatype_str %></td>
-        
-        <td>
-          <% if macrophage.project.present? %>
-            <%= macrophage.project.name %>
-          <% else %>
-            None
-          <% end %>
-        </td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_macrophage_path(macrophage), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      macrophage_path(macrophage),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <th>Experiment ID</th>
+        <th><%= model_class.human_attribute_name(:strain_name) %></th>
+        <th><%= model_class.human_attribute_name(:macrophage_type) %></th>
+        <th><%= model_class.human_attribute_name(:treatment) %></th>
+        <th><%= model_class.human_attribute_name(:dose) %></th>
+        <th><%= model_class.human_attribute_name(:data) %></th>
+        <th><%= model_class.human_attribute_name(:data_type) %></th>
+        <th><%= model_class.human_attribute_name(:project_id) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @macrophages.each do |macrophage| %>
+        <tr>
+          <td>
+            <%= link_to macrophage.experiment_id, macrophage_url(macrophage) %>
+          </td>
+          <td><%= macrophage.strain_name %></td>
+          <td><%= macrophage.macrophage_type_str %></td>
+          <td><%= macrophage.treatment_str %></td>
+          <td><%= macrophage.dosage_str %></td>
+          <td><%= macrophage.data %></td>
+          <td><%= macrophage.datatype_str %></td>
+          
+          <td>
+            <% if macrophage.project.present? %>
+              <%= macrophage.project.name %>
+            <% else %>
+              None
+            <% end %>
+          </td>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_macrophage_path(macrophage), :class => 'btn btn-mini' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        macrophage_path(macrophage),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-mini btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+<% else %>
+  <p>
+    No macrophage results have been created yet. Click on the <strong>New</strong>
+    button below to create your first one.
+  </p>
+<% end %>
 
 <div class='digg_pagination'>
   <%= will_paginate @macrophages %>
 </div>
-
 
 
 <!-- Export controls -------------------------------------------------->
