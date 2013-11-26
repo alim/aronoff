@@ -1,5 +1,11 @@
 <%- model_class = Macrophage -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+  <h1>Edit Macrophage Results</h1>
+  <p>
+    You can update the macrophage results record using the form below.
+    <em>Please note that if you replace the attached data file. The
+    original file will be deleted from the system.</em> 
+  </p>
 </div>
+
 <%= render :partial => 'form' %>

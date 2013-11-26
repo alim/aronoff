@@ -1,6 +1,6 @@
 <%- model_class = Macrophage -%>
 <div class="page-header">
-  <h1>Macrophage Experimental Result List</h1>
+  <h1>Macrophage Experimental Results List</h1>
   <p>
     This page shows a listing of all the Macrophage experimental results
     that you can access. You can see more information about the
@@ -77,6 +77,20 @@
   </tbody>
 </table>
 
+
+<!-- Export controls -------------------------------------------------->
+<% if @search.present? && @stype.present? %>
+  <%= link_to 'Export CSV', macrophages_url(search: @search, 
+    stype: @stype, format: 'csv'), class: 'btn btn-mini btn-info pull-right' %>
+<% else %>
+  <%= link_to 'Export CSV', macrophages_url(format: 'csv'), 
+    class: 'btn btn-mini btn-info pull-right' %>
+<% end %>
+
+<br/>
+
+<div class="form-actions">
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_macrophage_path,
             :class => 'btn btn-primary' %>
+</div>

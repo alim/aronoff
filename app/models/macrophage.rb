@@ -90,8 +90,11 @@ class Macrophage
   validates_presence_of :experiment_id
   validates_presence_of :strain_name
   validates_presence_of :macrophage_type
+  validates_presence_of :treatment
+  validates_presence_of :dose
   validates_presence_of :data
   validates_presence_of :data_type
+  validates_presence_of :user_id
   
   ## INDICES -----------------------------------------------------------
   
@@ -103,7 +106,9 @@ class Macrophage
 
   ## PREDEFINED SCOPES -------------------------------------------------
   
-  scope :by_strain, ->(strain){ where(strain_name: strain) }
+  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/).order_by([[:strain_name, :asc]]) }
+  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/).order_by([[:experiment_id, :asc]]) }
+  scope :by_macrophage, ->(mid){ where(macrophage_type: mid).order_by([[:macrophage_type, :asc]]) }
   
   ## RELATIONSHIPS -----------------------------------------------------
   
@@ -198,5 +203,45 @@ class Macrophage
     end
     return str
   end
+  
+  #####################################################################
+	# The to_csv class method converts the model contents to 
+	# CSV format. It takes one optional parameter.
+	# * options - a has of CSV generation options see Ruby CSV#generate documentation
+	####################################################################
+	def self.to_csv(options = {})
+
+		CSV.generate(options) do |csv|
+			column_header =  ["Experiment", "Strain", "Macrophage", "Treatment",
+				"Dose", "Data Type", "Data", "Notes"]
+  
+		  # Output column header
+		  csv << column_header  
+
+	  	# Create a new array for the row
+	  	row = Array.new
+	  	all.each do |mac|
+      
+        # Macrophage information
+        row << mac.experiment_id
+        row << mac.strain_name
+        row << mac.macrophage_type_str
+        row << mac.treatment_str
+        row << mac.dosage_str
+        row << mac.datatype_str
+        row << mac.data
+        row << mac.notes
+
+			  # Ouput the CSV ROW
+			  csv << row
+
+		    # Clear out the row for the next one
+		    row.clear
+
+		  end # all.each
+
+		end # CSV
+
+	end # def
   
 end

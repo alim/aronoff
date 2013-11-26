@@ -90,11 +90,13 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-to_csv">::to_csv</a>
+    
     <li><a href="#method-i-datatype_str">#datatype_str</a>
     
     <li><a href="#method-i-delete_file">#delete_file</a>
     
-    <li><a href="#method-i-doseage_str">#doseage_str</a>
+    <li><a href="#method-i-dosage_str">#dosage_str</a>
     
     <li><a href="#method-i-macrophage_type_str">#macrophage_type_str</a>
     
@@ -168,6 +170,8 @@
     <li><a href="./ProjectsController.html">ProjectsController</a>
   
     <li><a href="./ProjectsHelper.html">ProjectsHelper</a>
+  
+    <li><a href="./SharedClassMethods.html">SharedClassMethods</a>
   
     <li><a href="./Subscription.html">Subscription</a>
   
@@ -313,6 +317,79 @@ experimental data.</p>
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-to_csv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_csv</span><span
+            class="method-args">(options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a href="Macrophage.html#method-c-to_csv">::to_csv</a> class method
+converts the model contents to  CSV format. It takes one optional
+parameter.</p>
+<ul><li>
+<p>options - a has of CSV generation options see Ruby CSV#generate
+documentation</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="to_csv-source">
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 212</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_csv</span>(<span class="ruby-identifier">options</span> = {})
+
+        <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">options</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">column_header</span> =  [<span class="ruby-string">&quot;Experiment&quot;</span>, <span class="ruby-string">&quot;Strain&quot;</span>, <span class="ruby-string">&quot;Macrophage&quot;</span>, <span class="ruby-string">&quot;Treatment&quot;</span>,
+                        <span class="ruby-string">&quot;Dose&quot;</span>, <span class="ruby-string">&quot;Data Type&quot;</span>, <span class="ruby-string">&quot;Data&quot;</span>, <span class="ruby-string">&quot;Notes&quot;</span>]
+  
+          <span class="ruby-comment"># Output column header</span>
+          <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">column_header</span>  
+
+       <span class="ruby-comment"># Create a new array for the row</span>
+       <span class="ruby-identifier">row</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+       <span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mac</span><span class="ruby-operator">|</span>
+      
+<span class="ruby-comment"># Macrophage information</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">experiment_id</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">strain_name</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">macrophage_type_str</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">treatment_str</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">dosage_str</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">datatype_str</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">data</span>
+<span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mac</span>.<span class="ruby-identifier">notes</span>
+
+                  <span class="ruby-comment"># Ouput the CSV ROW</span>
+                  <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">row</span>
+
+            <span class="ruby-comment"># Clear out the row for the next one</span>
+            <span class="ruby-identifier">row</span>.<span class="ruby-identifier">clear</span>
+
+          <span class="ruby-keyword">end</span> <span class="ruby-comment"># all.each</span>
+
+        <span class="ruby-keyword">end</span> <span class="ruby-comment"># CSV</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_csv-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_csv-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -328,12 +405,14 @@ experimental data.</p>
 
         <div class="method-description">
           
-          
+          <p>The <a href="Macrophage.html#method-i-datatype_str">#datatype_str</a>
+helper method returns the human readable string  that represents the data
+type identifier.</p>
           
 
           
           <div class="method-source-code" id="datatype_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 145</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 195</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">datatype_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">data_type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">NUM_PER_THP1_CELL</span>
@@ -366,12 +445,13 @@ experimental data.</p>
 
         <div class="method-description">
           
-          <p>INSTANCE METHODS ————————————————–</p>
+          <p>This callback method will delete attached file, if the corresponding <a
+href="Macrophage.html">Macrophage</a> model object is destroyed.</p>
           
 
           
           <div class="method-source-code" id="delete_file-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 92</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_file</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">raw_datafile</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
@@ -386,10 +466,10 @@ experimental data.</p>
       </div><!-- delete_file-method -->
 
     
-      <div id="method-i-doseage_str" class="method-detail ">
+      <div id="method-i-dosage_str" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">doseage_str</span><span
+          <span class="method-name">dosage_str</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -397,13 +477,15 @@ experimental data.</p>
 
         <div class="method-description">
           
-          
+          <p>The <a href="Macrophage.html#method-i-dosage_str">#dosage_str</a> helper
+method returns the human readable string  that represents the dosage
+identifier.</p>
           
 
           
-          <div class="method-source-code" id="doseage_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 129</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">doseage_str</span>
+          <div class="method-source-code" id="dosage_str-source">
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dosage_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">dose</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">Zero_uM</span>
     <span class="ruby-identifier">str</span> = <span class="ruby-string">'0 um'</span>
@@ -418,14 +500,14 @@ experimental data.</p>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- doseage_str-source -->
+          </div><!-- dosage_str-source -->
           
         </div>
 
         
 
         
-      </div><!-- doseage_str-method -->
+      </div><!-- dosage_str-method -->
 
     
       <div id="method-i-macrophage_type_str" class="method-detail ">
@@ -439,12 +521,15 @@ experimental data.</p>
 
         <div class="method-description">
           
-          
+          <p>The <a
+href="Macrophage.html#method-i-macrophage_type_str">#macrophage_type_str</a>
+method will return the human readable form of the macrophage type
+identifier.</p>
           
 
           
           <div class="method-source-code" id="macrophage_type_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 97</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">macrophage_type_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">macrophage_type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">THP1</span>
@@ -483,12 +568,14 @@ experimental data.</p>
 
         <div class="method-description">
           
-          
+          <p>The <a href="Macrophage.html#method-i-treatment_str">#treatment_str</a>
+helper method returns the human readable string  that represents the
+treatment identifier.</p>
           
 
           
           <div class="method-source-code" id="treatment_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 115</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 157</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">treatment_str</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">treatment</span>
   <span class="ruby-keyword">when</span> <span class="ruby-constant">NONE</span>

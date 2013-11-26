@@ -19,19 +19,41 @@ class MacrophagesController < ApplicationController
   # GET /macrophages.json
   #
   # The index method provides the ability to view all the macrophage
-  # results that are permitted to be viewed by the user.
+  # results that are permitted to be viewed by the user. We allow the
+  # user to search for a subset by experiment id or strain_name. The 
+  # results will also be paginated. Finally, we allow downloading of
+  # the experimental results into CSV file.
   ######################################################################
   def index
     @search_options = [
+      ['Experiment', 'experiment'],
       ['Strain', 'strain'], 
-      ['Macrophage', 'macrophage'],
+      # ['Macrophage', 'macrophage'],
     ]
-    @macrophages = Macrophage.all
-    
+
     # Check to see if we want to search for a subset of users
     if params[:search].present? && params[:stype].present?
+      @search = params[:search]
+      @stype = params[:stype]
+      
+      case @stype
+      when 'experiment'
+         @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search)
+      when 'strain'
+        @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search)
+      # when 'macrophage'
+      else
+        @macrophages = Macrophage.find_with_groups(current_user).order_by(
+          [[:experiment_id, :asc]])
+      end
     else
-      # Get all Macrophages for the user and/or group
+      @macrophages = Macrophage.find_with_groups(current_user).order_by(
+        [[:experiment_id, :asc]])
+    end
+    
+    respond_to do |format|
+      format.html
+      format.csv { send_data @macrophages.to_csv }
     end
   end
 
