@@ -53,29 +53,27 @@ class UsersController < ApplicationController
       # Check for the type of search we are doing
       case params[:stype]
       when 'email'
-        @users = User.by_email(params[:search]).paginate(page: page,	
-          per_page: PAGE_COUNT)
+        @users = User.by_email(params[:search])
       when 'first_name'
-        @users = User.by_first_name(params[:search]).paginate(page: page,	
-          per_page: PAGE_COUNT)
+        @users = User.by_first_name(params[:search])
       when 'last_name'  
-        @users = User.by_last_name(params[:search]).paginate(page: page,	
-          per_page: PAGE_COUNT)
+        @users = User.by_last_name(params[:search])
       else # Unrecognized search type so return all
-        @users = User.all.paginate(page: page,	per_page: PAGE_COUNT)
+        @users = User.all
       end
       
     else # No search criteria, so we start off with all Users
-      @users = User.all.paginate(page: page,	per_page: PAGE_COUNT)
+      @users = User.all
     end
 
     if params[:role_filter].present?
       if params[:role_filter] == 'customer'
-        @users =  @users.by_role(User::CUSTOMER).paginate(page: page,
-          per_page: PAGE_COUNT)
+        @users =  @users.by_role(User::CUSTOMER).paginate(page: page,	per_page: PAGE_COUNT)
       elsif params[:role_filter] == 'service_admin'
         @users =  @users.by_role(User::SERVICE_ADMIN).paginate(
           page: page,	per_page: PAGE_COUNT)
+      else
+        @users = @users.paginate(page: page,	per_page: PAGE_COUNT)
       end
     end
     

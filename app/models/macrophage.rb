@@ -207,7 +207,7 @@ class Macrophage
   #####################################################################
 	# The to_csv class method converts the model contents to 
 	# CSV format. It takes one optional parameter.
-	# * options - a has of CSV generation options see Ruby CSV#generate documentation
+	# * options - a has of CSV generation options see Ruby CSV generate documentation
 	####################################################################
 	def self.to_csv(options = {})
 

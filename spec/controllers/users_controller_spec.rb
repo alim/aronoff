@@ -165,7 +165,8 @@ describe UsersController do
 			      get :index, {role_filter: 'both'}
 			      
 			      users = User.all
-			      assigns(:users).count.should eq(users.count)
+            count = users.count > ApplicationController::PAGE_COUNT ? ApplicationController::PAGE_COUNT : users.count            
+			      assigns(:users).count.should eq(count)
 			    end
 			  end
 			  
@@ -219,7 +220,9 @@ describe UsersController do
 			        role_filter: 'both' }
 			      
 			      assigns(:users).should_not be_empty
-			      assigns(:users).count.should eq(users.count)
+            
+            count = users.count > ApplicationController::PAGE_COUNT ? ApplicationController::PAGE_COUNT : users.count
+			      assigns(:users).count.should eq(count)
 			    end
 			    
 			    it "Should find single matching email and both rolls" do
@@ -282,7 +285,8 @@ describe UsersController do
 			        role_filter: 'both' }
 			      
 			      assigns(:users).should_not be_empty
-			      assigns(:users).count.should eq(users.count)
+            count = users.count > ApplicationController::PAGE_COUNT ? ApplicationController::PAGE_COUNT : users.count            
+			      assigns(:users).count.should eq(count)
 			    end
 			    			    
 			    it "Should find all matching first_name and both role records" do
@@ -292,7 +296,8 @@ describe UsersController do
 			        role_filter: 'both' }
 			      
 			      assigns(:users).should_not be_empty
-			      assigns(:users).count.should eq(users.count)
+            count = users.count > ApplicationController::PAGE_COUNT ? ApplicationController::PAGE_COUNT : users.count
+            assigns(:users).count.should eq(count)
 			    end
 			    			    
 			  end # Search and roll			  

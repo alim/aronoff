@@ -126,7 +126,7 @@ describe Macrophage do
     it "should allow searching by exact macrohpage_type" do
       mid = Macrophage.last.macrophage_type
       mac = Macrophage.by_macrophage(mid)
-      mac.count.should eq(1)
+      mac.count.should >= 1
       mac.first.macrophage_type.should eq(mid)
     end
   end

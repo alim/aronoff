@@ -3,69 +3,78 @@
 # and data interactions for the Macrophage experimental results.
 ########################################################################
 class MacrophagesController < ApplicationController
-  
+
   ## RESCUE SETTINGS ---------------------------------------------------
-  
-	rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
+
+  rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
   rescue_from CanCan::AccessDenied, with: :access_denied
-  
+
   ## CALLBACKS ---------------------------------------------------------
 
   before_action :set_macrophage, only: [:show, :edit, :update, :destroy]
   before_action :set_macrophage_class
-  
+
   ######################################################################
   # GET /macrophages
   # GET /macrophages.json
   #
   # The index method provides the ability to view all the macrophage
   # results that are permitted to be viewed by the user. We allow the
-  # user to search for a subset by experiment id or strain_name. The 
+  # user to search for a subset by experiment id or strain_name. The
   # results will also be paginated. Finally, we allow downloading of
   # the experimental results into CSV file.
   ######################################################################
   def index
     @search_options = [
       ['Experiment', 'experiment'],
-      ['Strain', 'strain'], 
+      ['Strain', 'strain'],
       # ['Macrophage', 'macrophage'],
     ]
 
-		# Get page number
-		page = params[:page].nil? ? 1 : params[:page]
-		
+    # Get page number
+    page = params[:page].nil? ? 1 : params[:page]
+
     # Check to see if we want to search for a subset of users
     if params[:search].present? && params[:stype].present?
       @search = params[:search]
       @stype = params[:stype]
-      
+
       case @stype
       when 'experiment'
-         @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search).paginate(page: page,	per_page: PAGE_COUNT)	
+         @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search).paginate(page: page, per_page: PAGE_COUNT)
       when 'strain'
-        @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search).paginate(page: page,	per_page: PAGE_COUNT)	
+        @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search).paginate(page: page,  per_page: PAGE_COUNT)
       # when 'macrophage'
       else
         @macrophages = Macrophage.find_with_groups(current_user).order_by(
-          [[:experiment_id, :asc]]).paginate(page: page,	per_page: PAGE_COUNT)	
+          [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
       end
     else
       @macrophages = Macrophage.find_with_groups(current_user).order_by(
-        [[:experiment_id, :asc]]).paginate(page: page,	per_page: PAGE_COUNT)	
+        [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
     end
-    
+
     respond_to do |format|
       format.html
       format.csv { send_data @macrophages.to_csv }
     end
   end
 
+  ######################################################################
   # GET /macrophages/1
   # GET /macrophages/1.json
+  #
+  # Standard show method. We use model helper methods for displaying
+  # the human readable strings for some of the attributes.
+  ######################################################################
   def show
   end
 
+  ######################################################################
   # GET /macrophages/new
+  #
+  # Standard new method with attributes for showing projects and strains
+  ######################################################################
   def new
     @macrophage = Macrophage.new
     @projects = Project.where(user_id: current_user)
@@ -78,12 +87,17 @@ class MacrophagesController < ApplicationController
     @strains = get_strain_list
   end
 
+  ######################################################################
   # POST /macrophages
   # POST /macrophages.json
+  #
+  # The create method creates a new macrophage record and sets the
+  # user/owner to the currently signed in user.
+  ######################################################################
   def create
     @macrophage = Macrophage.new(macrophage_params)
     @macrophage.user = current_user if @macrophage.user.nil?
-   
+
     respond_to do |format|
       if @macrophage.save
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully created.' }
@@ -99,7 +113,7 @@ class MacrophagesController < ApplicationController
   # PATCH/PUT /macrophages/1.json
   def update
     @macrophage.user = current_user if @macrophage.user.nil?
-    
+
     respond_to do |format|
       if @macrophage.update(macrophage_params)
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully updated.' }
@@ -126,18 +140,18 @@ class MacrophagesController < ApplicationController
     def set_macrophage
       @macrophage = Macrophage.find(params[:id])
     end
-    
+
     def set_macrophage_class
       @macrophage_active = "class=active"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def macrophage_params
-      params.require(:macrophage).permit(:strain_name, :experiment_id, 
+      params.require(:macrophage).permit(:strain_name, :experiment_id,
         :macrophage_type, :treatment, :dose, :data, :data_type, :notes,
         :raw_datafile, :project_id)
     end
-    
+
     ####################################################################
     # The get_strain_list method is responsible for pulling a list
     # of GBS strains from the MLST system.
