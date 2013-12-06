@@ -11,40 +11,40 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :strain_name, :class => 'control-label' %>
+     <label class='control-label'>Strain Name: </label>
     <div class="controls">
-      <%= f.text_field :strain_name, :class => 'text_field' %>
+      <%= f.select(:strain_name, strain_name_options)   %>
     </div>
   </div>
-  
+
   <div class="control-group">
     <label class='control-label'>Macrophage Types</label>
     <div class="controls">
       <%= f.select(:macrophage_type, macrophage_options) %>
     </div>
   </div>
-  
+
   <div class="control-group">
     <label class='control-label'>Treatment</label>
     <div class="controls">
       <%= f.select(:treatment, treatment_options) %>
     </div>
   </div>
-  
+
   <div class="control-group">
     <label class='control-label'>Dosage</label>
     <div class="controls">
       <%= f.select(:dose, dosage_options) %>
-    </div>  
+    </div>
   </div>
-  
+
   <div class="control-group">
     <label class='control-label'>Data Type</label>
     <div class="controls">
       <%= f.select(:data_type, datatype_options) %>
     </div>
-  </div>  
-  
+  </div>
+
   <div class="control-group">
     <label class='control-label'>Data</label>
     <div class="controls">
@@ -61,7 +61,7 @@
 
   <div class="control-group">
     <label class='control-label'>Associated Project</label>
-    
+
     <% if @projects.present? %>
       <div class="controls">
         <%= f.select(:project_id, project_list) %>
