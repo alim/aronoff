@@ -83,7 +83,7 @@ describe MacrophagesController do
 
       it "assigns all macrophages as @macrophages w/o search parameters" do
         get :index
-        assigns(:macrophages).count.should eq(Macrophage.count)
+        assigns(:macrophages).count.should eq(ApplicationController::PAGE_COUNT)
       end
 
       it "should identify all macrophages" do
