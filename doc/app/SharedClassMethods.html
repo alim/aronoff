@@ -121,6 +121,12 @@
   
     <li><a href="./HomeHelper.html">HomeHelper</a>
   
+    <li><a href="./ImmuneResponse.html">ImmuneResponse</a>
+  
+    <li><a href="./ImmuneResponsesController.html">ImmuneResponsesController</a>
+  
+    <li><a href="./ImmuneResponsesHelper.html">ImmuneResponsesHelper</a>
+  
     <li><a href="./Macrophage.html">Macrophage</a>
   
     <li><a href="./MacrophagesController.html">MacrophagesController</a>
@@ -162,7 +168,7 @@
 
   <div id="description" class="description">
     
-<p>The SharedMethods module is used for storing methods that will be  accross
+<p>The SharedMethods module is used for storing methods that will be accross
 multiple Rails model classes. To use these methods, you will need to:</p>
 
 <pre>extend SharedMethods</pre>
@@ -204,7 +210,7 @@ multiple Rails model classes. To use these methods, you will need to:</p>
 href="SharedClassMethods.html#method-i-find_with_groups">#find_with_groups</a>
 class scope method will return all resource records that have a group in
 common with the <a href="User.html">User</a> that is passed in as a
-parameter. The algorithm for determining whether the  resource can be
+parameter. The algorithm for determining whether the resource can be
 accessed is as follows:</p>
 <ol><li>
 <p>Identify any groups that the user is associated with</p>
@@ -226,37 +232,46 @@ id’s</p>
           <div class="method-source-code" id="find_with_groups-source">
             <pre><span class="ruby-comment"># File lib/shared_class_methods.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">user</span>)
-        <span class="ruby-keyword">begin</span>
-                <span class="ruby-comment"># Find all group ids associated with User</span>
-                <span class="ruby-identifier">groups</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">groups</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-comment"># Find all group ids associated with User</span>
+    <span class="ruby-identifier">groups</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">groups</span>
 
-                <span class="ruby-keyword">if</span> <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">present?</span>   
-        
-                        <span class="ruby-comment"># Find all the resource id's associated with the user</span>
-                        <span class="ruby-identifier">ids</span> = []
-                        <span class="ruby-identifier">ids</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>)
-                
-<span class="ruby-comment"># For each group associated with the user locate the associated </span>
-<span class="ruby-comment"># project resources</span>
-                        <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span> 
-  <span class="ruby-identifier">projects</span> = <span class="ruby-identifier">group</span>.<span class="ruby-identifier">projects</span>
-  
-  <span class="ruby-identifier">projects</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">project</span><span class="ruby-operator">|</span> 
-    <span class="ruby-identifier">ids</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">project</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">present?</span>
 
-                        <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">uniq!</span>
-                        <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">sort!</span>
+      <span class="ruby-comment"># Find all the resource id's associated with the user</span>
+      <span class="ruby-identifier">ids</span> = []
+      <span class="ruby-identifier">ids</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>)
 
-                        <span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span>.<span class="ruby-identifier">in</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>)
-                <span class="ruby-keyword">else</span>
-                        <span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
-                <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">rescue</span>  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordNotFound</span>
-                <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;[#{self}.find_with_groups] Could not find user - user ID: #{user.id}&quot;</span>)
-                <span class="ruby-identifier">scoped</span>
+      <span class="ruby-comment"># For each group associated with the user locate the associated</span>
+      <span class="ruby-comment"># project resources</span>
+      <span class="ruby-identifier">groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">projects</span> = <span class="ruby-identifier">group</span>.<span class="ruby-identifier">projects</span>
+
+        <span class="ruby-comment"># Check to see if the requested resource is a Project class</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/project/</span>
+          <span class="ruby-identifier">ids</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">projects</span>.<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">projects</span>.<span class="ruby-identifier">present?</span>
+        <span class="ruby-keyword">else</span> <span class="ruby-comment"># Just resource id's associated with each project</span>
+          <span class="ruby-identifier">projects</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">project</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">ids</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">project</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">pluralize</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:id</span>)
+          <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">uniq!</span>
+      <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">sort!</span>
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span>.<span class="ruby-identifier">in</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Mongoid</span><span class="ruby-operator">::</span><span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">DocumentNotFound</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;[#{self}.find_with_groups] Could not find user - user ID: #{user.id}&quot;</span>)
+    <span class="ruby-identifier">scoped</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- find_with_groups-source -->
           

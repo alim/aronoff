@@ -1,4 +1,6 @@
 Ignition::Application.routes.draw do
+  resources :immune_responses
+
   resources :macrophages
 
   resources :projects

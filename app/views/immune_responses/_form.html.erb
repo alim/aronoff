@@ -1,0 +1,92 @@
+<%= form_for @immune_response, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :experiment_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :experiment_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :strain_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :strain_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :cell_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :cell_type, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :model, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :model, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :compartment, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :compartment, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :time_point, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :time_point, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :moi, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :moi, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :strain_status, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :strain_status, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :treatment, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :treatment, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :dose, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :dose, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :result, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :result, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :ctyto_chemo_kine, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ctyto_chemo_kine, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :units, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :units, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :notes, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :notes, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                immune_responses_path, :class => 'btn' %>
+  </div>
+<% end %>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class ImmuneResponse - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/immune_response.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">Mongoid::Document</span>
+  
+  
+  
+    <li><span class="include">Mongoid::Timestamps</span>
+  
+  
+  
+    <li><span class="include">Mongoid::Paperclip</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-delete_file">#delete_file</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Account.html">Account</a>
+  
+    <li><a href="./AccountsController.html">AccountsController</a>
+  
+    <li><a href="./AccountsHelper.html">AccountsHelper</a>
+  
+    <li><a href="./AdminController.html">AdminController</a>
+  
+    <li><a href="./AdminHelper.html">AdminHelper</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Contact.html">Contact</a>
+  
+    <li><a href="./ContactMailer.html">ContactMailer</a>
+  
+    <li><a href="./Group.html">Group</a>
+  
+    <li><a href="./GroupMailer.html">GroupMailer</a>
+  
+    <li><a href="./GroupRelations.html">GroupRelations</a>
+  
+    <li><a href="./GroupsController.html">GroupsController</a>
+  
+    <li><a href="./GroupsHelper.html">GroupsHelper</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./ImmuneResponse.html">ImmuneResponse</a>
+  
+    <li><a href="./ImmuneResponsesController.html">ImmuneResponsesController</a>
+  
+    <li><a href="./ImmuneResponsesHelper.html">ImmuneResponsesHelper</a>
+  
+    <li><a href="./Macrophage.html">Macrophage</a>
+  
+    <li><a href="./MacrophagesController.html">MacrophagesController</a>
+  
+    <li><a href="./MacrophagesHelper.html">MacrophagesHelper</a>
+  
+    <li><a href="./Oops.html">Oops</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectsController.html">ProjectsController</a>
+  
+    <li><a href="./ProjectsHelper.html">ProjectsHelper</a>
+  
+    <li><a href="./SharedClassMethods.html">SharedClassMethods</a>
+  
+    <li><a href="./Subscription.html">Subscription</a>
+  
+    <li><a href="./SubscriptionsController.html">SubscriptionsController</a>
+  
+    <li><a href="./SubscriptionsHelper.html">SubscriptionsHelper</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class ImmuneResponse</h1>
+
+  <div id="description" class="description">
+    
+<p>The <a href="ImmuneResponse.html">ImmuneResponse</a> model holds the
+experimental results data from the immune reponse studies. It has the
+ability to store the original data file as an attachment. The model also
+provides several helper methods that and constants that restrict entry into
+some of the data fields.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="AE_CELLS">AE_CELLS
+        
+        <dd class="description">
+        
+      
+        <dt id="AMNION">AMNION
+        
+        <dd class="description">
+        
+      
+        <dt id="AMNION_EPITH">AMNION_EPITH
+        
+        <dd class="description">
+        
+      
+        <dt id="BLOOD_MONO">BLOOD_MONO
+        
+        <dd class="description">
+        
+      
+        <dt id="CD_PUNCHES">CD_PUNCHES
+        
+        <dd class="description">
+        
+      
+        <dt id="CELL_TYPE">CELL_TYPE
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of cell types.
+This array can be used in views for generate selection options</p>
+        
+      
+        <dt id="CHORIODECIDUA">CHORIODECIDUA
+        
+        <dd class="description">
+        
+      
+        <dt id="CHORION">CHORION
+        
+        <dd class="description">
+        
+      
+        <dt id="COMP_OPTIONS">COMP_OPTIONS
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of compartments.
+This array can be used in views for generate selection options</p>
+        
+      
+        <dt id="CYTO_OPTIONS">CYTO_OPTIONS
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of
+cyto-chemo-kines. This array can be used in views for generate selection
+options</p>
+        
+      
+        <dt id="DM_TERM">DM_TERM
+        
+        <dd class="description">
+        
+      
+        <dt id="HBD2">HBD2
+        
+        <dd class="description"><p>CYTO-CHEMO-KINE OPTIONS</p>
+        
+      
+        <dt id="HEAT_KILLED">HEAT_KILLED
+        
+        <dd class="description">
+        
+      
+        <dt id="IL10">IL10
+        
+        <dd class="description">
+        
+      
+        <dt id="IL12">IL12
+        
+        <dd class="description">
+        
+      
+        <dt id="IL17">IL17
+        
+        <dd class="description">
+        
+      
+        <dt id="IL1A">IL1A
+        
+        <dd class="description">
+        
+      
+        <dt id="IL1B">IL1B
+        
+        <dd class="description">
+        
+      
+        <dt id="IL6">IL6
+        
+        <dd class="description">
+        
+      
+        <dt id="IL8">IL8
+        
+        <dd class="description">
+        
+      
+        <dt id="LIVE">LIVE
+        
+        <dd class="description">
+        
+      
+        <dt id="LPS">LPS
+        
+        <dd class="description">
+        
+      
+        <dt id="LTA">LTA
+        
+        <dd class="description">
+        
+      
+        <dt id="LTB4">LTB4
+        
+        <dd class="description">
+        
+      
+        <dt id="MG_ML">MG_ML
+        
+        <dd class="description">
+        
+      
+        <dt id="MODEL_OPTIONS">MODEL_OPTIONS
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of models. This
+array can be used in views for generate selection options</p>
+        
+      
+        <dt id="NG_ML">NG_ML
+        
+        <dd class="description">
+        
+      
+        <dt id="NO_COMPARTMENT">NO_COMPARTMENT
+        
+        <dd class="description"><p>COMPARTMENT OPTIONS</p>
+        
+      
+        <dt id="NO_MODEL">NO_MODEL
+        
+        <dd class="description"><p>MODEL OPTIONS</p>
+        
+      
+        <dt id="NO_STRAIN_STATUS">NO_STRAIN_STATUS
+        
+        <dd class="description"><p>STRAIN_STATUS OPTIONS</p>
+        
+      
+        <dt id="NO_TREATEMENT">NO_TREATEMENT
+        
+        <dd class="description"><p>TREATMENT OPTIONS</p>
+        
+      
+        <dt id="PGE2">PGE2
+        
+        <dd class="description">
+        
+      
+        <dt id="PG_ML">PG_ML
+        
+        <dd class="description"><p>UNIT OPTIONS</p>
+        
+      
+        <dt id="PM">PM
+        
+        <dd class="description">
+        
+      
+        <dt id="STRAIN_STATUS_OPTIONS">STRAIN_STATUS_OPTIONS
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of compartments.
+This array can be used in views for generate selection options</p>
+        
+      
+        <dt id="THP1">THP1
+        
+        <dd class="description"><p>CELL_TYPES</p>
+        
+      
+        <dt id="TNFA">TNFA
+        
+        <dd class="description">
+        
+      
+        <dt id="TRANSWELL">TRANSWELL
+        
+        <dd class="description">
+        
+      
+        <dt id="TREATMENT_OPTIONS">TREATMENT_OPTIONS
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of treatments.
+This array can be used in views for generate selection options</p>
+        
+      
+        <dt id="T_HESC">T_HESC
+        
+        <dd class="description">
+        
+      
+        <dt id="T_HESC_MODEL">T_HESC_MODEL
+        
+        <dd class="description">
+        
+      
+        <dt id="UG_ML">UG_ML
+        
+        <dd class="description">
+        
+      
+        <dt id="UNIT_OPTIONS">UNIT_OPTIONS
+        
+        <dd class="description"><p>An array of hash entries that specify the different types of unit options.
+This array can be used in views for generate selection options</p>
+        
+      
+        <dt id="WHOLE_PUNCHES">WHOLE_PUNCHES
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-delete_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_file</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This callback method will delete attached file, if the corresponding <a
+href="Macrophage.html">Macrophage</a> model object is destroyed.</p>
+          
+
+          
+          <div class="method-source-code" id="delete_file-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 233</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_file</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">raw_datafile</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_file-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

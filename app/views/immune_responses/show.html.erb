@@ -1,0 +1,47 @@
+<%- model_class = ImmuneResponse -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:experiment_id) %>:</strong></dt>
+  <dd><%= @immune_response.experiment_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:strain_name) %>:</strong></dt>
+  <dd><%= @immune_response.strain_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:cell_type) %>:</strong></dt>
+  <dd><%= @immune_response.cell_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>
+  <dd><%= @immune_response.model %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:compartment) %>:</strong></dt>
+  <dd><%= @immune_response.compartment %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:time_point) %>:</strong></dt>
+  <dd><%= @immune_response.time_point %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:moi) %>:</strong></dt>
+  <dd><%= @immune_response.moi %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:strain_status) %>:</strong></dt>
+  <dd><%= @immune_response.strain_status %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:treatment) %>:</strong></dt>
+  <dd><%= @immune_response.treatment %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:dose) %>:</strong></dt>
+  <dd><%= @immune_response.dose %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:result) %>:</strong></dt>
+  <dd><%= @immune_response.result %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ctyto_chemo_kine) %>:</strong></dt>
+  <dd><%= @immune_response.ctyto_chemo_kine %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:units) %>:</strong></dt>
+  <dd><%= @immune_response.units %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+  <dd><%= @immune_response.notes %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              immune_responses_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_immune_response_path(@immune_response), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              immune_response_path(@immune_response),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
