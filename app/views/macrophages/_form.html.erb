@@ -60,11 +60,11 @@
   </div>
 
   <div class="control-group">
-    <label class='control-label'>Associated Project</label>
-
+    <label class='control-label'>Associated Projects</label>
     <% if @projects.present? %>
       <div class="controls">
-        <%= f.select(:project_id, project_list) %>
+        <%= render partial: 'projects/project_list', locals: { f: f,
+          html_class: '', label: false } %>
       </div>
     <% else %>
       <div class="controls readonly">No projects defined yet.</div>
