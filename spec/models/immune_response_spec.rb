@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ImmuneResponse do
-  #include_context 'immune_response_setup'
+  include_context 'immune_response_setup'
 
   ## METHOD CHECKS -----------------------------------------------------
   describe "Should respond to all accessor methods" do
@@ -151,101 +151,93 @@ describe ImmuneResponse do
 
   ## SCOPE CHECKS ------------------------------------------------------
 
-  #describe "Scope checks" do
-    #before(:each){
-      #iresponse_project
-    #}
-#
-    #after(:each){
-      #User.destroy_all
-      #iresponse.destroy_all
-      #Group.destroy_all
-      #Project.destroy_all
-    #}
-#
-    #it "should allow searching by exact strain_name" do
-      #sname = iresponse.last.strain_name
-      #mac = iresponse.by_strain(sname)
-      #mac.count.should eq(1)
-      #mac.first.strain_name.should eq(sname)
-    #end
-#
-    #it "should allow seacrching by partial strain_name" do
-      #sname = iresponse.last.strain_name
-      #mac = iresponse.by_strain(sname[0..2])
-      #mac.count.should > 1
-      #mac.each do |mac|
-        #mac.strain_name.should match(/#{sname[0..2]}/)
-      #end
-    #end
-#
-    #it "should allow searching by exact experiment_id" do
-      #eid = iresponse.last.experiment_id
-      #mac = iresponse.by_experiment(eid)
-      #mac.count.should eq(1)
-      #mac.first.experiment_id.should eq(eid)
-    #end
-#
-    #it "should allow seacrching by partial experiment id" do
-      #eid = iresponse.last.experiment_id
-      #mac = iresponse.by_experiment(eid[0..8])
-      #mac.count.should > 1
-      #mac.each do |mac|
-        #mac.experiment_id.should match(/#{eid[0..8]}/)
-      #end
-    #end
-#
-    #it "should allow searching by exact macrohpage_type" do
-      #mid = iresponse.last.iresponse_type
-      #mac = iresponse.by_iresponse(mid)
-      #mac.count.should >= 1
-      #mac.first.iresponse_type.should eq(mid)
-    #end
-  #end
+  describe "Scope checks" do
+    before(:each){
+      immune_responses_project
+    }
+
+    after(:each){
+      User.destroy_all
+      ImmuneResponse.destroy_all
+      Group.destroy_all
+      Project.destroy_all
+    }
+
+    it "should allow searching by exact strain_name" do
+      sname = ImmuneResponse.last.strain_name
+      mac = ImmuneResponse.by_strain(sname)
+      mac.count.should eq(1)
+      mac.first.strain_name.should eq(sname)
+    end
+
+    it "should allow seacrching by partial strain_name" do
+      sname = ImmuneResponse.last.strain_name
+      mac = ImmuneResponse.by_strain(sname)
+      mac.count.should >= 1
+      mac.each do |mac|
+        mac.strain_name.should match(/#{sname[0..2]}/)
+      end
+    end
+
+    it "should allow searching by exact experiment_id" do
+      eid = ImmuneResponse.last.experiment_id
+      mac = ImmuneResponse.by_experiment(eid)
+      mac.count.should eq(1)
+      mac.first.experiment_id.should eq(eid)
+    end
+
+    it "should allow seacrching by partial experiment id" do
+      eid = ImmuneResponse.last.experiment_id
+      mac = ImmuneResponse.by_experiment(eid[0..8])
+      mac.count.should >= 1
+      mac.each do |mac|
+        mac.experiment_id.should match(/#{eid[0..8]}/)
+      end
+    end
+  end
 
   ## find_with_groups --------------------------------------------------
 
-  #describe "Find_with_groups method tests" do
-#
-    #describe "Single project, single group, multiple members" do
-      #before(:each) {
-        #iresponse_project
-        #@diff_user = User.where(:id.ne => @user.id ).first
-      #}
-#
-      #after(:each) {
-        #User.destroy_all
-        #iresponse.destroy_all
-        #Group.destroy_all
-        #Project.destroy_all
-      #}
-#
-      #it "should not return empty results for iresponse owner" do
-        #mac_list = iresponse.find_with_groups(@user)
-        #mac_list.count.should_not eq(0)
-      #end
-#
-      #it "should not return empty results for a group member" do
-        #mac_list = iresponse.find_with_groups(@diff_user)
-        #mac_list.count.should_not eq(0)
-      #end
-#
-      #it "should return all owned iresponse records for owner" do
-        #original_mac_list = iresponse.all.pluck(:id).sort
-        #mac_list = iresponse.find_with_groups(@user).pluck(:id).sort
-      #end
-#
-      #it "should return all owned iresponse records for group member" do
-        #original_mac_list = iresponse.all.pluck(:id).sort
-        #mac_list = iresponse.find_with_groups(@diff_user).pluck(:id).sort
-      #end
-#
-      #it "should NOT find any iresponse records for non-group member" do
-        #new_user = FactoryGirl.create(:user)
-        #mac_list = iresponse.find_with_groups(new_user)
-        #mac_list.should be_empty
-      #end
-    #end
-#
-  #end
+  describe "Find_with_groups method tests" do
+
+    describe "Single project, single group, multiple members" do
+      before(:each){
+        immune_responses_project
+      }
+
+      after(:each){
+        User.destroy_all
+        ImmuneResponse.destroy_all
+        Group.destroy_all
+        Project.destroy_all
+      }
+
+      it "should not return empty results for iresponse owner" do
+        mac_list = ImmuneResponse.find_with_groups(@user)
+        mac_list.count.should_not eq(0)
+      end
+
+      it "should not return empty results for a group member" do
+        mac_list = ImmuneResponse.find_with_groups(@not_owner)
+        mac_list.count.should_not eq(0)
+      end
+
+      it "should return all owned ImmuneResponse records for owner" do
+        original_mac_list = ImmuneResponse.all.pluck(:id).sort
+        mac_list = ImmuneResponse.find_with_groups(@user).pluck(:id).sort
+      end
+
+      it "should return all owned ImmuneResponse records for group member" do
+        original_mac_list = ImmuneResponse.all.pluck(:id).sort
+        mac_list = ImmuneResponse.find_with_groups(@not_owner).pluck(:id).sort
+      end
+
+      it "should NOT find any ImmuneResponse records for non-group member" do
+        new_user = FactoryGirl.create(:user)
+        mac_list = ImmuneResponse.find_with_groups(new_user)
+        mac_list.should be_empty
+      end
+    end
+
+  end
 end
