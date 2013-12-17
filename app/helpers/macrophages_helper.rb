@@ -76,15 +76,4 @@ module MacrophagesHelper
     end
     return options
   end
-
-  ######################################################################
-  # View helper to generate a list of the current user's projects
-  ######################################################################
-  #def project_list
-    #options = []
-    #@projects.each do |project|
-      #options << [project.name, project.id]
-    #end
-    #return options
-  #end
 end

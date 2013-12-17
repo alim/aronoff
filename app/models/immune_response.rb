@@ -235,4 +235,162 @@ class ImmuneResponse
     self.save
   end
 
+  ######################################################################
+  # The cell_type_str method is a helper method to print the human
+  # readable string of the cell type value.
+  ######################################################################
+  def cell_type_str
+    case cell_type
+    when THP1
+      str = 'THP1'
+    when PM
+      str = 'PM'
+    when DM_TERM
+      str = 'DM Term'
+    when BLOOD_MONO
+      str = 'Blood Mono'
+    when T_HESC
+      str = 'T-HESC'
+    when CHORIODECIDUA
+      str = 'Choriodecidua'
+    when AMNION_EPITH
+      str = 'Amnion Epith'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
+  ######################################################################
+  # The model_str method is a helper method to print the human
+  # readable string of the model option value.
+  ######################################################################
+  def model_str
+    case model
+    when NO_MODEL
+      str = 'None'
+    when TRANSWELL
+      str = 'Transwell'
+    when WHOLE_PUNCHES
+      str = 'Whole punches'
+    when CD_PUNCHES
+      str = 'CD punches'
+    when AE_CELLS
+      str = 'Amnion E pith Cells'
+    when T_HESC_MODEL
+      str = 'T-HESC'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
+  ######################################################################
+  # The compartment_str method is a helper method to print the human
+  # readable string of the compartment option value.
+  ######################################################################
+  def compartment_str
+    case compartment
+    when NO_COMPARTMENT
+      str = 'None'
+    when CHORION
+      str = 'Chorion'
+    when AMNION
+      str = 'Amnion'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
+  ######################################################################
+  # The strain_status method is a helper method to print the human
+  # readable string of the strain status option value.
+  ######################################################################
+  def strain_status_str
+    case strain_status
+    when NO_STRAIN_STATUS
+      str = 'None'
+    when LIVE
+      str = 'Live'
+    when HEAT_KILLED
+      str = 'Heat Killed'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
+  ######################################################################
+  # The treatment method is a helper method to print the human
+  # readable string of the treamtment option value.
+  ######################################################################
+  def treatment_str
+    case treatment
+    when NO_TREATEMENT
+      str = 'None'
+    when PGE2
+      str = 'PGE2'
+    when LTB4
+      str = 'LTB4'
+    when LPS
+      str = 'LPS'
+    when LTA
+      str = 'LTA'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
+  ######################################################################
+  # The units_str method is a helper method to print the human
+  # readable string of the units option value.
+  ######################################################################
+  def units_str
+    case units
+    when PG_ML
+      str = 'pg/mL'
+    when NG_ML
+      str = 'ng/mL'
+    when MG_ML
+      str = 'mg/mL'
+    when UG_ML
+      str = 'ug/mL'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
+  ######################################################################
+  # The cyto_chemo_kine_str method is a helper method to print the human
+  # readable string of the cyto_chemo_kine option value.
+  ######################################################################
+  def cyto_chemo_kine_str
+    case cyto_chemo_kine
+    when HBD2
+      str = 'HBD2'
+    when IL1B
+      str = 'IL1b'
+    when IL1A
+      str = 'IL1a'
+    when IL6
+      str = 'IL6'
+    when IL10
+      str = 'IL10'
+    when IL17
+      str = 'IL17'
+    when TNFA
+      str = 'TNFa'
+    when IL8
+      str = 'IL8'
+    when IL12
+      str = 'IL12'
+    else
+      str = 'Unknown'
+    end
+    return str
+  end
+
 end

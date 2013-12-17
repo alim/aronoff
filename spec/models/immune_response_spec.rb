@@ -240,4 +240,55 @@ describe ImmuneResponse do
     end
 
   end
+
+  ## HELPER METHODS FOR PRINTING OPTION STRINGS ------------------------
+
+  describe "Helper methods for printing option strings" do
+    before(:each){
+      @user = FactoryGirl.create(:user)
+      @project = FactoryGirl.create(:project, user: @user)
+      @iresponse = FactoryGirl.create(:immune_response, user: @user, project: @project)
+    }
+
+    after(:each){
+      ImmuneResponse.destroy_all
+      User.destroy_all
+      Project.destroy_all
+    }
+
+    it "Should print the correct cell_type string" do
+      @iresponse.cell_type = ImmuneResponse::DM_TERM
+      @iresponse.cell_type_str.should match(/DM Term/)
+    end
+
+    it "Should print the correct model string" do
+      @iresponse.model = ImmuneResponse::CD_PUNCHES
+      @iresponse.model_str.should match(/CD punches/)
+    end
+
+    it "Should print the correct compartment string" do
+      @iresponse.compartment = ImmuneResponse::AMNION
+      @iresponse.compartment_str.should match(/Amnion/)
+    end
+
+    it "Should print the correct strain_status string" do
+      @iresponse.strain_status = ImmuneResponse::HEAT_KILLED
+      @iresponse.strain_status_str.should match(/Heat Killed/)
+    end
+
+    it "Should print the correct treatment string" do
+      @iresponse.treatment = ImmuneResponse::LPS
+      @iresponse.treatment_str.should match(/LPS/)
+    end
+
+    it "Should print the correct units string" do
+      @iresponse.units = ImmuneResponse::UG_ML
+      @iresponse.units_str.should match(/ug\/mL/)
+    end
+
+    it "Should print the correct cyto-chemo-kine string" do
+      @iresponse.cyto_chemo_kine = ImmuneResponse::IL10
+      @iresponse.cyto_chemo_kine_str.should match(/IL10/)
+    end
+  end
 end
