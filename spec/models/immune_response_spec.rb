@@ -258,7 +258,7 @@ describe ImmuneResponse do
 
     it "Should print the correct cell_type string" do
       @iresponse.cell_type = ImmuneResponse::DM_TERM
-      @iresponse.cell_type_str.should match(/DM Term/)
+      @iresponse.cell_type_str.should match(/DM term/)
     end
 
     it "Should print the correct model string" do
