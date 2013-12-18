@@ -36,8 +36,8 @@ module MacrophagesHelper
   ######################################################################
   def dosage_options
     doptions = []
-    Macrophage::DOSEAGES.each do |dosage|
-      doptions << [dosage[:label], dosage[:id]]
+    Macrophage::DOSAGE_OPTIONS.each do |label, id|
+      doptions << [label, id]
     end
     return doptions
   end
@@ -49,8 +49,8 @@ module MacrophagesHelper
   ######################################################################
   def macrophage_options
     options = []
-    Macrophage::MAC_TYPE.each do |mtype|
-      options << [mtype[:label], mtype[:id]]
+    Macrophage::MAC_TYPE.each do |label, id|
+      options << [label, id]
     end
     return options
   end
@@ -60,8 +60,8 @@ module MacrophagesHelper
   ######################################################################
   def treatment_options
     options = []
-    Macrophage::TREATMENTS.each do |treatment|
-      options << [treatment[:label], treatment[:id]]
+    Macrophage::TREATMENTS.each do |label, id|
+      options << [label, id]
     end
     return options
   end
@@ -71,8 +71,8 @@ module MacrophagesHelper
   ######################################################################
   def datatype_options
     options = []
-    Macrophage::DATATYPES.each do |data_type|
-      options << [data_type[:label], data_type[:id]]
+    Macrophage::DATATYPES.each do |label, id|
+      options << [label, id]
     end
     return options
   end
