@@ -218,8 +218,8 @@ class ImmuneResponse
 
   ## PREDEFINED SCOPES -------------------------------------------------
 
-  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/).order_by([[:strain_name, :asc]]) }
-  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/).order_by([[:experiment_id, :asc]]) }
+  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/i).order_by([[:strain_name, :asc]]) }
+  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/i).order_by([[:experiment_id, :asc]]) }
 
   ## RELATIONSHIPS -----------------------------------------------------
 

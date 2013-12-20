@@ -1,10 +1,62 @@
+########################################################################
+# The ImmuneResponsesController is responsible for managing the
+# functions associated with interacting with the ImmuneResponse model
+# class. The ImmuneReponse class is designed to hold immune response
+# experimental results. The controller provides interacts with the
+# views to allow searching, editing, creating, and deleting of the
+# immune response result records.
+########################################################################
 class ImmuneResponsesController < ApplicationController
+
+  ## RESCUE SETTINGS ---------------------------------------------------
+
+  rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
+  rescue_from CanCan::AccessDenied, with: :access_denied
+
+  ## CALLBACKS ---------------------------------------------------------
+
   before_action :set_immune_response, only: [:show, :edit, :update, :destroy]
 
+  ######################################################################
   # GET /immune_responses
   # GET /immune_responses.json
+  #
+  # The index method enables users to list all the available immune
+  # response results visible to their account. It also enables basic
+  # searching of the response results by experiment ID and by
+  # bacterial strain name.
+  ######################################################################
   def index
+    @search_options = [
+      ['Experiment', 'experiment'],
+      ['Strain', 'strain'],
+      # ['ImmuneResponse', 'ImmuneResponse'],
+    ]
+
+    # Get page number
+    page = params[:page].nil? ? 1 : params[:page]
+
     @immune_responses = ImmuneResponse.all
+
+    # Check to see if we want to search for a subset of users
+    if params[:search].present? && params[:stype].present?
+      @search = params[:search]
+      @stype = params[:stype]
+
+      case @stype
+      when 'experiment'
+         @immune_responses = ImmuneResponse.find_with_groups(current_user).by_experiment(@search).paginate(page: page, per_page: PAGE_COUNT)
+      when 'strain'
+        @immune_responses = ImmuneResponse.find_with_groups(current_user).by_strain(@search).paginate(page: page,  per_page: PAGE_COUNT)
+      # when 'ImmuneResponse'
+      else
+        @immune_responses = ImmuneResponse.find_with_groups(current_user).order_by(
+          [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
+      end
+    else
+      @immune_responses = ImmuneResponse.find_with_groups(current_user).order_by(
+        [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
+    end
   end
 
   # GET /immune_responses/1
@@ -15,6 +67,7 @@ class ImmuneResponsesController < ApplicationController
   # GET /immune_responses/new
   def new
     @immune_response = ImmuneResponse.new
+    @projects = Project.where(user_id: current_user)
   end
 
   # GET /immune_responses/1/edit

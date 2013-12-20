@@ -78,7 +78,6 @@ class MacrophagesController < ApplicationController
   def new
     @macrophage = Macrophage.new
     @projects = Project.where(user_id: current_user)
-    @strains = get_strain_list
   end
 
   # GET /macrophages/1/edit

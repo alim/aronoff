@@ -1,37 +1,75 @@
 <%- model_class = ImmuneResponse -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1>Immune Response Result Record</h1>
+  <p>
+    The immune response record is shown in the fields below. You can edit
+    this record using the <strong>Edit</strong> button at the bottom of
+    the field.
+  </p>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:experiment_id) %>:</strong></dt>
-  <dd><%= @immune_response.experiment_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:strain_name) %>:</strong></dt>
-  <dd><%= @immune_response.strain_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:cell_type) %>:</strong></dt>
-  <dd><%= @immune_response.cell_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>
-  <dd><%= @immune_response.model %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:compartment) %>:</strong></dt>
-  <dd><%= @immune_response.compartment %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:time_point) %>:</strong></dt>
+  <dt><strong>Experiment ID:</strong></dt>
+  <dd><strong><%= @immune_response.experiment_id %></strong></dd>
+
+  <dt><strong>Strain Name:</strong></dt>
+  <dd><strong><%= @immune_response.strain_name %></strong></dd>
+
+  <dt><strong>Owner:</strong></dt>
+  <dd><strong><%= @immune_response.user.first_name%> <%= @immune_response.user.last_name%></strong></dd>
+
+  <% if @immune_response.project.present? %>
+    <dt><strong>Assoc. Project:</strong></dt>
+    <dd><strong><%= @immune_response.project.name %></strong></dd>
+  <% end %>
+  <br/>
+
+  <dt><strong>Cell Type:</strong></dt>
+  <dd><%= @immune_response.cell_type_str %></dd>
+
+  <dt><strong>Model:</strong></dt>
+  <dd><%= @immune_response.model_str %></dd>
+
+  <dt><strong>Compartment:</strong></dt>
+  <dd><%= @immune_response.compartment_str %></dd>
+
+  <dt><strong>Time Point:</strong></dt>
   <dd><%= @immune_response.time_point %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:moi) %>:</strong></dt>
+
+  <dt><strong>MOI:</strong></dt>
   <dd><%= @immune_response.moi %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:strain_status) %>:</strong></dt>
-  <dd><%= @immune_response.strain_status %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:treatment) %>:</strong></dt>
-  <dd><%= @immune_response.treatment %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:dose) %>:</strong></dt>
-  <dd><%= @immune_response.dose %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:result) %>:</strong></dt>
+
+  <dt><strong>Strain STatus:</strong></dt>
+  <dd><%= @immune_response.strain_status_str %></dd>
+
+  <dt><strong>Treatment:</strong></dt>
+  <dd><%= @immune_response.treatment_str %></dd>
+
+  <dt><strong>Dose:</strong></dt>
+  <dd><%= number_with_precision(@immune_response.dose, precision: 4) %></dd>
+
+  <dt><strong>Result:</strong></dt>
   <dd><%= @immune_response.result %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:ctyto_chemo_kine) %>:</strong></dt>
-  <dd><%= @immune_response.ctyto_chemo_kine %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:units) %>:</strong></dt>
-  <dd><%= @immune_response.units %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+
+  <dt><strong>Cyto Chemo-Kine:</strong></dt>
+  <dd><%= @immune_response.cyto_chemo_kine_str %></dd>
+
+  <dt><strong>Units:</strong></dt>
+  <dd><%= @immune_response.units_str %></dd>
+
+  <dt><strong>Notes:</strong></dt>
   <dd><%= @immune_response.notes %></dd>
+
+  <br/>
+  <dt><strong>Data File: </strong></dt>
+  <dd>
+    <% if @immune_response.raw_datafile.present? %>
+      <%= link_to @immune_response.raw_datafile_file_name,
+        @immune_response.raw_datafile.url, class: 'btn btn-mini' %>
+    <% else %>
+      None
+    <% end %>
+  </dd>
 </dl>
 
 <div class="form-actions">
@@ -43,5 +81,5 @@
               immune_response_path(@immune_response),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+              :class => 'btn btn-danger pull-right' %>
 </div>
