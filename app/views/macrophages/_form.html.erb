@@ -20,28 +20,29 @@
   <div class="control-group">
     <label class='control-label'>Macrophage Types</label>
     <div class="controls">
-      <%= f.select(:macrophage_type, macrophage_options) %>
+      <!-- selection_options is in the application_helper.rb file -->
+      <%= f.select(:macrophage_type, selection_options(Macrophage::MAC_TYPE)) %>
     </div>
   </div>
 
   <div class="control-group">
     <label class='control-label'>Treatment</label>
     <div class="controls">
-      <%= f.select(:treatment, treatment_options) %>
+      <%= f.select(:treatment, selection_options(Macrophage::TREATMENTS)) %>
     </div>
   </div>
 
   <div class="control-group">
     <label class='control-label'>Dosage</label>
     <div class="controls">
-      <%= f.select(:dose, dosage_options) %>
+      <%= f.select(:dose, selection_options(Macrophage::DOSAGE_OPTIONS)) %>
     </div>
   </div>
 
   <div class="control-group">
     <label class='control-label'>Data Type</label>
     <div class="controls">
-      <%= f.select(:data_type, datatype_options) %>
+      <%= f.select(:data_type, selection_options(Macrophage::DATATYPES)) %>
     </div>
   </div>
 
