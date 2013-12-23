@@ -41,17 +41,41 @@ class MacrophagesController < ApplicationController
 
       case @stype
       when 'experiment'
-         @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search).paginate(page: page, per_page: PAGE_COUNT)
+        if request.format.csv?
+          @macrophages = Macrophage.find_with_groups(current_user).by_experiment(@search)
+        else
+          @macrophages = Macrophage.find_with_groups(current_user).by_experiment(
+            @search).paginate(page: page, per_page: PAGE_COUNT)
+        end
+
       when 'strain'
-        @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search).paginate(page: page,  per_page: PAGE_COUNT)
-      # when 'macrophage'
+        if request.format.csv?
+          @macrophages = Macrophage.find_with_groups(current_user).by_strain(@search)
+        else
+          @macrophages = Macrophage.find_with_groups(current_user).by_strain(
+            @search).paginate(page: page,  per_page: PAGE_COUNT)
+        end
+
+      else
+        if request.format.csv?
+          @macrophages = Macrophage.find_with_groups(current_user).order_by(
+          [[:experiment_id, :asc]])
+        else
+          @macrophages = Macrophage.find_with_groups(current_user).order_by(
+            [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
+        end
+
+      end
+
+    else
+      if request.format.csv?
+        @macrophages = Macrophage.find_with_groups(current_user).order_by(
+        [[:experiment_id, :asc]])
       else
         @macrophages = Macrophage.find_with_groups(current_user).order_by(
           [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
       end
-    else
-      @macrophages = Macrophage.find_with_groups(current_user).order_by(
-        [[:experiment_id, :asc]]).paginate(page: page,  per_page: PAGE_COUNT)
+
     end
 
     respond_to do |format|
@@ -77,13 +101,18 @@ class MacrophagesController < ApplicationController
   ######################################################################
   def new
     @macrophage = Macrophage.new
-    @projects = Project.where(user_id: current_user)
-    @strains = get_strain_list
+    @projects = Project.find_with_groups(current_user)
   end
 
+  ######################################################################
   # GET /macrophages/1/edit
+  #
+  # The edit method presents the edit form and loads the requested
+  # Macrophage record. It also loads a list of user accessible projects
+  # that can be associated with the Macrophage record.
+  ######################################################################
   def edit
-    @projects = Project.where(user_id: current_user)
+    @projects = Project.find_with_groups(current_user)
     @strains = get_strain_list
   end
 
@@ -109,8 +138,10 @@ class MacrophagesController < ApplicationController
     end
   end
 
+  ######################################################################
   # PATCH/PUT /macrophages/1
   # PATCH/PUT /macrophages/1.json
+  ######################################################################
   def update
     @macrophage.user = current_user if @macrophage.user.nil?
 
@@ -125,8 +156,10 @@ class MacrophagesController < ApplicationController
     end
   end
 
+  ######################################################################
   # DELETE /macrophages/1
   # DELETE /macrophages/1.json
+  ######################################################################
   def destroy
     @macrophage.destroy
     respond_to do |format|
@@ -135,17 +168,28 @@ class MacrophagesController < ApplicationController
     end
   end
 
+  ## PRIVATE INSTANCE METHODS ------------------------------------------
+
   private
+
+    ####################################################################
     # Use callbacks to share common setup or constraints between actions.
+    ####################################################################
     def set_macrophage
       @macrophage = Macrophage.find(params[:id])
     end
 
+    ####################################################################
+    # The set_macrophage_class method sets a CSS class variable for
+    # views that need to activate/highlight a menu item.
+    ####################################################################
     def set_macrophage_class
       @macrophage_active = "class=active"
     end
 
+    ####################################################################
     # Never trust parameters from the scary internet, only allow the white list through.
+    ####################################################################
     def macrophage_params
       params.require(:macrophage).permit(:strain_name, :experiment_id,
         :macrophage_type, :treatment, :dose, :data, :data_type, :notes,

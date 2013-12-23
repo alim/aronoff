@@ -58,16 +58,18 @@ gem 'stripe'
 
 # Rspec, Cucumber and Webrat GEMs for TDD/BDD
 group :test, :development do
-	gem "factory_girl_rails"
-	gem 'rspec-rails'
-#	gem "cucumber-rails", :require => false
-#	gem "capybara"
-#	gem "webrat"
+  gem "factory_girl_rails"
+  gem 'rspec-rails'
+  gem "turnip"
+  gem "capybara"
+# gem "cucumber-rails", :require => false
+# gem "webrat"
 end
 
 # This needs to be installed so we can run Rails console on OpenShift directly
 gem 'minitest'
 
+gem "nokogiri", "~> 1.6"
 # ---------------------------------------------------------------------
 
 # Use ActiveModel has_secure_password

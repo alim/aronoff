@@ -4,6 +4,11 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
+# Add this to load Capybara integration:
+require 'capybara/rspec'
+require 'capybara/rails'
+require 'turnip/capybara'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/shared/ and its subdirectories.
 Dir[Rails.root.join("spec/shared/**/*.rb")].each { |f| require f }
@@ -22,7 +27,7 @@ RSpec.configure do |config|
   # config.mock_with :rr
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-	# config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -39,10 +44,16 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   # Include devise helpers for testing controllers
   config.include Devise::TestHelpers, type: :controller
-  
+
   # Include Stripe.com test helpers
-  config.include StripeTestHelpers  
+  config.include StripeTestHelpers
+
+  # Clear out database after each test so we are starting with a clean
+  # slate.
+  config.before :each do
+    Mongoid.purge!
+  end
 end

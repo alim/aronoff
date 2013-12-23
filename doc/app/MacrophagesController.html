@@ -161,6 +161,8 @@
   
     <li><a href="./SharedClassMethods.html">SharedClassMethods</a>
   
+    <li><a href="./SharedInstanceMethods.html">SharedInstanceMethods</a>
+  
     <li><a href="./Subscription.html">Subscription</a>
   
     <li><a href="./SubscriptionsController.html">SubscriptionsController</a>
@@ -229,7 +231,7 @@ to the currently signed in user.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 97</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@macrophage</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">macrophage_params</span>)
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
@@ -270,7 +272,7 @@ to the currently signed in user.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 130</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 163</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -300,13 +302,18 @@ to the currently signed in user.</p>
         <div class="method-description">
           
           <p>GET /macrophages/1/edit</p>
+
+<p>The edit method presents the edit form and loads the requested <a
+href="Macrophage.html">Macrophage</a> record. It also loads a list of user
+accessible projects that can be associated with the <a
+href="Macrophage.html">Macrophage</a> record.</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 85</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
-  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>)
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
   <span class="ruby-ivar">@strains</span> = <span class="ruby-identifier">get_strain_list</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -359,17 +366,41 @@ CSV file.</p>
 
     <span class="ruby-keyword">case</span> <span class="ruby-ivar">@stype</span>
     <span class="ruby-keyword">when</span> <span class="ruby-string">'experiment'</span>
-       <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_experiment</span>(<span class="ruby-ivar">@search</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+        <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_experiment</span>(<span class="ruby-ivar">@search</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_experiment</span>(
+          <span class="ruby-ivar">@search</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">end</span>
+
     <span class="ruby-keyword">when</span> <span class="ruby-string">'strain'</span>
-      <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_strain</span>(<span class="ruby-ivar">@search</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
-    <span class="ruby-comment"># when 'macrophage'</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+        <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_strain</span>(<span class="ruby-ivar">@search</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_strain</span>(
+          <span class="ruby-ivar">@search</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+        <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
+        [[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]])
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
+          [[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+      <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
+      [[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]])
     <span class="ruby-keyword">else</span>
       <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
         [[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
     <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
-      [[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -405,11 +436,10 @@ CSV file.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 78</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@macrophage</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>)
-  <span class="ruby-ivar">@strains</span> = <span class="ruby-identifier">get_strain_list</span>
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -440,7 +470,7 @@ readable strings for some of the attributes.</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 70</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -469,7 +499,7 @@ readable strings for some of the attributes.</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 114</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 145</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
 

@@ -10,6 +10,9 @@ class ImmuneResponse
   include Mongoid::Timestamps
   include Mongoid::Paperclip
 
+  # Include shared instance methods
+  include SharedInstanceMethods
+
   # Shared class methods for restricted searching
   extend SharedClassMethods
 
@@ -33,15 +36,15 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # cell types. This array can be used in views for generate selection
   # options
-  CELL_TYPE=[
-    {label: 'THP1', id: THP1 },
-    {label: 'PM', id: PM },
-    {label: 'DM term', id: DM_TERM},
-    {label: 'Blood Mono', id: BLOOD_MONO },
-    {label: 'T-HESC', id: T_HESC},
-    {label: 'Choriodecidua', id: CHORIODECIDUA},
-    {label: 'Amnion Epith', id: AMNION_EPITH}
-  ]
+  CELL_TYPE={
+    'THP1'          => THP1,
+    'PM'            => PM,
+    'DM term'       => DM_TERM,
+    'Blood Mono'    => BLOOD_MONO,
+    'T-HESC'        => T_HESC,
+    'Choriodecidua' => CHORIODECIDUA,
+    'Amnion Epith'  => AMNION_EPITH
+  }
 
   # MODEL OPTIONS
   NO_MODEL = 1
@@ -55,14 +58,14 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # models. This array can be used in views for generate selection
   # options
-  MODEL_OPTIONS=[
-    {label: 'None', id: NO_MODEL},
-    {label: 'Transwell', id: TRANSWELL},
-    {label: 'Whole punches', id: WHOLE_PUNCHES},
-    {label: 'CD punches', id: CD_PUNCHES},
-    {label: 'Amnion E pith Cells', id: AE_CELLS},
-    {label: 'T-HESC', id: T_HESC_MODEL},
-  ]
+  MODEL_OPTIONS={
+    'None'                => NO_MODEL,
+    'Transwell'           => TRANSWELL,
+    'Whole punches'       => WHOLE_PUNCHES,
+    'CD punches'          => CD_PUNCHES,
+    'Amnion E pith Cells' => AE_CELLS,
+    'T-HESC'              => T_HESC_MODEL,
+  }
 
   # COMPARTMENT OPTIONS
   NO_COMPARTMENT = 1
@@ -72,11 +75,11 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # compartments. This array can be used in views for generate selection
   # options
-  COMP_OPTIONS=[
-    {label: 'None', id: NO_COMPARTMENT},
-    {label: 'Chorion', id: CHORION},
-    {label: 'Amnion', id: AMNION},
-  ]
+  COMP_OPTIONS={
+    'None'    => NO_COMPARTMENT,
+    'Chorion' => CHORION,
+    'Amnion'  => AMNION,
+  }
 
   # STRAIN_STATUS OPTIONS
   NO_STRAIN_STATUS = 1
@@ -86,11 +89,11 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # compartments. This array can be used in views for generate selection
   # options
-  STRAIN_STATUS_OPTIONS=[
-    {label: 'None', id: NO_STRAIN_STATUS},
-    {label: 'Live', id: LIVE},
-    {label: 'Heat Killed', id: HEAT_KILLED},
-  ]
+  STRAIN_STATUS_OPTIONS={
+    'None'        => NO_STRAIN_STATUS,
+    'Live'        => LIVE,
+    'Heat Killed' => HEAT_KILLED,
+  }
 
   # TREATMENT OPTIONS
   NO_TREATEMENT = 1
@@ -102,13 +105,13 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # treatments. This array can be used in views for generate selection
   # options
-  TREATMENT_OPTIONS=[
-    {label: 'None', id: NO_TREATEMENT},
-    {label: 'PGE2', id: PGE2},
-    {label: 'LTB4', id: LTB4},
-    {label: 'LPS', id: LPS},
-    {label: 'LTA', id: LTA},
-  ]
+  TREATMENT_OPTIONS={
+    'None'  => NO_TREATEMENT,
+    'PGE2'  => PGE2,
+    'LTB4'  => LTB4,
+    'LPS'   => LPS,
+    'LTA'   => LTA,
+  }
 
   # CYTO-CHEMO-KINE OPTIONS
   HBD2 = 1
@@ -124,17 +127,17 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # cyto-chemo-kines. This array can be used in views for generate selection
   # options
-  CYTO_OPTIONS=[
-    {label: 'HBD2', id: HBD2},
-    {label: 'IL1b', id: IL1B},
-    {label: 'IL1a', id: IL1A},
-    {label: 'IL6', id: IL6},
-    {label: 'IL10', id: IL10},
-    {label: 'IL17', id: IL17},
-    {label: 'TNFa', id: TNFA},
-    {label: 'IL8', id: IL8},
-    {label: 'IL12', id: IL12},
-  ]
+  CYTO_OPTIONS={
+    'HBD2' => HBD2,
+    'IL1b' => IL1B,
+    'IL1a' => IL1A,
+    'IL6' => IL6,
+    'IL10' => IL10,
+    'IL17' => IL17,
+    'TNFa' => TNFA,
+    'IL8' => IL8,
+    'IL12' => IL12,
+  }
 
   # UNIT OPTIONS
   PG_ML = 1
@@ -145,12 +148,12 @@ class ImmuneResponse
   # An array of hash entries that specify the different types of
   # unit options. This array can be used in views for generate selection
   # options
-  UNIT_OPTIONS=[
-    {label: 'pg/mL', id: PG_ML},
-    {label: 'ng/mL', id: NG_ML},
-    {label: 'mg/mL', id: MG_ML},
-    {label: 'ug/mL', id: UG_ML},
-  ]
+  UNIT_OPTIONS={
+    'pg/mL' => PG_ML,
+    'ng/mL' => NG_ML,
+    'mg/mL' => MG_ML,
+    'ug/mL' => UG_ML,
+  }
 
   ## ATTRIBUTES --------------------------------------------------------
 
@@ -215,8 +218,8 @@ class ImmuneResponse
 
   ## PREDEFINED SCOPES -------------------------------------------------
 
-  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/).order_by([[:strain_name, :asc]]) }
-  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/).order_by([[:experiment_id, :asc]]) }
+  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/i).order_by([[:strain_name, :asc]]) }
+  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/i).order_by([[:experiment_id, :asc]]) }
 
   ## RELATIONSHIPS -----------------------------------------------------
 
@@ -240,25 +243,7 @@ class ImmuneResponse
   # readable string of the cell type value.
   ######################################################################
   def cell_type_str
-    case cell_type
-    when THP1
-      str = 'THP1'
-    when PM
-      str = 'PM'
-    when DM_TERM
-      str = 'DM Term'
-    when BLOOD_MONO
-      str = 'Blood Mono'
-    when T_HESC
-      str = 'T-HESC'
-    when CHORIODECIDUA
-      str = 'Choriodecidua'
-    when AMNION_EPITH
-      str = 'Amnion Epith'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(CELL_TYPE, cell_type)
   end
 
   ######################################################################
@@ -266,23 +251,7 @@ class ImmuneResponse
   # readable string of the model option value.
   ######################################################################
   def model_str
-    case model
-    when NO_MODEL
-      str = 'None'
-    when TRANSWELL
-      str = 'Transwell'
-    when WHOLE_PUNCHES
-      str = 'Whole punches'
-    when CD_PUNCHES
-      str = 'CD punches'
-    when AE_CELLS
-      str = 'Amnion E pith Cells'
-    when T_HESC_MODEL
-      str = 'T-HESC'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(MODEL_OPTIONS, model)
   end
 
   ######################################################################
@@ -290,17 +259,7 @@ class ImmuneResponse
   # readable string of the compartment option value.
   ######################################################################
   def compartment_str
-    case compartment
-    when NO_COMPARTMENT
-      str = 'None'
-    when CHORION
-      str = 'Chorion'
-    when AMNION
-      str = 'Amnion'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(COMP_OPTIONS, compartment)
   end
 
   ######################################################################
@@ -308,17 +267,7 @@ class ImmuneResponse
   # readable string of the strain status option value.
   ######################################################################
   def strain_status_str
-    case strain_status
-    when NO_STRAIN_STATUS
-      str = 'None'
-    when LIVE
-      str = 'Live'
-    when HEAT_KILLED
-      str = 'Heat Killed'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(STRAIN_STATUS_OPTIONS, strain_status)
   end
 
   ######################################################################
@@ -326,21 +275,7 @@ class ImmuneResponse
   # readable string of the treamtment option value.
   ######################################################################
   def treatment_str
-    case treatment
-    when NO_TREATEMENT
-      str = 'None'
-    when PGE2
-      str = 'PGE2'
-    when LTB4
-      str = 'LTB4'
-    when LPS
-      str = 'LPS'
-    when LTA
-      str = 'LTA'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(TREATMENT_OPTIONS, treatment)
   end
 
   ######################################################################
@@ -348,19 +283,7 @@ class ImmuneResponse
   # readable string of the units option value.
   ######################################################################
   def units_str
-    case units
-    when PG_ML
-      str = 'pg/mL'
-    when NG_ML
-      str = 'ng/mL'
-    when MG_ML
-      str = 'mg/mL'
-    when UG_ML
-      str = 'ug/mL'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(UNIT_OPTIONS, units)
   end
 
   ######################################################################
@@ -368,29 +291,55 @@ class ImmuneResponse
   # readable string of the cyto_chemo_kine option value.
   ######################################################################
   def cyto_chemo_kine_str
-    case cyto_chemo_kine
-    when HBD2
-      str = 'HBD2'
-    when IL1B
-      str = 'IL1b'
-    when IL1A
-      str = 'IL1a'
-    when IL6
-      str = 'IL6'
-    when IL10
-      str = 'IL10'
-    when IL17
-      str = 'IL17'
-    when TNFA
-      str = 'TNFa'
-    when IL8
-      str = 'IL8'
-    when IL12
-      str = 'IL12'
-    else
-      str = 'Unknown'
-    end
-    return str
+    return attribute_str(CYTO_OPTIONS, cyto_chemo_kine)
   end
+
+  #####################################################################
+  # The to_csv class method converts the model contents to
+  # CSV format. It takes one optional parameter.
+  # * options - a has of CSV generation options see Ruby CSV generate documentation
+  ####################################################################
+  def self.to_csv(options = {})
+
+    CSV.generate(options) do |csv|
+      column_header =  ["Experiment", "Strain", "Cell Type", "Model",
+        "Compartment", "Time Point", "MOI", "Strain Status",
+        "Treatment", "Dose", "Results", "Units", "Cyto Chemo-Kine",
+        "Notes"]
+
+      # Output column header
+      csv << column_header
+
+      # Create a new array for the row
+      row = Array.new
+      all.each do |iresponse|
+
+        # iresponserophage information
+        row << iresponse.experiment_id
+        row << iresponse.strain_name
+        row << iresponse.cell_type_str
+        row << iresponse.model_str
+        row << iresponse.compartment_str
+        row << iresponse.time_point
+        row << iresponse.moi
+        row << iresponse.strain_status_str
+        row << iresponse.treatment_str
+        row << iresponse.dose
+        row << iresponse.result
+        row << iresponse.units_str
+        row << iresponse.cyto_chemo_kine_str
+        row << iresponse.notes
+
+        # Ouput the CSV ROW
+        csv << row
+
+        # Clear out the row for the next one
+        row.clear
+
+      end # all.each
+
+    end # CSV
+
+  end # def
 
 end

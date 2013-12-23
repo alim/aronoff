@@ -1,22 +1,22 @@
-Mon, 16 Dec 2013 22:35:31 -0500
+Mon, 23 Dec 2013 13:49:54 -0500
 README.rdoc	Wed, 06 Nov 2013 14:56:55 -0500
 app/controllers/accounts_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/admin_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/application_controller.rb	Tue, 26 Nov 2013 15:45:20 -0500
 app/controllers/groups_controller.rb	Tue, 26 Nov 2013 15:48:56 -0500
 app/controllers/home_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/controllers/immune_responses_controller.rb	Mon, 16 Dec 2013 19:54:59 -0500
-app/controllers/macrophages_controller.rb	Wed, 27 Nov 2013 15:12:25 -0500
+app/controllers/immune_responses_controller.rb	Mon, 23 Dec 2013 13:45:53 -0500
+app/controllers/macrophages_controller.rb	Mon, 23 Dec 2013 13:39:34 -0500
 app/controllers/projects_controller.rb	Tue, 26 Nov 2013 15:57:36 -0500
 app/controllers/subscriptions_controller.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/controllers/users_controller.rb	Mon, 16 Dec 2013 16:11:01 -0500
 app/helpers/accounts_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/admin_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/helpers/application_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
+app/helpers/application_helper.rb	Fri, 20 Dec 2013 15:35:09 -0500
 app/helpers/groups_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/home_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/helpers/immune_responses_helper.rb	Mon, 16 Dec 2013 19:55:00 -0500
-app/helpers/macrophages_helper.rb	Mon, 16 Dec 2013 22:14:10 -0500
+app/helpers/immune_responses_helper.rb	Fri, 20 Dec 2013 15:37:12 -0500
+app/helpers/macrophages_helper.rb	Sun, 22 Dec 2013 13:16:25 -0500
 app/helpers/projects_helper.rb	Mon, 16 Dec 2013 22:13:17 -0500
 app/helpers/subscriptions_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/helpers/users_helper.rb	Mon, 04 Nov 2013 12:04:01 -0500
@@ -27,11 +27,12 @@ app/models/ability.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/account.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/contact.rb	Mon, 04 Nov 2013 12:04:01 -0500
 app/models/group.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/models/immune_response.rb	Mon, 16 Dec 2013 22:22:14 -0500
-app/models/macrophage.rb	Tue, 26 Nov 2013 22:08:44 -0500
-app/models/project.rb	Mon, 16 Dec 2013 22:26:01 -0500
+app/models/immune_response.rb	Mon, 23 Dec 2013 13:16:17 -0500
+app/models/macrophage.rb	Mon, 23 Dec 2013 13:41:07 -0500
+app/models/project.rb	Tue, 17 Dec 2013 11:47:21 -0500
 app/models/subscription.rb	Mon, 04 Nov 2013 12:04:01 -0500
-app/models/user.rb	Wed, 06 Nov 2013 15:35:10 -0500
+app/models/user.rb	Tue, 17 Dec 2013 11:47:03 -0500
 lib/group_relations.rb	Mon, 04 Nov 2013 12:04:01 -0500
 lib/oops.rb	Mon, 04 Nov 2013 12:04:01 -0500
 lib/shared_class_methods.rb	Mon, 16 Dec 2013 22:27:04 -0500
+lib/shared_instance_methods.rb	Tue, 17 Dec 2013 23:37:40 -0500

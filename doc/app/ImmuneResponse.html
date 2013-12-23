@@ -81,6 +81,10 @@
     <li><span class="include">Mongoid::Paperclip</span>
   
   
+  
+    <li><a class="include" href="SharedInstanceMethods.html">SharedInstanceMethods</a>
+  
+  
   </ul>
 </nav>
 
@@ -90,7 +94,23 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-to_csv">::to_csv</a>
+    
+    <li><a href="#method-i-cell_type_str">#cell_type_str</a>
+    
+    <li><a href="#method-i-compartment_str">#compartment_str</a>
+    
+    <li><a href="#method-i-cyto_chemo_kine_str">#cyto_chemo_kine_str</a>
+    
     <li><a href="#method-i-delete_file">#delete_file</a>
+    
+    <li><a href="#method-i-model_str">#model_str</a>
+    
+    <li><a href="#method-i-strain_status_str">#strain_status_str</a>
+    
+    <li><a href="#method-i-treatment_str">#treatment_str</a>
+    
+    <li><a href="#method-i-units_str">#units_str</a>
     
   </ul>
 </nav>
@@ -168,6 +188,8 @@
     <li><a href="./ProjectsHelper.html">ProjectsHelper</a>
   
     <li><a href="./SharedClassMethods.html">SharedClassMethods</a>
+  
+    <li><a href="./SharedInstanceMethods.html">SharedInstanceMethods</a>
   
     <li><a href="./Subscription.html">Subscription</a>
   
@@ -452,8 +474,186 @@ This array can be used in views for generate selection options</p>
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-to_csv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_csv</span><span
+            class="method-args">(options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a href="ImmuneResponse.html#method-c-to_csv">::to_csv</a> class method
+converts the model contents to CSV format. It takes one optional parameter.</p>
+<ul><li>
+<p>options - a has of CSV generation options see Ruby CSV generate
+documentation</p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="to_csv-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 302</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_csv</span>(<span class="ruby-identifier">options</span> = {})
+
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">options</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">column_header</span> =  [<span class="ruby-string">&quot;Experiment&quot;</span>, <span class="ruby-string">&quot;Strain&quot;</span>, <span class="ruby-string">&quot;Cell Type&quot;</span>, <span class="ruby-string">&quot;Model&quot;</span>,
+      <span class="ruby-string">&quot;Compartment&quot;</span>, <span class="ruby-string">&quot;Time Point&quot;</span>, <span class="ruby-string">&quot;MOI&quot;</span>, <span class="ruby-string">&quot;Strain Status&quot;</span>,
+      <span class="ruby-string">&quot;Treatment&quot;</span>, <span class="ruby-string">&quot;Dose&quot;</span>, <span class="ruby-string">&quot;Results&quot;</span>, <span class="ruby-string">&quot;Units&quot;</span>, <span class="ruby-string">&quot;Cyto Chemo-Kine&quot;</span>,
+      <span class="ruby-string">&quot;Notes&quot;</span>]
+
+    <span class="ruby-comment"># Output column header</span>
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">column_header</span>
+
+    <span class="ruby-comment"># Create a new array for the row</span>
+    <span class="ruby-identifier">row</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">iresponse</span><span class="ruby-operator">|</span>
+
+      <span class="ruby-comment"># iresponserophage information</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">experiment_id</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">strain_name</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">cell_type_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">model_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">compartment_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">time_point</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">moi</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">strain_status_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">treatment_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">dose</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">result</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">units_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">cyto_chemo_kine_str</span>
+      <span class="ruby-identifier">row</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">iresponse</span>.<span class="ruby-identifier">notes</span>
+
+      <span class="ruby-comment"># Ouput the CSV ROW</span>
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">row</span>
+
+      <span class="ruby-comment"># Clear out the row for the next one</span>
+      <span class="ruby-identifier">row</span>.<span class="ruby-identifier">clear</span>
+
+    <span class="ruby-keyword">end</span> <span class="ruby-comment"># all.each</span>
+
+  <span class="ruby-keyword">end</span> <span class="ruby-comment"># CSV</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_csv-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_csv-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-cell_type_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cell_type_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a href="ImmuneResponse.html#method-i-cell_type_str">#cell_type_str</a>
+method is a helper method to print the human readable string of the cell
+type value.</p>
+          
+
+          
+          <div class="method-source-code" id="cell_type_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 245</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cell_type_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">CELL_TYPE</span>, <span class="ruby-identifier">cell_type</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- cell_type_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- cell_type_str-method -->
+
+    
+      <div id="method-i-compartment_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">compartment_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a
+href="ImmuneResponse.html#method-i-compartment_str">#compartment_str</a>
+method is a helper method to print the human readable string of the
+compartment option value.</p>
+          
+
+          
+          <div class="method-source-code" id="compartment_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 261</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">compartment_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">COMP_OPTIONS</span>, <span class="ruby-identifier">compartment</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- compartment_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- compartment_str-method -->
+
+    
+      <div id="method-i-cyto_chemo_kine_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cyto_chemo_kine_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a
+href="ImmuneResponse.html#method-i-cyto_chemo_kine_str">#cyto_chemo_kine_str</a>
+method is a helper method to print the human readable string of the
+cyto_chemo_kine option value.</p>
+          
+
+          
+          <div class="method-source-code" id="cyto_chemo_kine_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 293</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cyto_chemo_kine_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">CYTO_OPTIONS</span>, <span class="ruby-identifier">cyto_chemo_kine</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- cyto_chemo_kine_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- cyto_chemo_kine_str-method -->
 
     
       <div id="method-i-delete_file" class="method-detail ">
@@ -473,7 +673,7 @@ href="Macrophage.html">Macrophage</a> model object is destroyed.</p>
 
           
           <div class="method-source-code" id="delete_file-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 233</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 236</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_file</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">raw_datafile</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
@@ -486,6 +686,132 @@ href="Macrophage.html">Macrophage</a> model object is destroyed.</p>
 
         
       </div><!-- delete_file-method -->
+
+    
+      <div id="method-i-model_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">model_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a href="ImmuneResponse.html#method-i-model_str">#model_str</a> method
+is a helper method to print the human readable string of the model option
+value.</p>
+          
+
+          
+          <div class="method-source-code" id="model_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 253</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">model_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">MODEL_OPTIONS</span>, <span class="ruby-identifier">model</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- model_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- model_str-method -->
+
+    
+      <div id="method-i-strain_status_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">strain_status_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The strain_status method is a helper method to print the human readable
+string of the strain status option value.</p>
+          
+
+          
+          <div class="method-source-code" id="strain_status_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 269</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">strain_status_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">STRAIN_STATUS_OPTIONS</span>, <span class="ruby-identifier">strain_status</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- strain_status_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- strain_status_str-method -->
+
+    
+      <div id="method-i-treatment_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">treatment_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The treatment method is a helper method to print the human readable string
+of the treamtment option value.</p>
+          
+
+          
+          <div class="method-source-code" id="treatment_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 277</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">treatment_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">TREATMENT_OPTIONS</span>, <span class="ruby-identifier">treatment</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- treatment_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- treatment_str-method -->
+
+    
+      <div id="method-i-units_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">units_str</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The <a href="ImmuneResponse.html#method-i-units_str">#units_str</a> method
+is a helper method to print the human readable string of the units option
+value.</p>
+          
+
+          
+          <div class="method-source-code" id="units_str-source">
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 285</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">units_str</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">UNIT_OPTIONS</span>, <span class="ruby-identifier">units</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- units_str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- units_str-method -->
 
     
     </section><!-- public-instance-method-details -->

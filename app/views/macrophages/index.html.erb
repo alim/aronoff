@@ -6,26 +6,26 @@
     that you can access. You can see more information about the
     experiment by clicking the 'Experiment ID'
   </p>
-  
+
   <div class='row-fluid'>
     <div class='form-inline'>
       <!-- Form for submitting a search request -->
       <%= form_tag macrophages_url, method: :get do %>
         <div class='input-prepend'>
 
-            <%= select_tag(:stype, options_for_select(@search_options), 
+            <%= select_tag(:stype, options_for_select(@search_options),
               class: 'btn span5') %>
             <%= text_field_tag :search, nil, placeholder: "Search term" %>
         </div>
-        
-        <%= submit_tag 'Search/Filter', class: 'btn pull-right' %>
+
+        <%= submit_tag 'Search', class: 'btn pull-right' %>
 
       <% end %>
 
     </div> <!-- form inline -->
-    
-  </div> <!-- row -->  
-  
+
+  </div> <!-- row -->
+
 </div>
 <%= render partial: 'shared/flash', locals: { flash: flash } %>
 
@@ -57,7 +57,7 @@
           <td><%= macrophage.dosage_str %></td>
           <td><%= macrophage.data %></td>
           <td><%= macrophage.datatype_str %></td>
-          
+
           <td>
             <% if macrophage.project.present? %>
               <%= macrophage.project.name %>
@@ -78,7 +78,7 @@
       <% end %>
     </tbody>
   </table>
-  
+
 <% else %>
   <p>
     No macrophage results have been created yet. Click on the <strong>New</strong>
@@ -93,10 +93,10 @@
 
 <!-- Export controls -------------------------------------------------->
 <% if @search.present? && @stype.present? %>
-  <%= link_to 'Export CSV', macrophages_url(search: @search, 
+  <%= link_to 'Export CSV', macrophages_url(search: @search,
     stype: @stype, format: 'csv'), class: 'btn btn-mini btn-info pull-right' %>
 <% else %>
-  <%= link_to 'Export CSV', macrophages_url(format: 'csv'), 
+  <%= link_to 'Export CSV', macrophages_url(format: 'csv'),
     class: 'btn btn-mini btn-info pull-right' %>
 <% end %>
 

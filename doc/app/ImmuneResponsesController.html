@@ -161,6 +161,8 @@
   
     <li><a href="./SharedClassMethods.html">SharedClassMethods</a>
   
+    <li><a href="./SharedInstanceMethods.html">SharedInstanceMethods</a>
+  
     <li><a href="./Subscription.html">Subscription</a>
   
     <li><a href="./SubscriptionsController.html">SubscriptionsController</a>
@@ -186,6 +188,14 @@
 
   <div id="description" class="description">
     
+<p>The <a href="ImmuneResponsesController.html">ImmuneResponsesController</a>
+is responsible for managing the functions associated with interacting with
+the <a href="ImmuneResponse.html">ImmuneResponse</a> model class. The
+ImmuneReponse class is designed to hold immune response experimental
+results. The controller provides interacts with the views to allow
+searching, editing, creating, and deleting of the immune response result
+records.</p>
+
   </div><!-- description -->
 
   
@@ -218,19 +228,25 @@
         <div class="method-description">
           
           <p>POST /immune_responses POST /immune_responses.json</p>
+
+<p>The create method will generate a new <a
+href="ImmuneResponse.html">ImmuneResponse</a> model object to store the
+result attributes and relates the record to the project record.</p>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@immune_response</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">immune_response_params</span>)
+  <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">save</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@immune_response</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Immune response was successfully created.'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'show'</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@immune_response</span> }
     <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@verrors</span> = <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'new'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
@@ -258,11 +274,14 @@
         <div class="method-description">
           
           <p>DELETE /immune_responses/1 DELETE /immune_responses/1.json</p>
+
+<p>The delete method will destroy the specified <a
+href="ImmuneResponse.html">ImmuneResponse</a> method.</p>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 56</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 182</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -292,12 +311,18 @@
         <div class="method-description">
           
           <p>GET /immune_responses/1/edit</p>
+
+<p>The edit method presents the edit form for the <a
+href="ImmuneResponse.html">ImmuneResponse</a> result record. It also
+includes the ability to associate the result record with one of the
+projects that are accessible by the current project.</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 127</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -321,13 +346,80 @@
         <div class="method-description">
           
           <p>GET /immune_responses GET /immune_responses.json</p>
+
+<p>The index method enables users to list all the available immune response
+results visible to their account. It also enables basic searching of the
+response results by experiment ID and by bacterial strain name.</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-ivar">@search_options</span> = [
+    [<span class="ruby-string">'Experiment'</span>, <span class="ruby-string">'experiment'</span>],
+    [<span class="ruby-string">'Strain'</span>, <span class="ruby-string">'strain'</span>],
+    <span class="ruby-comment"># ['ImmuneResponse', 'ImmuneResponse'],</span>
+  ]
+
+  <span class="ruby-comment"># Get page number</span>
+  <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]
+
   <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">all</span>
+
+  <span class="ruby-comment"># Check to see if we want to search for a subset of users</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>].<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:stype</span>].<span class="ruby-identifier">present?</span>
+    <span class="ruby-ivar">@search</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>]
+    <span class="ruby-ivar">@stype</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:stype</span>]
+
+    <span class="ruby-keyword">case</span> <span class="ruby-ivar">@stype</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'experiment'</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+        <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+          <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_experiment</span>(<span class="ruby-ivar">@search</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+          <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_experiment</span>(<span class="ruby-ivar">@search</span>).<span class="ruby-identifier">paginate</span>(
+          <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'strain'</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+        <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+          <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_strain</span>(<span class="ruby-ivar">@search</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+          <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">by_strain</span>(<span class="ruby-ivar">@search</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,
+          <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># when 'ImmuneResponse'</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+        <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+          <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>([[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]])
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+          <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>([[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]]).<span class="ruby-identifier">paginate</span>(
+          <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv?</span>
+      <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+        <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>([[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]])
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(
+        <span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>([[<span class="ruby-value">:experiment_id</span>, <span class="ruby-value">:asc</span>]]).<span class="ruby-identifier">paginate</span>(
+        <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,  <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv</span> { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@immune_responses</span>.<span class="ruby-identifier">to_csv</span> }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -351,13 +443,19 @@
         <div class="method-description">
           
           <p>GET /immune_responses/new</p>
+
+<p>The new method presents a new <a
+href="ImmuneResponse.html">ImmuneResponse</a> results form, which also
+includes the ability to associate the result record with one of the
+projects that are accessible by the current project.</p>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 16</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@immune_response</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -381,11 +479,14 @@
         <div class="method-description">
           
           <p>GET /immune_responses/1 GET /immune_responses/1.json</p>
+
+<p>The show method shows the ImmuneRespnose attributes, including a link to
+the original data file.</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 12</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -410,17 +511,22 @@
         <div class="method-description">
           
           <p>PATCH/PUT /immune_responses/1 PATCH/PUT /immune_responses/1.json</p>
+
+<p>The update method will update an existing <a
+href="ImmuneResponse.html">ImmuneResponse</a> model object to store the
+result attributes and relates the record to the project record.</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 163</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">immune_response_params</span>)
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@immune_response</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Immune response was successfully updated.'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
     <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@verrors</span> = <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">'edit'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>

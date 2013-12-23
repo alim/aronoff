@@ -1,61 +1,102 @@
 <%- model_class = ImmuneResponse -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1>Immune Response Results</h1>
+  <p>
+    Below you can see list of immune response records that are currently
+    stored in the system and accessible by your account. If there are
+    now records available, you can create a new one using the
+    <strong>New</strong> button toward the bottom of the page.
+  </p>
+  <p>
+    You can also search the results by either experiment ID or the
+    bacterial strain name, using the search box listed below:
+  </p>
+
+  <div class='row-fluid'>
+    <div class='form-inline'>
+      <!-- Form for submitting a search request -->
+      <%= form_tag immune_responses_url, method: :get do %>
+        <div class='input-prepend'>
+
+            <%= select_tag(:stype, options_for_select(@search_options),
+              class: 'btn span5') %>
+            <%= text_field_tag :search, nil, placeholder: "Search term" %>
+        </div>
+
+        <%= submit_tag 'Search', class: 'btn pull-right' %>
+
+      <% end %>
+    </div> <!-- form inline -->
+  </div> <!-- row -->
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:experiment_id) %></th>
-      <th><%= model_class.human_attribute_name(:strain_name) %></th>
-      <th><%= model_class.human_attribute_name(:cell_type) %></th>
-      <th><%= model_class.human_attribute_name(:model) %></th>
-      <th><%= model_class.human_attribute_name(:compartment) %></th>
-      <th><%= model_class.human_attribute_name(:time_point) %></th>
-      <th><%= model_class.human_attribute_name(:moi) %></th>
-      <th><%= model_class.human_attribute_name(:strain_status) %></th>
-      <th><%= model_class.human_attribute_name(:treatment) %></th>
-      <th><%= model_class.human_attribute_name(:dose) %></th>
-      <th><%= model_class.human_attribute_name(:result) %></th>
-      <th><%= model_class.human_attribute_name(:ctyto_chemo_kine) %></th>
-      <th><%= model_class.human_attribute_name(:units) %></th>
-      <th><%= model_class.human_attribute_name(:notes) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @immune_responses.each do |immune_response| %>
+
+<% if @immune_responses.present? %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= link_to immune_response.id, immune_response_path(immune_response) %></td>
-        <td><%= immune_response.experiment_id %></td>
-        <td><%= immune_response.strain_name %></td>
-        <td><%= immune_response.cell_type %></td>
-        <td><%= immune_response.model %></td>
-        <td><%= immune_response.compartment %></td>
-        <td><%= immune_response.time_point %></td>
-        <td><%= immune_response.moi %></td>
-        <td><%= immune_response.strain_status %></td>
-        <td><%= immune_response.treatment %></td>
-        <td><%= immune_response.dose %></td>
-        <td><%= immune_response.result %></td>
-        <td><%= immune_response.ctyto_chemo_kine %></td>
-        <td><%= immune_response.units %></td>
-        <td><%= immune_response.notes %></td>
-        <td><%=l immune_response.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_immune_response_path(immune_response), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      immune_response_path(immune_response),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <th>Experiment ID</th>
+        <th>GBS Strain</th>
+        <th>Cell Type</th>
+        <th>Model</th>
+        <th>Compartment</th>
+        <th>Time Point</th>
+        <th>MOI</th>
+        <th>Strain Type</th>
+        <th>Treatment</th>
+        <th>Dose</th>
+        <th>Cyto Chemo-Kine</th>
+        <th>Result</th>
+        <th>Units</th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @immune_responses.each do |immune_response| %>
+        <tr class="immune_response">
+          <td><%= link_to immune_response.experiment_id, immune_response_path(immune_response)  %></td>
+          <td><%= immune_response.strain_name %></td>
+          <td><%= immune_response.cell_type_str %></td>
+          <td><%= immune_response.model_str %></td>
+          <td><%= immune_response.compartment_str %></td>
+          <td><%= immune_response.time_point %></td>
+          <td><%= immune_response.moi %></td>
+          <td><%= immune_response.strain_status_str %></td>
+          <td><%= immune_response.treatment_str %></td>
+          <td><%= number_with_precision(immune_response.dose, precision: 4) %></td>
+          <td><%= immune_response.cyto_chemo_kine_str %></td>
+          <td><%= immune_response.result %></td>
+          <td><%= immune_response.units_str %></td>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_immune_response_path(immune_response), :class => 'btn btn-mini' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        immune_response_path(immune_response),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-mini btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Export controls -------------------------------------------------->
+  <% if @search.present? && @stype.present? %>
+    <%= link_to 'Export CSV', immune_responses_url(search: @search,
+      stype: @stype, format: 'csv'), class: 'btn btn-mini btn-info pull-right' %>
+  <% else %>
+    <%= link_to 'Export CSV', immune_responses_url(format: 'csv'),
+      class: 'btn btn-mini btn-info pull-right' %>
+  <% end %>
+
+  <br/>
+
+<% else %>
+  <p>
+    No immune response results found. Please use the <strong>New</strong>
+    button below to create a new immune response result record.
+  </p>
+<% end %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_immune_response_path,

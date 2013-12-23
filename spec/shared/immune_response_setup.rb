@@ -27,7 +27,7 @@ shared_context 'immune_response_setup' do
 
   # Multiple immune_response objects associated with two projects and
   # two groups
-  let(:macrophage_project_groups) {
+  let(:immune_response_project_groups) {
     multi_groups_multi_users
     @group_one = Group.first
 
