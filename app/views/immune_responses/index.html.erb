@@ -79,6 +79,18 @@
       <% end %>
     </tbody>
   </table>
+
+  <!-- Export controls -------------------------------------------------->
+  <% if @search.present? && @stype.present? %>
+    <%= link_to 'Export CSV', immune_responses_url(search: @search,
+      stype: @stype, format: 'csv'), class: 'btn btn-mini btn-info pull-right' %>
+  <% else %>
+    <%= link_to 'Export CSV', immune_responses_url(format: 'csv'),
+      class: 'btn btn-mini btn-info pull-right' %>
+  <% end %>
+
+  <br/>
+
 <% else %>
   <p>
     No immune response results found. Please use the <strong>New</strong>

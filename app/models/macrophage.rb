@@ -109,8 +109,8 @@ class Macrophage
 
   ## PREDEFINED SCOPES -------------------------------------------------
 
-  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/).order_by([[:strain_name, :asc]]) }
-  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/).order_by([[:experiment_id, :asc]]) }
+  scope :by_strain, ->(strain){ where(strain_name: /#{strain}/i).order_by([[:strain_name, :asc]]) }
+  scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/i).order_by([[:experiment_id, :asc]]) }
   scope :by_macrophage, ->(mid){ where(macrophage_type: mid).order_by([[:macrophage_type, :asc]]) }
 
   ## RELATIONSHIPS -----------------------------------------------------
@@ -166,7 +166,7 @@ class Macrophage
   #####################################################################
   # The to_csv class method converts the model contents to
   # CSV format. It takes one optional parameter.
-  # * options - a has of CSV generation options see Ruby CSV generate documentation
+  # * options - a hash of CSV generation options see Ruby CSV generate documentation
   ####################################################################
   def self.to_csv(options = {})
 

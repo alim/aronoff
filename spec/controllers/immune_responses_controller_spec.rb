@@ -5,9 +5,34 @@ describe ImmuneResponsesController do
 
   # Test setup ---------------------------------------------------------
 
+  let(:valid_attributes){
+    {
+      experiment_id: 'Experiment-1234',
+      strain_name: 'GBS-1234',
+      cell_type: ImmuneResponse::DM_TERM,
+      model: ImmuneResponse::CD_PUNCHES,
+      compartment: ImmuneResponse::AMNION,
+      time_point: '1 hr.',
+      moi: '1234',
+      strain_status: ImmuneResponse::HEAT_KILLED,
+      treatment: ImmuneResponse::PGE2,
+      dose: 'normal',
+      result: '1234',
+      cyto_chemo_kine: ImmuneResponse::TNFA,
+      units: ImmuneResponse::UG_ML,
+      notes: 'Sample notes for testing',
+    }
+  }
+
   before(:each) {
     immune_responses_project
     sign_in @owner
+  }
+
+  after(:each) {
+    User.destroy_all
+    Project.destroy_all
+    ImmuneResponse.destroy_all
   }
 
   # INDEX TESTS --------------------------------------------------------
@@ -166,95 +191,123 @@ describe ImmuneResponsesController do
     describe "with valid params" do
       it "creates a new ImmuneResponse" do
         expect {
-          post :create, {:immune_response => valid_attributes}, valid_session
+          post :create, {immune_response: valid_attributes}
         }.to change(ImmuneResponse, :count).by(1)
       end
 
       it "assigns a newly created immune_response as @immune_response" do
-        post :create, {:immune_response => valid_attributes}, valid_session
+        post :create, {immune_response: valid_attributes}
         assigns(:immune_response).should be_a(ImmuneResponse)
         assigns(:immune_response).should be_persisted
       end
 
       it "redirects to the created immune_response" do
-        post :create, {:immune_response => valid_attributes}, valid_session
+        post :create, {immune_response: valid_attributes}
         response.should redirect_to(ImmuneResponse.last)
       end
     end
 
     describe "with invalid params" do
+      before(:each){
+        @invalid_params = valid_attributes
+        @invalid_params[:treatment] = 99999
+      }
+
       it "assigns a newly created but unsaved immune_response as @immune_response" do
         # Trigger the behavior that occurs when invalid params are submitted
-        ImmuneResponse.any_instance.stub(:save).and_return(false)
-        post :create, {:immune_response => { "experiment_id" => "invalid value" }}, valid_session
+        post :create, {immune_response: @invalid_params}
         assigns(:immune_response).should be_a_new(ImmuneResponse)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        ImmuneResponse.any_instance.stub(:save).and_return(false)
-        post :create, {:immune_response => { "experiment_id" => "invalid value" }}, valid_session
+        post :create, {immune_response: @invalid_params}
         response.should render_template("new")
+      end
+
+      it "set validation error array" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        post :create, {immune_response: @invalid_params}
+        assigns(:verrors).should_not be_empty
+        assigns(:verrors)[0].should match(/Treatment/)
       end
     end
   end
 
+  ## UPDATE TESTS ------------------------------------------------------
+
   describe "PUT update" do
+    before(:each){ @immune_response = ImmuneResponse.last }
+
     describe "with valid params" do
       it "updates the requested immune_response" do
-        immune_response = ImmuneResponse.create! valid_attributes
-        # Assuming there are no other immune_responses in the database, this
-        # specifies that the ImmuneResponse created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        ImmuneResponse.any_instance.should_receive(:update).with({ "experiment_id" => "" })
-        put :update, {:id => immune_response.to_param, :immune_response => { "experiment_id" => "" }}, valid_session
+        ImmuneResponse.any_instance.should_receive(:update).with({
+          "experiment_id" => "Invalid Exp. ID 1111" })
+        put :update, {id: @immune_response.to_param, immune_response:
+          { "experiment_id" => "Invalid Exp. ID 1111" }}
       end
 
       it "assigns the requested immune_response as @immune_response" do
-        immune_response = ImmuneResponse.create! valid_attributes
-        put :update, {:id => immune_response.to_param, :immune_response => valid_attributes}, valid_session
-        assigns(:immune_response).should eq(immune_response)
+        put :update, {id: @immune_response.to_param,
+          immune_response: valid_attributes}
+        assigns(:immune_response).should eq(@immune_response)
       end
 
       it "redirects to the immune_response" do
-        immune_response = ImmuneResponse.create! valid_attributes
-        put :update, {:id => immune_response.to_param, :immune_response => valid_attributes}, valid_session
-        response.should redirect_to(immune_response)
+        put :update, {id: @immune_response.to_param, immune_response:
+          valid_attributes}
+        response.should redirect_to(@immune_response)
       end
     end
 
     describe "with invalid params" do
+
       it "assigns the immune_response as @immune_response" do
-        immune_response = ImmuneResponse.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         ImmuneResponse.any_instance.stub(:save).and_return(false)
-        put :update, {:id => immune_response.to_param, :immune_response => { "experiment_id" => "invalid value" }}, valid_session
-        assigns(:immune_response).should eq(immune_response)
+        put :update, {id: @immune_response.to_param, immune_response:
+          { "experiment_id" => "invalid value" }}
+        assigns(:immune_response).should eq(@immune_response)
       end
 
       it "re-renders the 'edit' template" do
-        immune_response = ImmuneResponse.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         ImmuneResponse.any_instance.stub(:save).and_return(false)
-        put :update, {:id => immune_response.to_param, :immune_response => { "experiment_id" => "invalid value" }}, valid_session
+        put :update, {id: @immune_response.to_param, immune_response:
+          { "experiment_id" => "invalid value" }}
         response.should render_template("edit")
       end
     end
   end
 
+  ## DELETE TESTS ------------------------------------------------------
+
   describe "DELETE destroy" do
+    before(:each){ @immune_response = ImmuneResponse.last }
+
     it "destroys the requested immune_response" do
-      immune_response = ImmuneResponse.create! valid_attributes
       expect {
-        delete :destroy, {:id => immune_response.to_param}, valid_session
+        delete :destroy, {id: @immune_response.to_param}
       }.to change(ImmuneResponse, :count).by(-1)
     end
 
     it "redirects to the immune_responses list" do
-      immune_response = ImmuneResponse.create! valid_attributes
-      delete :destroy, {:id => immune_response.to_param}, valid_session
+      delete :destroy, {id: @immune_response.to_param}
       response.should redirect_to(immune_responses_url)
+    end
+
+    it "should NOT destroy related user or project" do
+      user_count = User.count
+      project_count = Project.count
+      user = @immune_response.user
+      project = @immune_response.project
+
+      delete :destroy, {id: @immune_response.to_param}
+
+      User.count.should eq(user_count)
+      user.should be_present
+      Project.count.should eq(project_count)
+      project.should be_present
     end
   end
 

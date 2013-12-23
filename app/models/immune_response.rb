@@ -294,4 +294,52 @@ class ImmuneResponse
     return attribute_str(CYTO_OPTIONS, cyto_chemo_kine)
   end
 
+  #####################################################################
+  # The to_csv class method converts the model contents to
+  # CSV format. It takes one optional parameter.
+  # * options - a has of CSV generation options see Ruby CSV generate documentation
+  ####################################################################
+  def self.to_csv(options = {})
+
+    CSV.generate(options) do |csv|
+      column_header =  ["Experiment", "Strain", "Cell Type", "Model",
+        "Compartment", "Time Point", "MOI", "Strain Status",
+        "Treatment", "Dose", "Results", "Units", "Cyto Chemo-Kine",
+        "Notes"]
+
+      # Output column header
+      csv << column_header
+
+      # Create a new array for the row
+      row = Array.new
+      all.each do |iresponse|
+
+        # iresponserophage information
+        row << iresponse.experiment_id
+        row << iresponse.strain_name
+        row << iresponse.cell_type_str
+        row << iresponse.model_str
+        row << iresponse.compartment_str
+        row << iresponse.time_point
+        row << iresponse.moi
+        row << iresponse.strain_status_str
+        row << iresponse.treatment_str
+        row << iresponse.dose
+        row << iresponse.result
+        row << iresponse.units_str
+        row << iresponse.cyto_chemo_kine_str
+        row << iresponse.notes
+
+        # Ouput the CSV ROW
+        csv << row
+
+        # Clear out the row for the next one
+        row.clear
+
+      end # all.each
+
+    end # CSV
+
+  end # def
+
 end
