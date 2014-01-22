@@ -79,6 +79,10 @@
       <% end %>
     </tbody>
   </table>
+  
+  <div class='digg_pagination'>
+    <%= will_paginate @macrophages %>
+  </div>
 
   <!-- Export controls -------------------------------------------------->
   <% if @search.present? && @stype.present? %>
