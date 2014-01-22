@@ -1,0 +1,35 @@
+language: ruby
+
+rvm:
+  - "1.9.3"
+
+services:
+  - mongodb
+
+env:
+  global:
+    # Keys needed for testing stripe
+    - secure: "fG2WGf6NakcHakkrtiayPeFLFpOox02ktBjx9C1NjC2jg7ayECy/s5W36l6p3LWFoGhVNpPw8/9Lc0QL3FQtpMz2c1/jk0VpBbQkdpHzAB7bFjGi/hxjMBMyQDBXlqGGzbZXuiQed0djJxlnYulrTmsrP+bpEvSQlaqzUJcFF0I="
+    - secure: "UeXGAqpby5cPUHcpLyN6G55QDhekg6GaTBhivnhl314lHH0Z5cN/L4Eembfgor33DjzMbPIzcHR3jainLuMNf0s2miqasz/+YhXiO8KryBvZC/wMsJOTRgxJ/0fEljN+NKSdtlWJtmR+MS/B7HEP4F4wCay2ziEWJ3SFlPz0mIU="
+
+    # SMTP environment variables.
+    - SMTP_PORT=3535
+    - SMTP_HOST=smtpout.secureserver.net
+    - secure: "HyjY9FO2A15DKz2a4PSB1dpBlc1kD9zDKNH7CQidpGkK0hMkThf0AUXIATo82hTRGPuBjNh3MmFuCCNhF55abSFSWC3mcWrYqYybLOyQ/kGXnECZSwdegm1PcPkwmkb/zh05JmOQeqWc1zCs6NNGb3t4V4fIqgE/xTFLV3oG1w0="
+    - secure: "Tj+PLd6pZT/FFHPX/K5sfChGbOx9CMuxzeavI06bdZ1M53mQr10Lw5BftbvFTAErjvn62rFd1GTm64ppxht0boo+RDJ63f1qVtWR+sNUKzkIOCDOHJA2AMOlQxyR0srcKtSkSXulK7FhmBJ+MQyoHzqRAEqvCoPfR3XD8eDrg7Y="
+    - secure: "f+rfLCqcTTt8SWwYsp5yHw9ZmmgpTNtXBDscx4FcIL4asO5iQ3ThjWM4pUwmNH8lvsntF2XCFLwYTDFtBMFl5Vk6u3gKs/u6nrqe6dSeIvEKTcZlKltnZaLWpfReUZCeJVanMArCVx9rWil4G4XErvBzYoWFN3jSDsQWAj8IkbE="
+
+    # CONTACT VARIABLES
+    - CONTACT_EMAILBOX='operations@example.com'
+    - CONTACT_FROM='no-reply-mailbox@example.com'
+    - CONTACT_SUBJECT='New Contact Request'
+
+    # GROUP CONTACT VARIABLES
+    - GROUP_FROM_EMAIL="no-reply-mailbox@example.com"
+    - GROUP_EMAIL_SUBJECT="Group Membership Notification"
+
+# whitelist
+branches:
+  only:
+    - master
+    - development
