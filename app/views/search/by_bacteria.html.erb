@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>Search by Bacteria Name Results</h1>
+  <p>
+    The results of your search for all records that invove the <strong>
+    <%= @strain_name %></strong> bacteria are listed in the tables below. The
+    entire query set can be downloaded in a CSV file using the export
+    button at the bottom of the page.
+  </p>
+</div>
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
+
+<h3>Macrohpage Results</h3>
+<% if @macrophages.present? %>
+  
+  <%= render partial: 'macrophages/macrophages_table', 
+    locals: { macrophages: @macrophages } %>
+
+<% else %>
+  <p>
+    No macrophage results were found to match search criteria
+  </p>
+<% end %>
+
+<h3>Immune Response Results</h3>
+
+<% if @immune_responses.present? %>
+ 
+  <%= render partial: 'immune_responses/immune_response_table', 
+    locals: { iresponses: @immune_responses } %>
+
+<% else %>
+  <p>
+    No immune response results found were found matching the search criteria.
+  </p>
+<% end %>
+
+<div class='form-actions'>
+  <% if @macrophages.present? || @immune_responses.present? %>
+    <%= link_to 'Export CSV', search_by_bacteria_url(strain_name: @strain_name,
+    format: 'csv'), class: 'btn btn-info' %>
+  <% end %>
+</div>

@@ -22,7 +22,7 @@ steps_for :immune_responses do
     @immune_response = @iresponses.last
     fill_in 'search', with: "#{@immune_response.experiment_id[0..3]}"
     select('Experiment', from: 'stype')
-    click_on 'Search'
+    click_button 'Search'
 
     # Calculate how many records we should find
     @count = ImmuneResponse.by_experiment(@immune_response.experiment_id[0..3]).count
@@ -35,7 +35,7 @@ steps_for :immune_responses do
     @immune_response = @iresponses.last
     fill_in 'search', with: "#{@immune_response.strain_name[0..2]}"
     select('Strain', from: 'stype')
-    click_on 'Search'
+    click_button 'Search'
 
     # Calculate how many records we should find
     @count = ImmuneResponse.by_strain(@immune_response.strain_name[0..2]).count

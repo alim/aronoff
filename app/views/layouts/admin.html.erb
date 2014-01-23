@@ -50,15 +50,46 @@
           <!-- Main menu section -->
           <ul class="well nav nav-list">
             <li class="nav-header">Main Menu</li>
+
             <li <%= @admin_active %>>
               <%= link_to '<i class="icon-home"></i> Dashboard'.html_safe, admin_url  %>
             </li>
+
+            <!-- accordion menu for searches -->
+            <li <%= @search_active %>>
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="  #accordion2" href="#collapseSearch">
+                <i class="icon-search"></i> Search<b class="icon-angle-down pull-right"></b></a>
+            </li>
+
+            <div id="collapseSearch" class="accordion-body collapse out">
+              <ul class="accordion-inner nav nav-list">
+                <li <%= @search_bacteria %> >
+                  <%= link_to '<i class="icon-search"></i> Bacteria'.html_safe,
+                    search_bacteria_url %>
+                </li>
+
+                <li <%= @search_date %> >
+                  <%= link_to '<i class="icon-search"></i> Date'.html_safe,
+                    search_date_url %>
+                </li>
+
+                <li <%= @search_user %> >
+                  <%= link_to '<i class="icon-search"></i> User'.html_safe,
+                    search_user_url %>
+                </li>
+              </ul>
+            </div>
+
+            <!-- end of search accordion menu -->
+
             <li <%= @macrophage_active %>>
               <%= link_to '<i class="icon-tasks"></i> Macrophage'.html_safe, macrophages_url  %>
             </li>
+
             <li <%= @immune_active %>>
               <%= link_to '<i class="icon-asterisk"></i> Immune Res.'.html_safe, immune_responses_url  %>
             </li>
+
             <!-- accordion menu item -->
 
             <li <%= @settings_active %> >
