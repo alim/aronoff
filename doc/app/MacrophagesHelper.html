@@ -58,17 +58,7 @@
     
     
     
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
     
-    <li><a href="#method-i-strain_name_options">#strain_name_options</a>
-    
-  </ul>
-</nav>
-
   </div>
 
   <div id="project-metadata">
@@ -141,6 +131,10 @@
   
     <li><a href="./ProjectsHelper.html">ProjectsHelper</a>
   
+    <li><a href="./SearchController.html">SearchController</a>
+  
+    <li><a href="./SearchHelper.html">SearchHelper</a>
+  
     <li><a href="./SharedClassMethods.html">SharedClassMethods</a>
   
     <li><a href="./SharedInstanceMethods.html">SharedInstanceMethods</a>
@@ -170,9 +164,6 @@
 
   <div id="description" class="description">
     
-<p>The <a href="MacrophagesHelper.html">MacrophagesHelper</a> module holds
-methods used to facilitate the views for the Macrophages resource.</p>
-
   </div><!-- description -->
 
   
@@ -189,62 +180,6 @@ methods used to facilitate the views for the Macrophages resource.</p>
 
     <!-- Methods -->
     
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-strain_name_options" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">strain_name_options</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The <a
-href="MacrophagesHelper.html#method-i-strain_name_options">#strain_name_options</a>
-method is designed to provide a list of GBS strain names for the view. In
-the future, this list will be pulled from the MLST system using
-ActiveResource.</p>
-          
-
-          
-          <div class="method-source-code" id="strain_name_options-source">
-            <pre><span class="ruby-comment"># File app/helpers/macrophages_helper.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">strain_name_options</span>
-  <span class="ruby-identifier">gbs_strains</span> = [
-    <span class="ruby-string">'A909'</span>, <span class="ruby-string">'GB1007'</span>, <span class="ruby-string">'GB112'</span>, <span class="ruby-string">'GB115'</span>, <span class="ruby-string">'GB12'</span>, <span class="ruby-string">'GB13'</span>,
-    <span class="ruby-string">'GB1455'</span>, <span class="ruby-string">'GB1459'</span>, <span class="ruby-string">'GB2'</span>, <span class="ruby-string">'GB20'</span>, <span class="ruby-string">'GB241'</span>,
-    <span class="ruby-string">'GB279'</span>, <span class="ruby-string">'GB285'</span>, <span class="ruby-string">'GB291'</span>, <span class="ruby-string">'GB310'</span>, <span class="ruby-string">'GB33'</span>,
-    <span class="ruby-string">'GB36'</span>, <span class="ruby-string">'GB362'</span>, <span class="ruby-string">'GB37'</span>, <span class="ruby-string">'GB374'</span>, <span class="ruby-string">'GB377'</span>, <span class="ruby-string">'GB390'</span>,
-    <span class="ruby-string">'GB397'</span>, <span class="ruby-string">'GB411'</span>, <span class="ruby-string">'GB418'</span>, <span class="ruby-string">'GB438'</span>, <span class="ruby-string">'GB45'</span>, <span class="ruby-string">'GB555'</span>,
-    <span class="ruby-string">'GB557'</span>, <span class="ruby-string">'GB561'</span>, <span class="ruby-string">'GB571'</span>, <span class="ruby-string">'GB590'</span>, <span class="ruby-string">'GB64'</span>, <span class="ruby-string">'GB651'</span>,
-    <span class="ruby-string">'GB653'</span>, <span class="ruby-string">'GB654'</span>, <span class="ruby-string">'GB66'</span>, <span class="ruby-string">'GB663'</span>, <span class="ruby-string">'GB686'</span>, <span class="ruby-string">'GB69'</span>,
-    <span class="ruby-string">'GB79'</span>, <span class="ruby-string">'GB83'</span>, <span class="ruby-string">'GB84'</span>, <span class="ruby-string">'GB910'</span>, <span class="ruby-string">'GB92'</span>, <span class="ruby-string">'GB97'</span>,
-    <span class="ruby-string">'NEM316'</span>
-  ]
-
-  <span class="ruby-identifier">options</span> = []
-  <span class="ruby-identifier">gbs_strains</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">strain</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">options</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">strain</span>, <span class="ruby-identifier">strain</span>]
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- strain_name_options-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- strain_name_options-method -->
-
-    
-    </section><!-- public-instance-method-details -->
-  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

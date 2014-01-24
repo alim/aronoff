@@ -31,58 +31,8 @@
 </div>
 
 <% if @immune_responses.present? %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Experiment ID</th>
-        <th>GBS Strain</th>
-        <th>Cell Type</th>
-        <th>Model</th>
-        <th>Compartment</th>
-        <th>Time Point</th>
-        <th>MOI</th>
-        <th>Strain Type</th>
-        <th>Treatment</th>
-        <th>Dose</th>
-        <th>Cyto Chemo-Kine</th>
-        <th>Result</th>
-        <th>Units</th>
-        <th><%=t '.actions', :default => t("helpers.actions") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @immune_responses.each do |immune_response| %>
-        <tr class="immune_response">
-          <td><%= link_to immune_response.experiment_id, immune_response_path(immune_response)  %></td>
-          <td><%= immune_response.strain_name %></td>
-          <td><%= immune_response.cell_type_str %></td>
-          <td><%= immune_response.model_str %></td>
-          <td><%= immune_response.compartment_str %></td>
-          <td><%= immune_response.time_point %></td>
-          <td><%= immune_response.moi %></td>
-          <td><%= immune_response.strain_status_str %></td>
-          <td><%= immune_response.treatment_str %></td>
-          <td><%= number_with_precision(immune_response.dose, precision: 4) %></td>
-          <td><%= immune_response.cyto_chemo_kine_str %></td>
-          <td><%= immune_response.result %></td>
-          <td><%= immune_response.units_str %></td>
-          <td>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_immune_response_path(immune_response), :class => 'btn btn-mini' %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        immune_response_path(immune_response),
-                        :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                        :class => 'btn btn-mini btn-danger' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
-  <div class='digg_pagination'>
-    <%= will_paginate @macrophages %>
-  </div>
+  <%= render partial: 'immune_responses/immune_response_table', 
+      locals: { iresponses: @immune_responses } %>
 
   <!-- Export controls -------------------------------------------------->
   <% if @search.present? && @stype.present? %>

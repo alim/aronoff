@@ -1,0 +1,52 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Experiment ID</th>
+      <th>Strain Name</th>
+      <th>Macrophage Type</th>
+      <th>Treatment</th>
+      <th>Dose</th>
+      <th>Data</th>
+      <th>Data Type</th>
+      <th>Project</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% macrophages.each do |macrophage| %>
+      <tr class="macrophage">
+        <td>
+          <%= link_to macrophage.experiment_id, macrophage_url(macrophage) %>
+        </td>
+        <td><%= macrophage.strain_name %></td>
+        <td><%= macrophage.macrophage_type_str %></td>
+        <td><%= macrophage.treatment_str %></td>
+        <td><%= macrophage.dosage_str %></td>
+        <td><%= macrophage.data %></td>
+        <td><%= macrophage.datatype_str %></td>
+
+        <td>
+          <% if macrophage.project.present? %>
+            <%= macrophage.project.name %>
+          <% else %>
+            None
+          <% end %>
+        </td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_macrophage_path(macrophage), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      macrophage_path(macrophage),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class='digg_pagination'>
+  <%= will_paginate macrophages %>
+</div>

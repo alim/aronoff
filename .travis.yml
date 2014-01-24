@@ -1,11 +1,8 @@
 language: ruby
-
 rvm:
-  - "1.9.3"
-
+- 1.9.3
 services:
-  - mongodb
-
+- mongodb
 env:
   global:
   - secure: KMTBHE7IhmTeVuEdWwV5L9ghZXV8PVhJvatE+YZhJ7qKEM42sJNG3sy6A4uS9Kuq7OTa/J38u9NkJDfo4CY8cxOz+coqrqpiw/LRSMkmSrPaDcnK6hcv9LhNY6BmnfPPgStXmc52cboxLsPtBhdJ3UmeHiWVpCTz6fKYo/Aksnc=
@@ -20,9 +17,16 @@ env:
   - CONTACT_SUBJECT='New Contact Request'
   - GROUP_FROM_EMAIL="no-reply-mailbox@example.com"
   - GROUP_EMAIL_SUBJECT="Group Membership Notification"
-
-# whitelist
 branches:
   only:
-    - master
-    - development
+  - master
+  - development
+deploy:
+  provider: openshift
+  user: andy.nsp@gmail.com
+  password:
+    secure: gkSbUyKmMFc54okjWkBtwEdiCUFX5JkGdaY0SZpIt/dnfEUTGNjlSaz2PUiIGXL1iJMJUBbIsaiV180dL1PAa+xCjqt7nCH0qjmmiu8lGex6Z4fPKr98J3hVpAIfGIxo6Nghg4W7Q6UuJEqaFQtN6Z8RGYrEhOGMEE6t0NoQoCQ=
+  app: aronoff
+  domain: netsourcedev
+  on:
+    repo: alim/aronoff

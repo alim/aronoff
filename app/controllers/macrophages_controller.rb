@@ -10,7 +10,7 @@ class MacrophagesController < ApplicationController
   rescue_from CanCan::AccessDenied, with: :access_denied
 
   ## CALLBACKS ---------------------------------------------------------
-
+  before_filter :authenticate_user!
   before_action :set_macrophage, only: [:show, :edit, :update, :destroy]
   before_action :set_macrophage_class
 
