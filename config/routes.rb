@@ -1,11 +1,11 @@
 Ignition::Application.routes.draw do
-  get "search/index"
-  get "search/bacteria"
-  get "search/by_bacteria"
-  get "search/user"
-  get "search/by_user"
-  get "search/date"
-  get "search/by_date"
+
+  get   "search/bacteria"
+  post  "search/by_bacteria"
+  get   "search/user"
+  post  "search/by_user"
+  get   "search/date"
+  post  "search/by_date"
 
   resources :immune_responses
 

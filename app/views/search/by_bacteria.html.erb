@@ -18,7 +18,7 @@
   <% if  @macrophages.present? %>
     <%= link_to 'Export CSV', search_by_bacteria_url(strain_name: @strain_name,
       macrophages: true, format: 'csv'), 
-      class: 'btn btn-info pull-right' %>
+      class: 'btn btn-info pull-right', id: 'export_macrophage_csv' %>
   <% end %>
   <br/>
 
@@ -38,7 +38,7 @@
   <% if  @immune_responses.present? %>
     <%= link_to 'Export CSV', search_by_bacteria_url(strain_name: @strain_name,
       immune_responses: true, format: 'csv'), 
-      class: 'btn btn-info pull-right' %>
+      class: 'btn btn-info pull-right', id: 'export_immune_response_csv' %>
   <% end %>
   <br/>
 

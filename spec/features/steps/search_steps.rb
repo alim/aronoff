@@ -24,9 +24,9 @@ steps_for :search_steps do
     # Calculate how many records we should find
     @mac_count = Macrophage.by_strain(@strain_name).count
     @mac_count.should > 0
-    @mac_count = ApplicationController::PAGE_COUNT if @mac_count > ApplicationController::PAGE_COUNT
+    @mac_count = ApplicationController::PAGE_COUNT if @mac_count > ApplicationController::PAGE_COUNT  
   end
-
+  
   step "you search for records matching bacteria name" do
     select('GB1007', from:'strain_name')
     click_button('Search')
@@ -35,5 +35,19 @@ steps_for :search_steps do
   step "you should see correct number of result records" do
     page.should have_css("table tr.immune_response", count: @ir_count)
     page.should have_css("table tr.macrophage", count: @ir_count)
-  end  
+  end
+
+  step "you click on Export CSV for :type" do |type|
+    if type == 'macrophages'
+      click_link('export_macrophage_csv')
+    elsif type == 'immune responses'
+      click_link('export_immune_response_csv')
+    else
+      puts "Unable to find the correct type to export to CSV"
+    end
+  end
+
+  step "I/you should get a file named :name" do |name|
+    page.driver.response.headers['Content-Disposition'].should include("filename=\"#{name}\"")
+  end
 end

@@ -14,7 +14,7 @@ class ImmuneResponsesController < ApplicationController
   rescue_from CanCan::AccessDenied, with: :access_denied
 
   ## CALLBACKS ---------------------------------------------------------
-
+  before_filter :authenticate_user!
   before_action :set_immune_response, only: [:show, :edit, :update, :destroy]
 
   ######################################################################

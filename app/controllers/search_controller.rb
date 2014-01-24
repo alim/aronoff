@@ -10,13 +10,8 @@ class SearchController < ApplicationController
   rescue_from CanCan::AccessDenied, with: :access_denied
 
   before_action :set_search_class
-
-  #####################################################################
-  # 
-  #####################################################################
-  def index
-  end
-
+  before_filter :authenticate_user!
+  
   #####################################################################
   # The bacteria method presents the user with a search form for 
   # querying the database. The search form enables the user to search
