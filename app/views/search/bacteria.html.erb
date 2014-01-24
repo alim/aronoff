@@ -1,0 +1,22 @@
+<div class="page-header">
+
+  <h1>Search by Bacteria</h1>
+  <p>
+    You can search for experimental results by the bacteria that was
+    used in the experiment. The search supports querying the database
+    by the bacteria name. Search results will be ordered by most
+    recent results first.
+  </p>
+
+</div>
+
+<%= form_tag(search_by_bacteria_url, method: "post", 
+  class: "form-inline") do %>
+
+   <label class="control-label">Bacterial Name: </label>
+  
+  <%= select_tag(:strain_name, options_for_select(strain_name_options)) %>
+  
+  <%= submit_tag("Search", class: 'btn') %>
+
+<% end %>

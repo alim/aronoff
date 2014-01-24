@@ -18,3 +18,11 @@ step "a user is logged in" do
   click_button 'Login'
   expect(page).to have_content 'Dashboard'
 end
+
+step "I/you click on the :link_name link" do |link_name|
+  click_link link_name
+end
+
+step "I/you should see :search_text on the page" do |text|
+  page.should have_content(text)
+end

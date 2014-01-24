@@ -13,6 +13,7 @@ FactoryGirl.define do
     "Experimental notes section for testing - #{n}"
   end
 
+  # expects user as a parameter
   factory :macrophage do
     strain_name { generate(:strain_name) }
     experiment_id { generate(:experiment_id) }
@@ -23,4 +24,15 @@ FactoryGirl.define do
     data_type { rand(1..2) }
     notes { generate(:notes) }
   end
+
+  # expects both user and strain_name
+  factory :bacteria_macrophage, class: Macrophage do
+    experiment_id { generate(:experiment_id) }
+    macrophage_type { rand(1..5) }
+    treatment { rand(1..3) }
+    dose { rand(1..4) }
+    data { rand(1..10000) }
+    data_type { rand(1..2) }
+    notes { generate(:notes) }
+  end  
 end
