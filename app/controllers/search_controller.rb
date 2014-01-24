@@ -49,6 +49,19 @@ class SearchController < ApplicationController
       flash[:alert] = "No bacterial strain name was selected"
     end
 
+    respond_to do |format|
+      format.html
+
+      if params[:macrophages]
+        format.csv { send_data @macrophages.to_csv, 
+          filename: "#{@strain_name}-macrophages" }
+      else
+        format.csv { send_data @immune_responses.to_csv,
+          filename: "#{@strain_name}-immune-responses" }
+      end
+
+    end
+
   end
 
   def user
