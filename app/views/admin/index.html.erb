@@ -1,5 +1,37 @@
+
+<div class="page-header">
 <h1>Repository Dashboard</h1>
 <p>
-  We will be putting dashboard on this page that will show most
-  recently submitted experimental data organized by projects.
+  This simple dashboard shows the 20 latest experiments that have
+  been entered into the system. The listing is split between
+  the Immune Response and Macrophage results.
 </p>
+</div>
+
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
+
+
+<h3>Latest Immune Response Results</h3>
+<div class="well">
+  <% if @immune_responses %>
+    
+      <%= render partial: 'immune_responses/immune_response_table', 
+          locals: { iresponses: @immune_responses } %>
+
+  <% else %>
+    <p>None found.</p>
+  <% end %>
+</div>
+
+
+<h3>Latest Macrophage Results</h3>
+<div class="well">
+  <% if @macrophages %>
+    
+    <%= render partial: 'macrophages/macrophages_table', 
+      locals: { macrophages: @macrophages } %>
+
+  <% else %>
+    <p>None found.</p>
+  <% end %>
+</div>
