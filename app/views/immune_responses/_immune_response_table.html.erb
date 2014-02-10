@@ -47,6 +47,8 @@
   </tbody>
 </table>
 
-<div class='digg_pagination'>
-  <%= will_paginate iresponses %>
-</div>
+<% if iresponses.respond_to? :current_page %>
+  <div class='digg_pagination'>
+    <%= will_paginate iresponses %>
+  </div>
+<% end %>
