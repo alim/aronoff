@@ -23,10 +23,10 @@ branches:
   - development
 deploy:
   provider: openshift
-  user: andy.nsp@gmail.com
+  user: alim@nspartners.com
   password:
-    secure: gkSbUyKmMFc54okjWkBtwEdiCUFX5JkGdaY0SZpIt/dnfEUTGNjlSaz2PUiIGXL1iJMJUBbIsaiV180dL1PAa+xCjqt7nCH0qjmmiu8lGex6Z4fPKr98J3hVpAIfGIxo6Nghg4W7Q6UuJEqaFQtN6Z8RGYrEhOGMEE6t0NoQoCQ=
+    secure: Z9wEVbG5Iy2F5p3WrUU7mk1OWhLw7KGT4lHttuYum0U7bn0SfGVdrohgojTvDLSzm2g6HJK0WgoZMXhAoMFTGDUg6HnHexTFRsEALm45La2aThgrd4nHCcr/LlSX4NdJLIBGJB7Hv1SDqGRGMYpdqcU7Gm/RYCkSGeALHhCzBJM=
   app: aronoff
-  domain: netsourcedev
+  domain: nspartners
   on:
     repo: alim/aronoff
