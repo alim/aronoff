@@ -10,11 +10,11 @@ class AdminController < ApplicationController
 	def index
 		@admin_active="class=active"
 
-		@immune_responses = ImmuneResponse.all.order_by([[:created_at, :asc]])
+		@immune_responses = ImmuneResponse.find_with_groups(current_user).order_by([[:created_at, :asc]])
 		@ir_count = @immune_responses.count <= 10 ? @immune_responses.count : 10
 		@immune_responses = @immune_responses[0..@ir_count] if @ir_count > 0
 
-		@macrophages = Macrophage.all.order_by([[:created_at, :asc]])
+		@macrophages = Macrophage.find_with_groups(current_user).order_by([[:created_at, :asc]])
 		@mac_count = @macrophages.count <= 10 ? @macrophages.count : 10
 		@macrophages = @macrophages[0..@mac_count] if @mac_count > 0
 
