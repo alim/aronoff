@@ -12,26 +12,23 @@
 
 
 <h3>Latest Immune Response Results</h3>
-<div class="well">
-  <% if @immune_responses %>
-    
+  <% if @immune_responses.present? %>
+    <div class="well">
       <%= render partial: 'immune_responses/immune_response_table', 
           locals: { iresponses: @immune_responses } %>
-
+    </div>
   <% else %>
-    <p>None found.</p>
+    <p>None found.</p><br/>
   <% end %>
-</div>
 
 
 <h3>Latest Macrophage Results</h3>
-<div class="well">
-  <% if @macrophages %>
-    
-    <%= render partial: 'macrophages/macrophages_table', 
-      locals: { macrophages: @macrophages } %>
 
+  <% if @macrophages.present? %>
+    <div class="well">
+      <%= render partial: 'macrophages/macrophages_table', 
+        locals: { macrophages: @macrophages } %>
+    </div>
   <% else %>
-    <p>None found.</p>
+    <p>None found.</p><br/>
   <% end %>
-</div>
