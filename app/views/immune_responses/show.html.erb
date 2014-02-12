@@ -15,52 +15,73 @@
   <dt><strong>Strain Name:</strong></dt>
   <dd><strong><%= @immune_response.strain_name %></strong></dd>
 
-  <dt><strong>Owner:</strong></dt>
-  <dd><strong><%= @immune_response.user.first_name%> <%= @immune_response.user.last_name%></strong></dd>
-
-  <% if @immune_response.project.present? %>
-    <dt><strong>Assoc. Project:</strong></dt>
-    <dd><strong><%= @immune_response.project.name %></strong></dd>
-  <% end %>
   <br/>
 
   <dt><strong>Cell Type:</strong></dt>
-  <dd><%= @immune_response.cell_type_str %></dd>
+  <dd><%= value_or_none(@immune_response.cell_type_str) %></dd>
 
   <dt><strong>Model:</strong></dt>
-  <dd><%= @immune_response.model_str %></dd>
+  <dd><%= value_or_none(@immune_response.model_str) %></dd>
 
   <dt><strong>Compartment:</strong></dt>
-  <dd><%= @immune_response.compartment_str %></dd>
+  <dd><%= value_or_none(@immune_response.compartment_str) %></dd>
 
   <dt><strong>Time Point:</strong></dt>
-  <dd><%= @immune_response.time_point %></dd>
+  <dd><%= value_or_none(@immune_response.time_point) %></dd>
 
   <dt><strong>MOI:</strong></dt>
-  <dd><%= @immune_response.moi %></dd>
+  <dd>
+    <%= value_or_none(number_with_precision(@immune_response.moi,
+      percision: 3)) %>
+  </dd>
 
   <dt><strong>Strain STatus:</strong></dt>
-  <dd><%= @immune_response.strain_status_str %></dd>
+  <dd><%= value_or_none(@immune_response.strain_status_str) %></dd>
 
   <dt><strong>Treatment:</strong></dt>
-  <dd><%= @immune_response.treatment_str %></dd>
+  <dd><%= value_or_none(@immune_response.treatment_str) %></dd>
 
   <dt><strong>Dose:</strong></dt>
-  <dd><%= number_with_precision(@immune_response.dose, precision: 4) %></dd>
+  <dd>
+    <%= value_or_none(number_with_precision(@immune_response.dose, 
+      precision: 4)) %>
+  </dd>
 
   <dt><strong>Result:</strong></dt>
-  <dd><%= @immune_response.result %></dd>
+  <dd><%= value_or_none(@immune_response.result) %></dd>
 
   <dt><strong>Cyto Chemo-Kine:</strong></dt>
-  <dd><%= @immune_response.cyto_chemo_kine_str %></dd>
+  <dd><%= value_or_none(@immune_response.cyto_chemo_kine_str) %></dd>
 
   <dt><strong>Units:</strong></dt>
-  <dd><%= @immune_response.units_str %></dd>
+  <dd><%= value_or_none(@immune_response.units_str) %></dd>
 
   <dt><strong>Notes:</strong></dt>
-  <dd><%= @immune_response.notes %></dd>
+  <dd><%= value_or_none(@immune_response.notes) %></dd>
+
+  <dt><strong>Tags:</strong></dt>
+  <dd>
+    <%= value_or_none(tag_buttons(@immune_response.tags)) %>
+  </dd>
 
   <br/>
+
+  <dt><strong>User/Owner:</strong></dt>
+  <dd>
+    <%= @immune_response.user.first_name%> <%= @immune_response.user.last_name%>
+  </dd>
+
+  <dt><strong>Project ID:</strong></dt>
+  <dd>
+    <% if @immune_response.project && @immune_response.projec.name %>
+      <%= @immune_response.project.name %>
+    <% else %>
+      None<br/>
+    <% end %>
+  </dd>
+
+  <br/>
+
   <dt><strong>Data File: </strong></dt>
   <dd>
     <% if @immune_response.raw_datafile.present? %>

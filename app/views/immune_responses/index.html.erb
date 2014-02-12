@@ -18,7 +18,7 @@
       <%= form_tag immune_responses_url, method: :get do %>
         <div class='input-prepend'>
 
-            <%= select_tag(:stype, options_for_select(@search_options),
+            <%= select_tag(:stype, immune_search_options,
               class: 'btn span5') %>
             <%= text_field_tag :search, nil, placeholder: "Search term" %>
         </div>

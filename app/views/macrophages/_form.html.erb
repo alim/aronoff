@@ -61,6 +61,14 @@
   </div>
 
   <div class="control-group">
+    <label class='control-label'>Tags</label>
+    <div class="controls">
+      <%= f.text_area :tag_list, rows: 2, placeholder: 
+        "Enter tags separated by commas", class: 'span10' %>
+    </div>
+  </div>
+
+  <div class="control-group">
     <label class='control-label'>Associated Projects</label>
     <% if @projects.present? %>
       <div class="controls">

@@ -8,6 +8,7 @@
       <th>Dose</th>
       <th>Data</th>
       <th>Data Type</th>
+      <th>Tags</th>
       <th>Project</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -25,7 +26,8 @@
         <td><%= macrophage.dosage_str %></td>
         <td><%= macrophage.data %></td>
         <td><%= macrophage.datatype_str %></td>
-
+        <td><%= macrophage.tag_list %></td>
+        
         <td>
           <% if macrophage.project.present? %>
             <%= macrophage.project.name %>

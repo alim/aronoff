@@ -30,4 +30,25 @@ module SharedInstanceMethods
     end
     return str
   end
+
+  ## The tag methods are Model helpers for adding tags to an Array
+  ## based model attribute. It assumes that the attribute name is 'tags'
+  ## and is of the type Array for Mongodb storage.
+
+  ######################################################################
+  # tag_list= will translate String based tag list that is separated by
+  # commas into an array of tag strings. It will strip white spaces 
+  # from the tag list string.
+  ######################################################################
+  def tag_list=(tag_string)
+    self.tags = tag_string.gsub(/,\s+/, ',').split(',')
+  end
+
+  ######################################################################
+  # The tag_list method is used for displaying the tag array as a string
+  ######################################################################
+  def tag_list
+    self.tags.join(', ') if self.tags
+  end
+
 end

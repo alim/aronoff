@@ -171,6 +171,7 @@ class ImmuneResponse
   field :cyto_chemo_kine, type: Integer
   field :units, type: Integer
   field :notes, type: String
+  field :tags, type: Array
 
   ## VALIDATIONS -------------------------------------------------------
 
