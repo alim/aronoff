@@ -13,6 +13,7 @@ describe Macrophage do
     it { should respond_to(:data) }
     it { should respond_to(:data_type) }
     it { should respond_to(:notes) }
+    it { should respond_to(:tags) }
   end
 
   ## VALIDATION CHECKS -------------------------------------------------

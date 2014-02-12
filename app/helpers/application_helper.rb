@@ -36,4 +36,35 @@ module ApplicationHelper
     end
     return options
   end  
+
+  #####################################################################
+  # The tag_buttons helper method will take an array of tag
+  # strings and return HTML code that wraps the elements
+  # in button CSS code.
+  #####################################################################
+  def tag_buttons(tags)
+    html = ''
+    if tags.present?
+      tags.each do |tag|
+        html += "<span class='btn btn-mini btn-inverse'>" + tag + "</span>&nbsp;"
+      end
+    end
+    html.html_safe
+  end  
+
+  #####################################################################
+  # The value_or_none helper method will print the value or a None
+  # string followed by a <br/> html code. The method returns html_safe
+  # string.
+  #####################################################################
+  def value_or_none(value)
+    html = ''
+    if value.present?
+      html += value
+    else
+      html += 'None<br/>'
+    end
+    html.html_safe
+  end
+
 end

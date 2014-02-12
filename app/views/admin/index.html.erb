@@ -3,35 +3,31 @@
 <h1>Repository Dashboard</h1>
 <p>
   This simple dashboard shows the 20 latest experiments that have
-  been entered into the system. The listing is split between
+  been updated in the system. The listing is split between
   the Immune Response and Macrophage results.
 </p>
 </div>
 
 <%= render partial: 'shared/flash', locals: { flash: flash } %>
 
-
-<h3>Latest Immune Response Results</h3>
-<div class="well">
-  <% if @immune_responses %>
-    
-      <%= render partial: 'immune_responses/immune_response_table', 
-          locals: { iresponses: @immune_responses } %>
-
-  <% else %>
-    <p>None found.</p>
-  <% end %>
-</div>
-
-
 <h3>Latest Macrophage Results</h3>
-<div class="well">
-  <% if @macrophages %>
-    
+
+<% if @macrophages.present? %>
+  <div class="well">
     <%= render partial: 'macrophages/macrophages_table', 
       locals: { macrophages: @macrophages } %>
+  </div>
+<% else %>
+  <p>None found.</p><br/>
+<% end %>
 
-  <% else %>
-    <p>None found.</p>
-  <% end %>
-</div>
+<h3>Latest Immune Response Results</h3>
+
+<% if @immune_responses.present? %>
+  <div class="well">
+    <%= render partial: 'immune_responses/immune_response_table', 
+        locals: { iresponses: @immune_responses } %>
+  </div>
+<% else %>
+  <p>None found.</p><br/>
+<% end %>

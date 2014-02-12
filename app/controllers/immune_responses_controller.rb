@@ -27,12 +27,6 @@ class ImmuneResponsesController < ApplicationController
   # bacterial strain name.
   ######################################################################
   def index
-    @search_options = [
-      ['Experiment', 'experiment'],
-      ['Strain', 'strain'],
-      # ['ImmuneResponse', 'ImmuneResponse'],
-    ]
-
     # Get page number
     page = params[:page].nil? ? 1 : params[:page]
 
@@ -205,6 +199,6 @@ class ImmuneResponsesController < ApplicationController
       params.require(:immune_response).permit(:experiment_id,
         :strain_name, :cell_type, :model, :compartment,
         :time_point, :moi, :strain_status, :treatment,
-        :result, :units, :cyto_chemo_kine)
+        :result, :units, :cyto_chemo_kine, :tag_list)
     end
 end

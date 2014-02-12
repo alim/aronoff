@@ -86,6 +86,7 @@ class Macrophage
   field :data, type: Float
   field :data_type, type: Integer
   field :notes, type: String
+  field :tags, type: Array
 
   ## VALIDATIONS -------------------------------------------------------
 
