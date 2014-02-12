@@ -25,11 +25,6 @@ class MacrophagesController < ApplicationController
   # the experimental results into CSV file.
   ######################################################################
   def index
-    @search_options = [
-      ['Experiment', 'experiment'],
-      ['Strain', 'strain'],
-      # ['Macrophage', 'macrophage'],
-    ]
 
     # Get page number
     page = params[:page].nil? ? 1 : params[:page]
@@ -193,7 +188,7 @@ class MacrophagesController < ApplicationController
     def macrophage_params
       params.require(:macrophage).permit(:strain_name, :experiment_id,
         :macrophage_type, :treatment, :dose, :data, :data_type, :notes,
-        :raw_datafile, :project_id)
+        :raw_datafile, :project_id, :tag_list)
     end
 
     ####################################################################

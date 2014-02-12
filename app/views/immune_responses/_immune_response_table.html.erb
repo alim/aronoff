@@ -14,6 +14,7 @@
       <th>Cyto Chemo-Kine</th>
       <th>Result</th>
       <th>Units</th>
+      <th>Tags</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -33,6 +34,7 @@
         <td><%= immune_response.cyto_chemo_kine_str %></td>
         <td><%= immune_response.result %></td>
         <td><%= immune_response.units_str %></td>
+        <td><%= immune_response.tag_list %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_immune_response_path(immune_response), :class => 'btn btn-mini' %>

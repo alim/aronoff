@@ -11,47 +11,59 @@
 
 <dl class="dl-horizontal">
   
-  <dt><strong><%= model_class.human_attribute_name(:experiment_id) %>:</strong></dt>
-  <dd><%= @macrophage.experiment_id %></dd>
-  
-  <dt><strong><%= model_class.human_attribute_name(:strain_name) %>:</strong></dt>
-  <dd><%= @macrophage.strain_name %></dd>
+  <dt><strong>Experiment ID:</strong></dt>
+  <dd><strong>
+    <%= value_or_none(@macrophage.experiment_id) %>
+  </strong></dd>
+
+  <dt><strong>Strain Name:</strong></dt>
+  <dd><strong>
+    <%= value_or_none(@macrophage.strain_name) %>
+  </strong></dd>
+  <br/>
     
-  <dt><strong><%= model_class.human_attribute_name(:macrophage_type) %>:</strong></dt>
-  <dd><%= @macrophage.macrophage_type_str %></dd>
+  <dt><strong>Macrophage Type:</strong></dt>
+  <dd><%= value_or_none(@macrophage.macrophage_type_str) %></dd>
   
-  <dt><strong><%= model_class.human_attribute_name(:treatment) %>:</strong></dt>
-  <dd><%= @macrophage.treatment_str %></dd>
+  <dt><strong>Treatment:</strong></dt>
+  <dd><%= value_or_none(@macrophage.treatment_str) %></dd>
   
-  <dt><strong><%= model_class.human_attribute_name(:dose) %>:</strong></dt>
-  <dd><%= @macrophage.dosage_str %></dd>
+  <dt><strong>Dose:</strong></dt>
+  <dd><%= value_or_none(@macrophage.dosage_str) %></dd>
   
-  <dt><strong><%= model_class.human_attribute_name(:data_type) %>:</strong></dt>
-  <dd><%= @macrophage.datatype_str %></dd>  
+  <dt><strong>Data Type:</strong></dt>
+  <dd>
+    <%= value_or_none(@macrophage.datatype_str) %>
+  </dd>  
   
-  <dt><strong><%= model_class.human_attribute_name(:data) %>:</strong></dt>
-  <dd><%= @macrophage.data %></dd>
+  <dt><strong>Data:</strong></dt>
+  <dd>
+    <%= value_or_none(number_with_precision(@macrophage.data, 
+      precision: 3)) %>
+  </dd>
 
   <dt><strong>Notes:</strong></dt>
-  <dd><%= @macrophage.notes.html_safe %></dd>
+  <dd><%= value_or_none(@macrophage.notes) %></dd>
   
+  <dt><strong>Tags:</strong></dt>
+  <dd><%= value_or_none(tag_buttons(@macrophage.tags)) %></dd>
+
   <br/>
   <dt><strong>User/Owner</strong></dt>
   <dd>
     <% if @macrophage.user.present? %>
       <%= @macrophage.user.first_name %>  <%= @macrophage.user.last_name %><br/>
-      <%= @macrophage.user.email %>
     <% else %>
       None
     <% end %>
   </dd>
   
-  <dt><strong><%= model_class.human_attribute_name(:project_id) %>:</strong></dt>
+  <dt><strong>Project ID:</strong></dt>
   <dd>
-    <% if @macrophage.project.present? %>
+    <% if @macrophage.project && @macrophage.project.name %>
       <%= @macrophage.project.name %>
     <% else %>
-      None
+      None<br/>
     <% end %>
   </dd>
   
