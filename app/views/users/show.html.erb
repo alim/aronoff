@@ -29,8 +29,8 @@
   <dd><%= @user.role_str %></dd>
   <dt><strong>Groups:</strong></dt>
   <dd>
-    <% if @user.group_ids.present? %>
-      <%= @user.group_ids %>
+    <% if @user.groups.present? %>
+      <%= list_groups(@user.groups) %>
     <% else %>
       None
     <% end %>

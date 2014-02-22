@@ -34,6 +34,7 @@ end
 # Mongodb support - using master, since 3.0.5 does not support Rails 4
 gem 'mongoid', "~> 4.0", git: 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
+gem 'mongoid_taggable'
 
 # UI Related Gems
 gem 'twitter-bootstrap-rails', '~> 2.2.0'
@@ -62,8 +63,8 @@ group :test, :development do
   gem 'rspec-rails'
   gem "turnip"
   gem "capybara"
-# gem "cucumber-rails", :require => false
-# gem "webrat"
+  gem 'pry-nav'
+  gem 'pry-rails', :group => :development  
 end
 
 # This needs to be installed so we can run Rails console on OpenShift directly
