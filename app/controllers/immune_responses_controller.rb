@@ -108,6 +108,7 @@ class ImmuneResponsesController < ApplicationController
   def new
     @immune_response = ImmuneResponse.new
     @projects = Project.find_with_groups(current_user)
+    @tag_list = ImmuneResponse.tags
   end
 
   ######################################################################
@@ -120,6 +121,7 @@ class ImmuneResponsesController < ApplicationController
   ######################################################################
   def edit
     @projects = Project.find_with_groups(current_user)
+    @tag_list = ImmuneResponse.tags
   end
 
   ######################################################################
@@ -133,6 +135,8 @@ class ImmuneResponsesController < ApplicationController
   def create
     @immune_response = ImmuneResponse.new(immune_response_params)
     @immune_response.user = current_user if @immune_response.user.nil?
+    @immune_response.tags = process_tags(params[:immune_response][:tags], 
+      params[:new_tag])
 
     respond_to do |format|
       if @immune_response.save
@@ -155,6 +159,10 @@ class ImmuneResponsesController < ApplicationController
   # project record.
   ######################################################################
   def update
+    @immune_response.user = current_user if @immune_response.user.nil?
+    @immune_response.tags = process_tags(params[:immune_response][:tags], 
+      params[:new_tag])
+
     respond_to do |format|
       if @immune_response.update(immune_response_params)
         format.html { redirect_to @immune_response, notice: 'Immune response was successfully updated.' }
@@ -199,6 +207,6 @@ class ImmuneResponsesController < ApplicationController
       params.require(:immune_response).permit(:experiment_id,
         :strain_name, :cell_type, :model, :compartment,
         :time_point, :moi, :strain_status, :treatment,
-        :result, :units, :cyto_chemo_kine, :tag_list)
+        :result, :units, :cyto_chemo_kine, :tags)
     end
 end

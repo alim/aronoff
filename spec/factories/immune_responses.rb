@@ -16,7 +16,7 @@ FactoryGirl.define do
     cyto_chemo_kine { rand(1..9) }
     units { rand(1..4) }
     notes { generate(:notes) }
-    tags ["Elisa", "pcr", "culture", "Gram Stain"]
+    tags "Elisa, pcr, culture, Gram Stain"
   end
 
   # expects both user and strain_name to be passed in
@@ -34,7 +34,7 @@ FactoryGirl.define do
     cyto_chemo_kine { rand(1..9) }
     units { rand(1..4) }
     notes { generate(:notes) }
-    tags ["Elisa", "pcr", "culture", "Gram Stain"]
+    tags "Elisa, pcr, culture, Gram Stain"
   end
 
 end

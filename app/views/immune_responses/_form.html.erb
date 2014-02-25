@@ -84,10 +84,15 @@
   </div>
 
   <div class="control-group">
-    <label class='control-label'>Tags</label>
+    <label class='control-label'>
+      Tags (You can select multiple tags using 'Ctrl' key)
+    </label>
     <div class="controls">
-      <%= f.text_area :tag_list, rows: 2, placeholder: 
-        "Enter tags separated by commas", class: 'span8' %>
+      <%= f.select :tags, tag_options_list, {}, {size: 5, multiple: true, 
+        class: 'span5'} %>
+        <br/><br/>
+      <%= text_field_tag :new_tag, nil, placeholder: 
+        "Enter new tags separated by commas", class: 'span5' %>
     </div>
   </div>
 

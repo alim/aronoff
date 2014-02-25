@@ -54,6 +54,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #####################################################################
+  # The process_tags method is a controller helper method to combine
+  # an array of text string tags with a string of comma separated 
+  #####################################################################
+  def process_tags(tag_array, new_tags_string)
+    if tag_array
+      str = ''
+      tag_array.select(&:present?).uniq.sort.each { |tag| str += tag + ', ' }
+      str += new_tags_string if new_tags_string
+      return str.strip.chomp(',')
+    else
+      return new_tags_string
+    end
+  end
+
   ## PROTECTED METHODS -------------------------------------------------
   
   protected

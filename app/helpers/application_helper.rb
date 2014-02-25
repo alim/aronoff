@@ -38,15 +38,29 @@ module ApplicationHelper
   end  
 
   #####################################################################
-  # The tag_buttons helper method will take an array of tag
+  # The tag_options method returns an option_for_select object for
+  # all the tags currently in the system.
+  #####################################################################
+  def tag_options_list
+    tag_list = tag_options = []
+    tag_list = Macrophage.tags + ImmuneResponse.tags
+    tag_list.uniq!.sort!
+    tag_list.each do |tag|
+      tag_options << [tag, tag]
+    end
+    return options_for_select(tag_options)
+  end
+
+  #####################################################################
+  # The tag_labels helper method will take an array of tag
   # strings and return HTML code that wraps the elements
   # in button CSS code.
   #####################################################################
-  def tag_buttons(tags)
+  def tag_labels(tags)
     html = ''
     if tags.present?
       tags.each do |tag|
-        html += "<span class='btn btn-mini btn-inverse'>" + tag + "</span>&nbsp;"
+        html += "<span class='label'>" + tag + "</span>&nbsp;"
       end
     end
     html.html_safe
