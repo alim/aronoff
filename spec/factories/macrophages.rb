@@ -23,7 +23,7 @@ FactoryGirl.define do
     data { rand(1..10000) }
     data_type { rand(1..2) }
     notes { generate(:notes) }
-    tags ["Elisa", "pcr", "culture", "Gram Stain"]
+    tags "Elisa, pcr, culture, Gram Stain, scanning electron"
   end
 
   # expects both user and strain_name
@@ -35,6 +35,6 @@ FactoryGirl.define do
     data { rand(1..10000) }
     data_type { rand(1..2) }
     notes { generate(:notes) }
-    tags ["Elisa", "pcr", "culture", "Gram Stain"]
+    tags "Elisa, pcr, culture, Gram Stain, scanning electron"
   end  
 end

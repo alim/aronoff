@@ -26,7 +26,7 @@
         <td><%= macrophage.dosage_str %></td>
         <td><%= macrophage.data %></td>
         <td><%= macrophage.datatype_str %></td>
-        <td><%= macrophage.tag_list %></td>
+        <td><%= tag_labels(macrophage.tags_array) %></td>
         
         <td>
           <% if macrophage.project.present? %>

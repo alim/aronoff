@@ -46,7 +46,7 @@
   <dd><%= value_or_none(@macrophage.notes) %></dd>
   
   <dt><strong>Tags:</strong></dt>
-  <dd><%= value_or_none(tag_buttons(@macrophage.tags)) %></dd>
+  <dd><%= value_or_none(tag_labels(@macrophage.tags_array)) %></dd>
 
   <br/>
   <dt><strong>User/Owner</strong></dt>

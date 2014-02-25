@@ -97,6 +97,7 @@ class MacrophagesController < ApplicationController
   def new
     @macrophage = Macrophage.new
     @projects = Project.find_with_groups(current_user)
+    @tag_list = Macrophage.tags
   end
 
   ######################################################################
@@ -109,6 +110,7 @@ class MacrophagesController < ApplicationController
   def edit
     @projects = Project.find_with_groups(current_user)
     @strains = get_strain_list
+    @tag_list = Macrophage.tags
   end
 
   ######################################################################
@@ -121,12 +123,15 @@ class MacrophagesController < ApplicationController
   def create
     @macrophage = Macrophage.new(macrophage_params)
     @macrophage.user = current_user if @macrophage.user.nil?
+    @macrophage.tags = process_tags(params[:macrophage][:tags], 
+      params[:new_tag])
 
     respond_to do |format|
       if @macrophage.save
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully created.' }
         format.json { render action: 'show', status: :created, location: @macrophage }
       else
+        @verrors = @macrophage.errors.full_messages
         format.html { render action: 'new' }
         format.json { render json: @macrophage.errors, status: :unprocessable_entity }
       end
@@ -139,12 +144,15 @@ class MacrophagesController < ApplicationController
   ######################################################################
   def update
     @macrophage.user = current_user if @macrophage.user.nil?
-
+    @macrophage.tags = process_tags(params[:macrophage][:tags], 
+      params[:new_tag])
+    
     respond_to do |format|
       if @macrophage.update(macrophage_params)
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully updated.' }
         format.json { head :no_content }
       else
+        @verrors = @macrophage.errors.full_messages
         format.html { render action: 'edit' }
         format.json { render json: @macrophage.errors, status: :unprocessable_entity }
       end
@@ -188,7 +196,7 @@ class MacrophagesController < ApplicationController
     def macrophage_params
       params.require(:macrophage).permit(:strain_name, :experiment_id,
         :macrophage_type, :treatment, :dose, :data, :data_type, :notes,
-        :raw_datafile, :project_id, :tag_list)
+        :raw_datafile, :project_id)
     end
 
     ####################################################################
@@ -198,4 +206,5 @@ class MacrophagesController < ApplicationController
     def get_strain_list
       # Implmentation needed
     end
+
 end
