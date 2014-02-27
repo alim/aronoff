@@ -5,6 +5,8 @@ describe ImmuneResponsesController do
 
   # Test setup ---------------------------------------------------------
 
+  let(:tags){'tag1,tag2,tag3,tag4,tag5'}
+
   let(:valid_attributes){
     {
       experiment_id: 'Experiment-1234',
@@ -21,6 +23,7 @@ describe ImmuneResponsesController do
       cyto_chemo_kine: ImmuneResponse::TNFA,
       units: ImmuneResponse::UG_ML,
       notes: 'Sample notes for testing',
+      tags: tags.split
     }
   }
 
@@ -204,6 +207,17 @@ describe ImmuneResponsesController do
       it "redirects to the created immune_response" do
         post :create, {immune_response: valid_attributes}
         response.should redirect_to(ImmuneResponse.last)
+      end
+
+      it "assigns the correct tags" do
+        post :create, {immune_response: valid_attributes}
+        assigns(:immune_response).tags.should eq(tags)
+      end
+
+      it "assings both existing and new tags" do
+        tag_list = tags + ',tag99,tag100'
+        post :create, {immune_response: valid_attributes, new_tags: 'tag99,tag100'}
+        assigns(:immune_response).tags.should eq(tag_list)
       end
     end
 

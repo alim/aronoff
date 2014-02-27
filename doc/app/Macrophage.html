@@ -82,6 +82,10 @@
   
   
   
+    <li><span class="include">Mongoid::Taggable</span>
+  
+  
+  
     <li><a class="include" href="SharedInstanceMethods.html">SharedInstanceMethods</a>
   
   
@@ -358,7 +362,7 @@ documentation</p>
 
           
           <div class="method-source-code" id="to_csv-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 171</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 172</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_csv</span>(<span class="ruby-identifier">options</span> = {})
 
   <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">options</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
@@ -427,7 +431,7 @@ type identifier.</p>
 
           
           <div class="method-source-code" id="datatype_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 162</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 163</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">datatype_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">DATATYPES</span>, <span class="ruby-identifier">data_type</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -458,7 +462,7 @@ href="Macrophage.html">Macrophage</a> model object is destroyed.</p>
 
           
           <div class="method-source-code" id="delete_file-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 129</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 130</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_file</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">raw_datafile</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
@@ -491,7 +495,7 @@ identifier.</p>
 
           
           <div class="method-source-code" id="dosage_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 154</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">dosage_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">DOSAGE_OPTIONS</span>, <span class="ruby-identifier">dose</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -524,7 +528,7 @@ identifier.</p>
 
           
           <div class="method-source-code" id="macrophage_type_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 138</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">macrophage_type_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">MAC_TYPE</span>, <span class="ruby-identifier">macrophage_type</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -556,7 +560,7 @@ treatment identifier.</p>
 
           
           <div class="method-source-code" id="treatment_str-source">
-            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 146</span>
+            <pre><span class="ruby-comment"># File app/models/macrophage.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">treatment_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">TREATMENTS</span>, <span class="ruby-identifier">treatment</span>)
 <span class="ruby-keyword">end</span></pre>

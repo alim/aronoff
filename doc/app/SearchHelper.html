@@ -58,7 +58,17 @@
     
     
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-i-tag_options_list">#tag_options_list</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -180,6 +190,45 @@
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-tag_options_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tag_options_list</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="tag_options_list-source">
+            <pre><span class="ruby-comment"># File app/helpers/search_helper.rb, line 2</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tag_options_list</span>
+  <span class="ruby-identifier">tags</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">tags</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">tags</span>
+  <span class="ruby-identifier">tag_list</span> = []
+  <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tag_list</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">tag</span>, <span class="ruby-identifier">tag</span>] })
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">opts</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tag_options_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tag_options_list-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->
