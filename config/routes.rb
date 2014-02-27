@@ -4,8 +4,8 @@ Ignition::Application.routes.draw do
   post  "search/by_bacteria"
   get   "search/user"
   post  "search/by_user"
-  get   "search/date"
-  post  "search/by_date"
+  get   "search/tags"
+  post  "search/by_tags"
 
   resources :immune_responses
 

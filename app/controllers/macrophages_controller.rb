@@ -124,7 +124,7 @@ class MacrophagesController < ApplicationController
     @macrophage = Macrophage.new(macrophage_params)
     @macrophage.user = current_user if @macrophage.user.nil?
     @macrophage.tags = process_tags(params[:macrophage][:tags], 
-      params[:new_tag])
+      params[:new_tags])
 
     respond_to do |format|
       if @macrophage.save
@@ -145,7 +145,7 @@ class MacrophagesController < ApplicationController
   def update
     @macrophage.user = current_user if @macrophage.user.nil?
     @macrophage.tags = process_tags(params[:macrophage][:tags], 
-      params[:new_tag])
+      params[:new_tags])
     
     respond_to do |format|
       if @macrophage.update(macrophage_params)

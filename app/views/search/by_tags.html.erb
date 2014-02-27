@@ -1,0 +1,29 @@
+<div class="page-header">
+
+  <h1>Search by Tag Results</h1>
+  <p>
+    The results of your search are shown in the table below. The results
+    are separated by record type and ordered by the most recent results
+    first.
+  </p>
+</div>
+
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
+
+<h3>Macrophage Tag Results</h3>
+
+<% if @macrophages.present? %>
+  <%= render partial: 'macrophages/macrophages_table', 
+    locals: { macrophages: @macrophages } %>
+<% else %>
+  <p>None found.</p><br/>
+<% end %>
+
+<h3>Immune Response Tag Results</h3>
+
+<% if @immune_responses.present? %>
+    <%= render partial: 'immune_responses/immune_response_table', 
+        locals: { iresponses: @immune_responses } %>
+<% else %>
+  <p>None found.</p><br/>
+<% end %>

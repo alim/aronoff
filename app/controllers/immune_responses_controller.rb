@@ -136,7 +136,7 @@ class ImmuneResponsesController < ApplicationController
     @immune_response = ImmuneResponse.new(immune_response_params)
     @immune_response.user = current_user if @immune_response.user.nil?
     @immune_response.tags = process_tags(params[:immune_response][:tags], 
-      params[:new_tag])
+      params[:new_tags])
 
     respond_to do |format|
       if @immune_response.save
@@ -161,7 +161,7 @@ class ImmuneResponsesController < ApplicationController
   def update
     @immune_response.user = current_user if @immune_response.user.nil?
     @immune_response.tags = process_tags(params[:immune_response][:tags], 
-      params[:new_tag])
+      params[:new_tags])
 
     respond_to do |format|
       if @immune_response.update(immune_response_params)

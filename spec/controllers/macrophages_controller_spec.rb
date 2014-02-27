@@ -9,6 +9,7 @@ describe MacrophagesController do
   let(:valid_session) { {} }
 
   ## TEST SETUP --------------------------------------------------------
+  let(:tags) {'tag1,tag2,tag3,tag4'}
   let(:valid_params){
     {
       strain_name: 'Ecoli-12341234',
@@ -18,7 +19,8 @@ describe MacrophagesController do
       dose: Macrophage::One_uM,
       data: 12341234.11,
       data_type: Macrophage::NUM_PER_THP1_CELL,
-      notes: "Controller testing parameter for notes"
+      notes: "Controller testing parameter for notes",
+      tags: tags.split
     }
   }
 
@@ -226,6 +228,17 @@ describe MacrophagesController do
         post :create, {:macrophage => valid_params}, valid_session
         response.should redirect_to(Macrophage.last)
       end
+
+      it "assigns the correct tags" do
+        post :create, {macrophage: valid_params}
+        assigns(:macrophage).tags.should eq(tags)
+      end
+
+      it "assings both existing and new tags" do
+        tag_list = tags + ',tag99,tag100'
+        post :create, {macrophage: valid_params, new_tags: 'tag99,tag100'}
+        assigns(:macrophage).tags.should eq(tag_list)
+      end    
     end
 
     describe "with invalid params" do

@@ -66,11 +66,41 @@ class SearchController < ApplicationController
   def by_user
   end
 
-  def date
-    @search_date_active="class=active"    
+  #####################################################################
+  # The tags method generates the tag search form for searching the
+  # results by tags.
+  #####################################################################
+  def tags
+    @search_tags="class=active"    
   end
 
-  def by_date
+  #####################################################################
+  # The by_tags method will allow searching the results by tags.
+  #####################################################################
+  def by_tags
+    operator = params[:search_operator]
+    tags = params[:tags]
+    
+    # Get page number
+    page = params[:page].nil? ? 1 : params[:page]
+    
+    if operator == 'and'
+
+      @immune_responses = ImmuneResponse.tagged_with_all(tags).order_by(
+        [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
+      @macrophages = Macrophage.tagged_with_all(tags).order_by(
+        [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
+
+    elsif operator == 'or'
+
+      @immune_responses = ImmuneResponse.tagged_with_any(tags).order_by(
+        [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
+      @macrophages = Macrophage.tagged_with_any(tags).order_by(
+        [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
+
+    else
+      flash[:notice] = 'No results found - missing search operator.'
+    end
   end
 
   ## PRIVATE INSTANCE METHODS -----------------------------------------

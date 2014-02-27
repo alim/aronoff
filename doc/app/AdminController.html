@@ -222,7 +222,7 @@
 
           
           <div class="method-source-code" id="help-source">
-            <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">help</span>
         <span class="ruby-ivar">@help_admin_active</span> = <span class="ruby-string">&quot;class=active&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -256,6 +256,14 @@ into the service.</p>
             <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 10</span>
       <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
               <span class="ruby-ivar">@admin_active</span>=<span class="ruby-string">&quot;class=active&quot;</span>
+              <span class="ruby-identifier">result_count</span> = <span class="ruby-value">10</span>
+
+              <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
+                      [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">limit</span>(<span class="ruby-identifier">result_count</span>)
+              
+              <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>).<span class="ruby-identifier">order_by</span>(
+                      [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">limit</span>(<span class="ruby-identifier">result_count</span>)
+
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -283,7 +291,7 @@ into the service.</p>
 
           
           <div class="method-source-code" id="oops-source">
-            <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">oops</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- oops-source -->
@@ -312,7 +320,7 @@ into the service.</p>
 
           
           <div class="method-source-code" id="password_reset-source">
-            <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/admin_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">password_reset</span>
         <span class="ruby-ivar">@password_reset_admin_active</span>=<span class="ruby-string">&quot;active&quot;</span>
 <span class="ruby-keyword">end</span></pre>
