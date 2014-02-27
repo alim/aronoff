@@ -8,11 +8,6 @@
 ########################################################################
 class ImmuneResponsesController < ApplicationController
 
-  ## RESCUE SETTINGS ---------------------------------------------------
-
-  rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
-  rescue_from CanCan::AccessDenied, with: :access_denied
-
   ## CALLBACKS ---------------------------------------------------------
   before_filter :authenticate_user!
   before_action :set_immune_response, only: [:show, :edit, :update, :destroy]
