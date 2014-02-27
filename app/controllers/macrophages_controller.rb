@@ -4,11 +4,6 @@
 ########################################################################
 class MacrophagesController < ApplicationController
 
-  ## RESCUE SETTINGS ---------------------------------------------------
-
-  rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
-  rescue_from CanCan::AccessDenied, with: :access_denied
-
   ## CALLBACKS ---------------------------------------------------------
   before_filter :authenticate_user!
   before_action :set_macrophage, only: [:show, :edit, :update, :destroy]
@@ -97,7 +92,6 @@ class MacrophagesController < ApplicationController
   def new
     @macrophage = Macrophage.new
     @projects = Project.find_with_groups(current_user)
-    @tag_list = Macrophage.tags
   end
 
   ######################################################################
@@ -110,7 +104,6 @@ class MacrophagesController < ApplicationController
   def edit
     @projects = Project.find_with_groups(current_user)
     @strains = get_strain_list
-    @tag_list = Macrophage.tags
   end
 
   ######################################################################
