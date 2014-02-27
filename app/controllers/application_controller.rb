@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   # Include module for displaying alert messages
   include Oops
 
+  ## RESCUE SETTINGS ---------------------------------------------------
+
+  rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
+  rescue_from CanCan::AccessDenied, with: :access_denied
+  
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
