@@ -2,8 +2,8 @@ Ignition::Application.routes.draw do
 
   get   "search/bacteria"
   post  "search/by_bacteria"
-  get   "search/user"
-  post  "search/by_user"
+  get   "search/free_form"
+  post  "search/by_free_form"
   get   "search/tags"
   post  "search/by_tags"
 

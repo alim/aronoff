@@ -59,11 +59,18 @@ class SearchController < ApplicationController
 
   end
 
-  def user
+  #####################################################################
+  # Generates a simple free form text search form.
+  #####################################################################
+  def free_form
     @search_user_active="class=active"
   end
 
-  def by_user
+  #####################################################################
+  # Process the free_form search request. We will parse the search 
+  # request and process the elements from left to right.
+  #####################################################################
+  def by_free_form
   end
 
   #####################################################################
