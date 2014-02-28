@@ -66,8 +66,8 @@
       (You can select multiple tags using 'Ctrl' key)
     </label>
     <div class="controls">
-      <%= f.select :tags, tag_options_list, {}, {size: 5, multiple: true, 
-        class: 'span5'} %>
+      <%= f.select :tags, tag_options_list(@macrophage), {}, 
+        {size: 5, multiple: true, class: 'span5'} %>
         <br/><br/>
       <%= text_field_tag :new_tags, nil, placeholder: 
         "Enter new tags separated by commas", class: 'span5' %>
