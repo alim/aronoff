@@ -41,14 +41,15 @@ module ApplicationHelper
   # The tag_options method returns an option_for_select object for
   # all the tags currently in the system.
   #####################################################################
-  def tag_options_list
+  def tag_options_list(tagged_object)
     tag_list = tag_options = []
     tag_list = Macrophage.tags + ImmuneResponse.tags
     tag_list.uniq!.sort!
     tag_list.each do |tag|
       tag_options << [tag, tag]
     end
-    return options_for_select(tag_options)
+    selected_tags = tagged_object.tags.split(',') if tagged_object.tags.present?
+    return options_for_select(tag_options, selected_tags)
   end
 
   #####################################################################
