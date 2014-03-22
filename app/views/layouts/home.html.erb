@@ -33,7 +33,7 @@
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
-    
+
   </head>
   <body>
 
@@ -41,55 +41,55 @@
     <div class="navbar navbar-static-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          
+
           <!-- Section for collapsed menu bar -->
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-               
+
         	<!-- Insert your logo here -->
           <a href="#"><%= image_tag 'logo.png', class: 'pull-left logo'%></a>
-        	
+
           <div class="container-fluid nav-collapse">
             <ul class="nav pull-right">
-              <li <%= @home_active %> ><%= link_to "Home", home_index_url  %></li>
-              <li <%= @about_active %> ><%= link_to "About", home_about_url  %></li>
-              <li <%= @contact_active %> ><%= link_to "Contact", home_contact_url  %></li>
-              
+              <li <%= "class=#{active(home_index_path)}" %> ><%= link_to "Home", home_index_path  %></li>
+              <li <%= "class=#{active(home_about_path)}" %> ><%= link_to "About", home_about_path  %></li>
+              <li <%= "class=#{active(home_contact_path)}" %> ><%= link_to "Contact", home_contact_path  %></li>
+
               <!-- Check to see if we are seeing a Devise action -->
-              
+
               <!-- Disable signup link -->
               <% if false %>
-              <% if controller.controller_name == "registrations" &&  
+              <% if controller.controller_name == "registrations" &&
               	controller.action_name == "new"%>
               	<li class="active">
               <% else %>
               	<li>
               <% end %>
-              <%= link_to "Signup", new_user_registration_url  %></li>
+              <%= link_to "Signup", new_user_registration_path  %></li>
               <% end %>
-              
-              <% if controller.controller_name == "sessions" &&  
+
+              <% if controller.controller_name == "sessions" &&
               	controller.action_name == "new"%>
               	<li class="active">
               <% else %>
               	<li>
               <% end %>
-              <%= link_to "Login", new_user_session_url  %></li>
+              <%= link_to "Login", new_user_session_path  %></li>
 
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
-				
+
 		<!-- Image container -->
 		<div class="container-fluid">
 			<%= image_tag 'labtop_tall.jpg'%>
 		</div>
-		
+
 		<!-- MAIN BODY SECTION -->
     <div class="container-fluid">
       <div class="row-fluid">
@@ -117,12 +117,12 @@
       				<li>(615) 322-3171 (f)</li>
       			</ul>
       		</div>
-					
+
       		<div class="span4 widget">
       			<h5>Copyright & Credits</h5>
       			<p>&copy; Aronoff Labs 2013</p>
       			<p>Photo credit under Creative Commons license - Bill Dickinson</p>
-      		</div>      		      		      	
+      		</div>
       	</div>
 
       </footer>
@@ -146,6 +146,6 @@
         content_css : "/assets/tinymce_content.css",
         body_class: "tinymce_body",
       });
-    </script>	
+    </script>
   </body>
 </html>

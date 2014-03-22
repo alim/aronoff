@@ -1,4 +1,19 @@
 module ApplicationHelper
+  #####################################################################
+  # The active method is a helper function that returns "active" or
+  # empty string. It is used to set a CSS class to active for
+  # highlighting the active menu item.
+  #####################################################################
+  def active(path)
+    if (path == home_index_path && request.fullpath == '/') ||
+       (path == '/settings' && (request.fullpath =~ /^\/group/).present?) ||
+       (path == '/settings' && (request.fullpath =~ /^\/project/).present?) ||
+       (path == '/settings' && (request.fullpath =~ /^\/users\/edit/).present?) ||
+        request.fullpath =~ /^#{path}/
+      'active'
+    end
+  end
+
   ######################################################################
   # The selection_options method generates a selection list array based
   # on a hash that is pasted as the single parameter. The hash will
@@ -35,20 +50,21 @@ module ApplicationHelper
       options << [strain, strain]
     end
     return options
-  end  
+  end
 
   #####################################################################
   # The tag_options method returns an option_for_select object for
-  # all the tags currently in the system.
+  # all the tags currently in the system or associated with the object
+  # that is passed as the optional parameter.
   #####################################################################
-  def tag_options_list(tagged_object)
+  def tag_options_list(tagged_object=nil)
     tag_list = tag_options = []
     tag_list = Macrophage.tags + ImmuneResponse.tags
     tag_list.uniq!.sort!
     tag_list.each do |tag|
       tag_options << [tag, tag]
     end
-    selected_tags = tagged_object.tags.split(',') if tagged_object.tags.present?
+    selected_tags = tagged_object.tags.split(',') if tagged_object && tagged_object.tags.present?
     return options_for_select(tag_options, selected_tags)
   end
 
@@ -65,7 +81,7 @@ module ApplicationHelper
       end
     end
     html.html_safe
-  end  
+  end
 
   #####################################################################
   # The value_or_none helper method will print the value or a None

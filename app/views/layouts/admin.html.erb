@@ -51,48 +51,47 @@
           <ul class="well nav nav-list">
             <li class="nav-header">Main Menu</li>
 
-            <li <%= @admin_active %>>
-              <%= link_to '<i class="icon-home"></i> Dashboard'.html_safe, admin_url  %>
+            <li <%= "class=#{active(admin_path)}" %>>
+              <%= link_to '<i class="icon-home"></i> Dashboard'.html_safe, admin_path  %>
             </li>
 
             <!-- accordion menu for searches -->
-            <li <%= @search_active %>>
+            <li <%= "class=#{active('/search')}" %>>
               <a class="accordion-toggle" data-toggle="collapse" data-parent="  #accordion2" href="#collapseSearch">
                 <i class="icon-search"></i> Search<b class="icon-angle-down pull-right"></b></a>
             </li>
 
             <div id="collapseSearch" class="accordion-body collapse out">
               <ul class="accordion-inner nav nav-list">
-                <li <%= @search_bacteria %> >
+                <li <%= "class=#{active(search_bacteria_path)}" %> >
                   <%= link_to '<i class="icon-search"></i> Bacteria'.html_safe,
-                    search_bacteria_url %>
+                    search_bacteria_path %>
                 </li>
 
-                <li <%= @search_tags %> >
+                <li <%= "class=#{active(search_tags_path)}" %> >
                   <%= link_to '<i class="icon-search"></i> Tags'.html_safe,
-                    search_tags_url %>
+                    search_tags_path %>
                 </li>
 
-                <li <%= @search_user %> >
+                <li <%= "class=#{active(search_free_form_path)}" %> >
                   <%= link_to '<i class="icon-search"></i> Free Form'.html_safe,
-                    search_free_form_url %>
+                    search_free_form_path %>
                 </li>
               </ul>
             </div>
 
             <!-- end of search accordion menu -->
 
-            <li <%= @macrophage_active %>>
-              <%= link_to '<i class="icon-tasks"></i> Macrophage'.html_safe, macrophages_url  %>
+            <li <%= "class=#{active(macrophages_path)}" %>>
+              <%= link_to '<i class="icon-tasks"></i> Macrophage'.html_safe, macrophages_path  %>
             </li>
 
-            <li <%= @immune_active %>>
-              <%= link_to '<i class="icon-asterisk"></i> Immune Res.'.html_safe, immune_responses_url  %>
+            <li <%= "class=#{active(immune_responses_path)}" %>>
+              <%= link_to '<i class="icon-asterisk"></i> Immune Res.'.html_safe, immune_responses_path  %>
             </li>
 
             <!-- accordion menu item -->
-
-            <li <%= @settings_active %> >
+            <li <%= "class=#{active('/settings')}" %> >
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
                 <i class="icon-list-alt"></i> Settings <b class="icon-angle-down pull-right"></b></a>
             </li>
@@ -101,28 +100,28 @@
               <ul class="accordion-inner nav nav-list">
 
                 <!-- User account profile -->
-                <li <%= @account_active %> >
+                <li <%= "class=#{active(edit_user_registration_path)}" %> >
                   <%= link_to '<i class="icon-user"></i> Profile'.html_safe,
-                    edit_user_registration_url %>
+                    edit_user_registration_path %>
                 </li>
 
                 <!-- Projects -->
-                <li <%= @project_active %> >
+                <li <%= "class=#{active(projects_path)}" %> >
                   <%= link_to '<i class="icon-book"></i> Projects'.html_safe,
-                    projects_url %>
+                    projects_path %>
                 </li>
 
                 <!-- User groups -->
-                <li <%= @groups_active %>>
+                <li <%= "class=#{active(groups_path)}" %>>
                   <%= link_to '<i class="icon-th"></i> Groups'.html_safe,
-                    groups_url  %>
+                    groups_path  %>
                 </li>
 
                 <!-- Subscription -->
                 <% if ENV['SUBSCRIPTION_ENABLED'] =~ /true/i %>
-                  <li <%= @subscriptions_active %> >
+                  <li <%= "class=#{active(new_subscription_path)}" %> >
                     <%= link_to '<i class="icon-repeat"></i> Subscribe'.html_safe,
-                      new_subscription_url %>
+                      new_subscription_path %>
                   </li>
                 <% end %>
 
@@ -138,14 +137,14 @@
             <ul class="well nav nav-list">
               <li class="nav-header">Service Admin.</li>
 
-              <li <%= @users_active %> >
+              <li <%= "class=#{active(users_path)}" %> >
                 <%= link_to '<i class="icon-user"></i> Users'.html_safe,
-                  users_url %>
+                  users_path %>
               </li>
 
-              <li <%= @groups_active %> >
+              <li <%= "class=#{active(groups_path)}" %> >
                 <%= link_to '<i class="icon-th"></i> Groups'.html_safe,
-                  groups_url %>
+                  groups_path %>
               </li>
 
             </ul>
