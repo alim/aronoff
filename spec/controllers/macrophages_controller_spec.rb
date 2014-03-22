@@ -226,7 +226,7 @@ describe MacrophagesController do
 
       it "redirects to the created macrophage" do
         post :create, {:macrophage => valid_params}, valid_session
-        response.should redirect_to(Macrophage.last)
+        response.should redirect_to(assigns(:macrophage))
       end
 
       it "assigns the correct tags" do
@@ -238,7 +238,7 @@ describe MacrophagesController do
         tag_list = tags + ',tag99,tag100'
         post :create, {macrophage: valid_params, new_tags: 'tag99,tag100'}
         assigns(:macrophage).tags.should eq(tag_list)
-      end    
+      end
     end
 
     describe "with invalid params" do
