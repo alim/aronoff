@@ -2,8 +2,8 @@
   <h1>Search by Tags</h1>
   <p>
     You can search for experimental results by the tags that were
-    used in entering the result records. The results will be 
-    separated by result type and will be ordered by most recent 
+    used in entering the result records. The results will be
+    separated by result type and will be ordered by most recent
     results first.
   </p>
   <p>
@@ -14,7 +14,7 @@
   </p>
 </div>
 
-<%= form_tag(search_by_tags_url, method: "post", 
+<%= form_tag(search_by_tags_url, method: "post",
   class: "form-horizontal") do %>
   <div class="control-group">
     <label class="control-label">Tags Name: </label>
@@ -30,7 +30,7 @@
       &nbsp;
       Or search tags
       <%= radio_button_tag(:search_operator, :or) %>
-    </div> 
+    </div>
   </div>
 
   <div class='form-actions'>
