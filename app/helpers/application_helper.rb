@@ -6,6 +6,9 @@ module ApplicationHelper
   #####################################################################
   def active(path)
     if (path == home_index_path && request.fullpath == '/') ||
+       (path == '/settings' && (request.fullpath =~ /^\/group/).present?) ||
+       (path == '/settings' && (request.fullpath =~ /^\/project/).present?) ||
+       (path == '/settings' && (request.fullpath =~ /^\/users\/edit/).present?) ||
         request.fullpath =~ /^#{path}/
       'active'
     end

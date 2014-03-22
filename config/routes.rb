@@ -11,19 +11,17 @@ Aronoff::Application.routes.draw do
 
   resources :macrophages
 
-
   resources :subscriptions
 
-  namespace :settings do
-    resources :groups do
-    	# Route for notifying and re-invite
-  		member do
-  			put 'notify'
-  			put 'remove_member'
-  		end
-  	end
-    resources :projects
-  end
+  resources :groups do
+  	# Route for notifying and re-invite
+		member do
+			put 'notify'
+			put 'remove_member'
+		end
+	end
+
+  resources :projects
 
   devise_for :users
 
