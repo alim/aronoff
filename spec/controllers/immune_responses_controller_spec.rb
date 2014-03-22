@@ -206,7 +206,7 @@ describe ImmuneResponsesController do
 
       it "redirects to the created immune_response" do
         post :create, {immune_response: valid_attributes}
-        response.should redirect_to(ImmuneResponse.last)
+        response.should redirect_to(assigns(:immune_response))
       end
 
       it "assigns the correct tags" do
