@@ -22,6 +22,7 @@
 # SMTP_USER
 # SMTP_PASSWORD
 
+# TODO: Setup environment variable file for Openshift in OSO Operations
 
 # NOTE: You can setup variables by environment see Figaro documentation
 # for details - https://github.com/laserlemon/figaro
@@ -32,15 +33,20 @@ development:
   SMTP_DOMAIN: <%= ENV['SMTP_DOMAIN'] %>
   SMTP_USER: <%= ENV['SMTP_USER'] %>
   SMTP_PASSWORD: <%= ENV['SMTP_PASSWORD'] %>
-  
+
   ADMIN_FIRST_NAME: <%= ENV['ADMIN_FIRST_NAME'] %>
   ADMIN_LAST_NAME: <%= ENV['ADMIN_LAST_NAME'] %>
   ADMIN_PHONE: <%= ENV['ADMIN_PHONE'] %>
   ADMIN_EMAIL: <%= ENV['ADMIN_EMAIL'] %>
-  ADMIN_PASSWORD: <%= ENV['ADMIN_PASSWORD'] %> 
-  
+  ADMIN_PASSWORD: <%= ENV['ADMIN_PASSWORD'] %>
+
   API_KEY: <%= ENV['TEST_API_KEY'] %>
   PUB_KEY: <%= ENV['TEST_PUB_KEY'] %>
+
+  S3_BUCKET: aronoff_paperclip_dev
+  S3_ACCESS_KEY_ID:  <%= ENV['S3_ACCESS_KEY'] %>
+  S3_SECRET_ACCES_KEY: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
+
   SUBSCRIPTION_ENABLED: false
 
 test:
@@ -49,33 +55,41 @@ test:
   SMTP_DOMAIN: <%= ENV['SMTP_DOMAIN'] %>
   SMTP_USER: <%= ENV['SMTP_USER'] %>
   SMTP_PASSWORD: <%= ENV['SMTP_PASSWORD'] %>
-  
+
   ADMIN_FIRST_NAME: <%= ENV['ADMIN_FIRST_NAME'] %>
   ADMIN_LAST_NAME: <%= ENV['ADMIN_LAST_NAME'] %>
   ADMIN_PHONE: <%= ENV['ADMIN_PHONE'] %>
   ADMIN_EMAIL: <%= ENV['ADMIN_EMAIL'] %>
-  ADMIN_PASSWORD: <%= ENV['ADMIN_PASSWORD'] %> 
-  
+  ADMIN_PASSWORD: <%= ENV['ADMIN_PASSWORD'] %>
+
   API_KEY: <%= ENV['TEST_API_KEY'] %>
   PUB_KEY: <%= ENV['TEST_PUB_KEY'] %>
-  
+
+  S3_BUCKET: aronoff_paperclip_test
+  S3_ACCESS_KEY_ID:  <%= ENV['S3_ACCESS_KEY'] %>
+  S3_SECRET_ACCES_KEY: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
+
   SUBSCRIPTION_ENABLED: false
-  
+
 production:
   SMTP_HOST: <%= ENV['SMTP_HOST'] %>
   SMTP_PORT: <%= ENV['SMTP_PORT'] %>
   SMTP_DOMAIN: <%= ENV['SMTP_DOMAIN'] %>
   SMTP_USER: <%= ENV['SMTP_USER'] %>
   SMTP_PASSWORD: <%= ENV['SMTP_PASSWORD'] %>
-  
+
   ADMIN_FIRST_NAME: <%= ENV['ADMIN_FIRST_NAME'] %>
   ADMIN_LAST_NAME: <%= ENV['ADMIN_LAST_NAME'] %>
   ADMIN_PHONE: <%= ENV['ADMIN_PHONE'] %>
   ADMIN_EMAIL: <%= ENV['ADMIN_EMAIL'] %>
   ADMIN_PASSWORD: <%= ENV['ADMIN_PASSWORD'] %>
-  
+
   API_KEY: <%= ENV['PROD_API_KEY'] %>
   PUB_KEY: <%= ENV['PROD_PUB_KEY'] %>
-  
+
+  S3_BUCKET: aronoff_paperclip_prod
+  S3_ACCESS_KEY_ID:  <%= ENV['S3_ACCESS_KEY'] %>
+  S3_SECRET_ACCES_KEY: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
+
   SUBSCRIPTION_ENABLED: false
-  
+

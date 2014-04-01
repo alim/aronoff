@@ -27,4 +27,15 @@ describe ApplicationHelper do
       helper.active(admin_path).should be_nil
     end
   end
+
+  describe "#tag_options_list" do
+    # TODO: Add tag_options_list tests
+    it "should return a list of options" do
+
+    end
+
+    it "should return empty options if no tags" do
+
+    end
+  end
 end

@@ -43,7 +43,7 @@
 
   <dt><strong>Dose:</strong></dt>
   <dd>
-    <%= value_or_none(number_with_precision(@immune_response.dose, 
+    <%= value_or_none(number_with_precision(@immune_response.dose,
       precision: 4)) %>
   </dd>
 
@@ -73,7 +73,7 @@
 
   <dt><strong>Project ID:</strong></dt>
   <dd>
-    <% if @immune_response.project && @immune_response.projec.name %>
+    <% if @immune_response.project && @immune_response.project.name %>
       <%= @immune_response.project.name %>
     <% else %>
       None<br/>
@@ -86,7 +86,7 @@
   <dd>
     <% if @immune_response.raw_datafile.present? %>
       <%= link_to @immune_response.raw_datafile_file_name,
-        @immune_response.raw_datafile.url, class: 'btn btn-mini' %>
+        s3_download_immune_response_path(@immune_response), class: 'btn btn-mini' %>
     <% else %>
       None
     <% end %>
