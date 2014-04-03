@@ -173,6 +173,19 @@ class ImmuneResponse
   field :units, type: Integer
   field :notes, type: String
 
+  ## RELATIONSHIPS -----------------------------------------------------
+
+  belongs_to :user
+  belongs_to :project
+  has_mongoid_attached_file :raw_datafile,
+    storage: :s3,
+    s3_permissions: :private,
+    s3_credentials:  {
+      bucket: ENV['S3_BUCKET'],
+      access_key_id: ENV['S3_ACCESS_KEY_ID'],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY']
+    }
+
   ## VALIDATIONS -------------------------------------------------------
 
   validates_uniqueness_of :experiment_id
@@ -212,6 +225,8 @@ class ImmuneResponse
 
   validates_presence_of :user_id
 
+  validates_attachment :raw_datafile, size: { in: 0..10000.kilobytes }
+
   ## INDICES -----------------------------------------------------------
 
   index({strain_name: 1}, {unique: true, name: "strain_index" })
@@ -221,12 +236,6 @@ class ImmuneResponse
 
   scope :by_strain, ->(strain){ where(strain_name: /#{strain}/i).order_by([[:strain_name, :asc]]) }
   scope :by_experiment, ->(eid){ where(experiment_id: /#{eid}/i).order_by([[:experiment_id, :asc]]) }
-
-  ## RELATIONSHIPS -----------------------------------------------------
-
-  belongs_to :user
-  belongs_to :project
-  has_mongoid_attached_file :raw_datafile
 
   ## PUBLIC INSTANCE METHODS -------------------------------------------
 

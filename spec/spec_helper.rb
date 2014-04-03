@@ -56,4 +56,7 @@ RSpec.configure do |config|
   config.before :each do
     Mongoid.purge!
   end
+
+  # Setup for FactoryGirl shortened syntax
+  config.include FactoryGirl::Syntax::Methods
 end
