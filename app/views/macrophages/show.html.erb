@@ -10,7 +10,7 @@
 <%= render partial: 'shared/flash', locals: { flash: flash } %>
 
 <dl class="dl-horizontal">
-  
+
   <dt><strong>Experiment ID:</strong></dt>
   <dd><strong>
     <%= value_or_none(@macrophage.experiment_id) %>
@@ -21,30 +21,30 @@
     <%= value_or_none(@macrophage.strain_name) %>
   </strong></dd>
   <br/>
-    
+
   <dt><strong>Macrophage Type:</strong></dt>
   <dd><%= value_or_none(@macrophage.macrophage_type_str) %></dd>
-  
+
   <dt><strong>Treatment:</strong></dt>
   <dd><%= value_or_none(@macrophage.treatment_str) %></dd>
-  
+
   <dt><strong>Dose:</strong></dt>
   <dd><%= value_or_none(@macrophage.dosage_str) %></dd>
-  
+
   <dt><strong>Data Type:</strong></dt>
   <dd>
     <%= value_or_none(@macrophage.datatype_str) %>
-  </dd>  
-  
+  </dd>
+
   <dt><strong>Data:</strong></dt>
   <dd>
-    <%= value_or_none(number_with_precision(@macrophage.data, 
+    <%= value_or_none(number_with_precision(@macrophage.data,
       precision: 3)) %>
   </dd>
 
   <dt><strong>Notes:</strong></dt>
   <dd><%= value_or_none(@macrophage.notes) %></dd>
-  
+
   <dt><strong>Tags:</strong></dt>
   <dd><%= value_or_none(tag_labels(@macrophage.tags_array)) %></dd>
 
@@ -57,7 +57,7 @@
       None
     <% end %>
   </dd>
-  
+
   <dt><strong>Project ID:</strong></dt>
   <dd>
     <% if @macrophage.project && @macrophage.project.name %>
@@ -66,13 +66,13 @@
       None<br/>
     <% end %>
   </dd>
-  
+
   <br/>
   <dt><strong>Data File: </strong></dt>
   <dd>
     <% if @macrophage.raw_datafile.present? %>
-      <%= link_to @macrophage.raw_datafile_file_name, 
-        @macrophage.raw_datafile.url, class: 'btn btn-mini' %>
+      <%= link_to @macrophage.raw_datafile_file_name,
+         s3_download_macrophage_path(@macrophage), class: 'btn btn-mini' %>
     <% else %>
       None
     <% end %>

@@ -27,4 +27,32 @@ describe ApplicationHelper do
       helper.active(admin_path).should be_nil
     end
   end
+
+  describe "#tag_options_list" do
+    before(:each){
+      user = create :user
+      @immune = create(:immune_response, user: user)
+      @macrophage = create(:macrophage, user: user)
+    }
+
+    it "should return a list of options " do
+      helper.tag_options_list.should == options_for_select((@immune.tags.split(',') +
+        @macrophage.tags.split(',')).uniq.sort)
+    end
+
+    it "should return empty options if no tags" do
+      @immune.tags = nil
+      @immune.save
+      @macrophage.tags = nil
+      @macrophage.save
+      helper.tag_options_list.should == options_for_select([])
+    end
+
+    it "should set selected tags" do
+      tag = @immune.tags.split(',').first
+      @macrophage.tags = tag
+      @macrophage.save
+      helper.tag_options_list(@macrophage).should include "<option selected=\"selected\" value=\"#{tag}\">#{tag}</option>"
+    end
+  end
 end

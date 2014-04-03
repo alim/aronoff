@@ -10,7 +10,7 @@ class ImmuneResponsesController < ApplicationController
 
   ## CALLBACKS ---------------------------------------------------------
   before_filter :authenticate_user!
-  before_action :set_immune_response, only: [:show, :edit, :update, :destroy]
+  before_action :set_immune_response, only: [:show, :edit, :update, :destroy, :s3_download]
 
   ######################################################################
   # GET /immune_responses
@@ -130,7 +130,7 @@ class ImmuneResponsesController < ApplicationController
   def create
     @immune_response = ImmuneResponse.new(immune_response_params)
     @immune_response.user = current_user if @immune_response.user.nil?
-    @immune_response.tags = process_tags(params[:immune_response][:tags], 
+    @immune_response.tags = process_tags(params[:immune_response][:tags],
       params[:new_tags])
 
     respond_to do |format|
@@ -155,7 +155,7 @@ class ImmuneResponsesController < ApplicationController
   ######################################################################
   def update
     @immune_response.user = current_user if @immune_response.user.nil?
-    @immune_response.tags = process_tags(params[:immune_response][:tags], 
+    @immune_response.tags = process_tags(params[:immune_response][:tags],
       params[:new_tags])
 
     respond_to do |format|
@@ -184,6 +184,16 @@ class ImmuneResponsesController < ApplicationController
     end
   end
 
+  ######################################################################
+  # GET /s3_download
+  #
+  # This helper action sets an expiring download url from S3.
+  ######################################################################
+  def s3_download
+    redirect_to @immune_response.raw_datafile.expiring_url(10)
+  end
+
+
   ## PRIVATE INSTANCE METHODS ------------------------------------------
 
   private
@@ -202,6 +212,6 @@ class ImmuneResponsesController < ApplicationController
       params.require(:immune_response).permit(:experiment_id,
         :strain_name, :cell_type, :model, :compartment,
         :time_point, :moi, :strain_status, :treatment,
-        :result, :units, :cyto_chemo_kine, :tags)
+        :result, :units, :cyto_chemo_kine, :raw_datafile, :project_id, :tags)
     end
 end

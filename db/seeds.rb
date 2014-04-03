@@ -12,10 +12,16 @@
 #  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
 #  puts 'role: ' << role
 # end
-puts 'DEFAULT USERS'
-user = User.find_or_create_by first_name: ENV['ADMIN_FIRST_NAME'].dup, 
-  last_name: ENV['ADMIN_LAST_NAME'].dup, phone: ENV['ADMIN_PHONE'].dup,
-	email: ENV['ADMIN_EMAIL'].dup, password: ENV['ADMIN_PASSWORD'].dup, 
-	password_confirmation: ENV['ADMIN_PASSWORD'].dup, role: User::SERVICE_ADMIN
-puts 'user: ' << user.email
-# user.add_role :admin
+puts 'Seeding default user accounts:'
+
+admin_user = User.find_or_create_by(email: ENV['ADMIN_EMAIL'].dup)
+admin_user.first_name = ENV['ADMIN_FIRST_NAME'].dup
+admin_user.last_name = ENV['ADMIN_LAST_NAME'].dup
+admin_user.phone = ENV['ADMIN_PHONE'].dup
+admin_user.password = ENV['ADMIN_PASSWORD'].dup
+admin_user.password_confirmation = ENV['ADMIN_PASSWORD'].dup
+admin_user.role = User::SERVICE_ADMIN
+admin_user.save
+
+puts "\tAdmin user: #{admin_user.email}"
+puts "\tAdmin user errors: #{admin_user.errors.messages}" if admin_user.errors

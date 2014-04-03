@@ -6,8 +6,7 @@ class MacrophagesController < ApplicationController
 
   ## CALLBACKS ---------------------------------------------------------
   before_filter :authenticate_user!
-  before_action :set_macrophage, only: [:show, :edit, :update, :destroy]
-  before_action :set_macrophage_class
+  before_action :set_macrophage, only: [:show, :edit, :update, :destroy, :s3_download]
 
   ######################################################################
   # GET /macrophages
@@ -116,7 +115,7 @@ class MacrophagesController < ApplicationController
   def create
     @macrophage = Macrophage.new(macrophage_params)
     @macrophage.user = current_user if @macrophage.user.nil?
-    @macrophage.tags = process_tags(params[:macrophage][:tags], 
+    @macrophage.tags = process_tags(params[:macrophage][:tags],
       params[:new_tags])
 
     respond_to do |format|
@@ -137,9 +136,9 @@ class MacrophagesController < ApplicationController
   ######################################################################
   def update
     @macrophage.user = current_user if @macrophage.user.nil?
-    @macrophage.tags = process_tags(params[:macrophage][:tags], 
+    @macrophage.tags = process_tags(params[:macrophage][:tags],
       params[:new_tags])
-    
+
     respond_to do |format|
       if @macrophage.update(macrophage_params)
         format.html { redirect_to @macrophage, notice: 'Macrophage was successfully updated.' }
@@ -164,6 +163,15 @@ class MacrophagesController < ApplicationController
     end
   end
 
+  ######################################################################
+  # GET /s3_download
+  #
+  # This helper action sets an expiring download url from S3.
+  ######################################################################
+  def s3_download
+    redirect_to @macrophage.raw_datafile.expiring_url(10)
+  end
+
   ## PRIVATE INSTANCE METHODS ------------------------------------------
 
   private
@@ -176,20 +184,12 @@ class MacrophagesController < ApplicationController
     end
 
     ####################################################################
-    # The set_macrophage_class method sets a CSS class variable for
-    # views that need to activate/highlight a menu item.
-    ####################################################################
-    def set_macrophage_class
-      @macrophage_active = "class=active"
-    end
-
-    ####################################################################
     # Never trust parameters from the scary internet, only allow the white list through.
     ####################################################################
     def macrophage_params
       params.require(:macrophage).permit(:strain_name, :experiment_id,
         :macrophage_type, :treatment, :dose, :data, :data_type, :notes,
-        :raw_datafile, :project_id)
+        :raw_datafile, :project_id, :tags)
     end
 
     ####################################################################
