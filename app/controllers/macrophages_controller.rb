@@ -7,7 +7,6 @@ class MacrophagesController < ApplicationController
   ## CALLBACKS ---------------------------------------------------------
   before_filter :authenticate_user!
   before_action :set_macrophage, only: [:show, :edit, :update, :destroy, :s3_download]
-  before_action :set_macrophage_class
 
   ######################################################################
   # GET /macrophages
@@ -182,14 +181,6 @@ class MacrophagesController < ApplicationController
     ####################################################################
     def set_macrophage
       @macrophage = Macrophage.find(params[:id])
-    end
-
-    ####################################################################
-    # The set_macrophage_class method sets a CSS class variable for
-    # views that need to activate/highlight a menu item.
-    ####################################################################
-    def set_macrophage_class
-      @macrophage_active = "class=active"
     end
 
     ####################################################################

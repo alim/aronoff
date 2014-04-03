@@ -60,11 +60,14 @@ module ApplicationHelper
   def tag_options_list(tagged_object=nil)
     tag_list = tag_options = []
     tag_list = Macrophage.tags + ImmuneResponse.tags
-    tag_list.uniq!.sort! unless tag_list.empty?
+    tag_list.uniq!
+    tag_list.sort!
+
     tag_list.each do |tag|
       tag_options << [tag, tag]
     end
     selected_tags = tagged_object.tags.split(',') if tagged_object && tagged_object.tags.present?
+
     return options_for_select(tag_options, selected_tags)
   end
 
