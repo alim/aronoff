@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+
+  # Setup SSL for production environment. This should work for Openshift
+  # and other PaaS that natively support SSL/HTTPS
+  force_ssl if Rails.env.production?
+
   # Include module for displaying alert messages
   include Oops
 
@@ -6,19 +11,19 @@ class ApplicationController < ActionController::Base
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: :missing_document
   rescue_from CanCan::AccessDenied, with: :access_denied
-  
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  
+
   layout :layout_by_resource
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   before_filter :set_menu_active
-  
+
   ## CONSTANTS ---------------------------------------------------------
-  
+
   PAGE_COUNT = 10
 
   ## INSTANCE METHODS --------------------------------------------------
@@ -29,7 +34,7 @@ class ApplicationController < ActionController::Base
   ######################################################################
   def after_sign_out_path_for(resource)
     root_url
-  end  
+  end
 
   ######################################################################
   # The after_sign_in_path_for method will check to see if there the
@@ -37,7 +42,7 @@ class ApplicationController < ActionController::Base
   # redirected to the edit page for the user information.
   #####################################################################
   def after_sign_in_path_for(resource)
-    if resource.is_a?(User) && (resource.first_name == '*None*' || 
+    if resource.is_a?(User) && (resource.first_name == '*None*' ||
       resource.last_name == '*None*')
       edit_user_registration_path
     else
@@ -45,7 +50,7 @@ class ApplicationController < ActionController::Base
       admin_url
     end
   end
-  
+
   ######################################################################
   # This before_filter method is responsible for setting a menu item
   # to active. We can add multiple check blocks to determine which
@@ -53,15 +58,15 @@ class ApplicationController < ActionController::Base
   # variable for toggling the a CSS class to active.
   ######################################################################
   def set_menu_active
-    if self.is_a?(Devise::RegistrationsController) && user_signed_in? && 
+    if self.is_a?(Devise::RegistrationsController) && user_signed_in? &&
       params[:action] == 'edit'
-      @account_active="class=active" 
+      @account_active="class=active"
     end
   end
 
   #####################################################################
   # The process_tags method is a controller helper method to combine
-  # an array of text string tags with a string of comma separated 
+  # an array of text string tags with a string of comma separated
   #####################################################################
   def process_tags(tag_array, new_tags_string)
     if tag_array
@@ -75,7 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   ## PROTECTED METHODS -------------------------------------------------
-  
+
   protected
 
   ######################################################################
@@ -107,7 +112,7 @@ class ApplicationController < ActionController::Base
       "admin"
     end
   end
-  
+
   ######################################################################
   # The access_denied method is the controller method for catching
   # a CanCan exception for an unauthorized action. The user will be
@@ -117,8 +122,8 @@ class ApplicationController < ActionController::Base
     msg = "You are not authorized to access the requested #{exception.subject.class}."
     display_alert(message: msg, target: Oops::ADMIN)
   end
-  
-  
+
+
   ######################################################################
   # The missing_document method is the controller method for catching
   # a Mongoid Mongoid::Errors::DocumentNotFound exception across all
@@ -127,5 +132,5 @@ class ApplicationController < ActionController::Base
   def missing_document(exception)
     msg = "We are unable to find the requested #{exception.klass} - ID ##{exception.params[0]}"
     display_alert(message: msg, target: Oops::ADMIN)
-  end  
+  end
 end
