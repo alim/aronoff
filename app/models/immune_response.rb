@@ -226,6 +226,7 @@ class ImmuneResponse
   validates_presence_of :user_id
 
   validates_attachment :raw_datafile, size: { in: 0..10000.kilobytes }
+  do_not_validate_attachment_file_type :raw_datafile
 
   ## INDICES -----------------------------------------------------------
 
