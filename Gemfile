@@ -64,7 +64,7 @@ group :test, :development do
   gem "turnip"
   gem "capybara"
   gem 'pry-nav'
-  gem 'pry-rails', :group => :development  
+  gem 'pry-rails', :group => :development
 end
 
 # This needs to be installed so we can run Rails console on OpenShift directly
