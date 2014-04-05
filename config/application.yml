@@ -14,7 +14,7 @@ development:
   API_KEY: <%= ENV['TEST_API_KEY'] %>
   PUB_KEY: <%= ENV['TEST_PUB_KEY'] %>
 
-  S3_BUCKET: aronoff_paperclip_dev.s3-website-us-east-1.amazonaws.com
+  S3_BUCKET: aronoff_paperclip_dev
   S3_ACCESS_KEY_ID:  <%= ENV['S3_ACCESS_KEY'] %>
   S3_SECRET_ACCES_KEY: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
 
@@ -36,7 +36,7 @@ test:
   API_KEY: <%= ENV['TEST_API_KEY'] %>
   PUB_KEY: <%= ENV['TEST_PUB_KEY'] %>
 
-  S3_BUCKET: aronoff_paperclip_test.s3-website-us-east-1.amazonaws.com
+  S3_BUCKET: aronoff_paperclip_test
   S3_ACCESS_KEY_ID:  <%= ENV['S3_ACCESS_KEY'] %>
   S3_SECRET_ACCES_KEY: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
 
@@ -58,7 +58,7 @@ production:
   API_KEY: <%= ENV['PROD_API_KEY'] %>
   PUB_KEY: <%= ENV['PROD_PUB_KEY'] %>
 
-  S3_BUCKET: aronoff_paperclip_prod.s3-website-us-east-1.amazonaws.com
+  S3_BUCKET: aronoff_paperclip_prod
   S3_ACCESS_KEY_ID:  <%= ENV['S3_ACCESS_KEY'] %>
   S3_SECRET_ACCES_KEY: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
 
