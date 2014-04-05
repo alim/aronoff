@@ -17,6 +17,8 @@ env:
   - CONTACT_SUBJECT='New Contact Request'
   - GROUP_FROM_EMAIL="no-reply-mailbox@example.com"
   - GROUP_EMAIL_SUBJECT="Group Membership Notification"
+  - secure: E9mwJ4E95deUbMjm62uRfyHbM/uaCszKVsIKSnJqX3Z9KlOYKVKz3avfRi6vE7NxZTPTuTTUD167u3ILONQzg8a1szjaxF7VlMJesKcTom8REU89PgIcGIrDJMDicZ3ecxEeULffFENgKBNAsanSHLDPX4XkzNKn4+c0irQNCjg=
+  - secure: NiIBM5qDLPftSemhcUk6anZ6Ssj6NIZYia+7CY5SmqvL0q4b97arzOf8HX4TxhDRyNYtOKppg8St+tf2GRK6tDBD0VM2Ow8wP38gJEiGV/400qFZjiqkwyNaoK0TGLEmnykOp5+dsbTpJ4C+WxMWv2QWXMDNTjwoDQDUhLMLsqY=
 branches:
   only:
   - master
