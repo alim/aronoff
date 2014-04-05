@@ -6,6 +6,9 @@ describe ImmuneResponsesController do
   # Test setup ---------------------------------------------------------
 
   let(:tags){'tag1,tag2,tag3,tag4,tag5'}
+  let(:file) {
+    fixture_file_upload('spec/fixtures/test_doc.pdf', 'application/pdf')
+  }
 
   let(:valid_attributes){
     {
@@ -23,7 +26,8 @@ describe ImmuneResponsesController do
       cyto_chemo_kine: ImmuneResponse::TNFA,
       units: ImmuneResponse::UG_ML,
       notes: 'Sample notes for testing',
-      tags: tags.split
+      tags: tags.split,
+      raw_datafile: file
     }
   }
 
@@ -246,6 +250,28 @@ describe ImmuneResponsesController do
         assigns(:verrors)[0].should match(/Treatment/)
       end
     end
+
+    describe "file upload examples" do
+      it "should allow attaching a pdf file" do
+        post :create, immune_response: valid_attributes
+        response.should redirect_to(assigns(:immune_response))
+      end
+
+      it "should upload file and set file name attribute" do
+        post :create, immune_response: valid_attributes
+        assigns(:immune_response).raw_datafile_file_name.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file url attribute" do
+        post :create, immune_response: valid_attributes
+        assigns(:immune_response).raw_datafile.url.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file content_type attribute" do
+        post :create, immune_response: valid_attributes
+        assigns(:immune_response).raw_datafile_content_type.should match(/pdf/)
+      end
+    end
   end
 
   ## UPDATE TESTS ------------------------------------------------------
@@ -290,6 +316,28 @@ describe ImmuneResponsesController do
         put :update, {id: @immune_response.to_param, immune_response:
           { "experiment_id" => "invalid value" }}
         response.should render_template("edit")
+      end
+    end
+
+    describe "file upload examples" do
+      it "should allow attaching a pdf file" do
+        put :update, {id: @immune_response.to_param, immune_response: { raw_datafile: file }}
+        response.should redirect_to(assigns(:immune_response))
+      end
+
+      it "should upload file and set file name attribute" do
+        put :update, {id: @immune_response.to_param, immune_response: { raw_datafile: file }}
+        assigns(:immune_response).raw_datafile_file_name.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file url attribute" do
+        put :update, {id: @immune_response.to_param, immune_response: { raw_datafile: file }}
+        assigns(:immune_response).raw_datafile.url.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file content_type attribute" do
+        put :update, {id: @immune_response.to_param, immune_response: { raw_datafile: file }}
+        assigns(:immune_response).raw_datafile_content_type.should match(/pdf/)
       end
     end
   end
