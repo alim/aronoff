@@ -92,14 +92,7 @@ class Macrophage
 
   belongs_to :user
   belongs_to :project
-  has_mongoid_attached_file :raw_datafile,
-    storage: :s3,
-    s3_permissions: :private,
-    s3_credentials:  {
-      bucket: ENV['S3_BUCKET'],
-      access_key_id: ENV['S3_ACCESS_KEY_ID'],
-      secret_access_key: ENV['S3_SECRET_ACCESS_KEY']
-    }
+  has_mongoid_attached_file :raw_datafile
 
   ## VALIDATIONS -------------------------------------------------------
 
@@ -113,6 +106,7 @@ class Macrophage
   validates_presence_of :data_type
   validates_presence_of :user_id
   validates_attachment :raw_datafile, size: { in: 0..10000.kilobytes }
+  do_not_validate_attachment_file_type :raw_datafile
 
   ## INDICES -----------------------------------------------------------
 

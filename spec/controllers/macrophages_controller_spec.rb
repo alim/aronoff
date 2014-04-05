@@ -10,6 +10,10 @@ describe MacrophagesController do
 
   ## TEST SETUP --------------------------------------------------------
   let(:tags) {'tag1,tag2,tag3,tag4'}
+  let(:file) {
+    fixture_file_upload('spec/fixtures/test_doc.pdf', 'application/pdf')
+  }
+
   let(:valid_params){
     {
       strain_name: 'Ecoli-12341234',
@@ -20,7 +24,8 @@ describe MacrophagesController do
       data: 12341234.11,
       data_type: Macrophage::NUM_PER_THP1_CELL,
       notes: "Controller testing parameter for notes",
-      tags: tags.split
+      tags: tags.split,
+      raw_datafile: file
     }
   }
 
@@ -266,6 +271,28 @@ describe MacrophagesController do
         response.should render_template("new")
       end
     end
+
+    describe "file upload examples" do
+      it "should allow attaching a pdf file" do
+        post :create, macrophage: valid_params
+        response.should redirect_to(assigns(:macrophage))
+      end
+
+      it "should upload file and set file name attribute" do
+        post :create, macrophage: valid_params
+        assigns(:macrophage).raw_datafile_file_name.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file url attribute" do
+        post :create, macrophage: valid_params
+        assigns(:macrophage).raw_datafile.url.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file content_type attribute" do
+        post :create, macrophage: valid_params
+        assigns(:macrophage).raw_datafile_content_type.should match(/pdf/)
+      end
+    end
   end
 
   # UPDATE TESTS -------------------------------------------------------
@@ -308,6 +335,28 @@ describe MacrophagesController do
         Macrophage.any_instance.stub(:save).and_return(false)
         put :update, {id: @macrophage.to_param, macrophage: @invalid_params}, valid_session
         response.should render_template("edit")
+      end
+    end
+
+    describe "file upload examples" do
+      it "should allow attaching a pdf file" do
+        put :update, {id: @macrophage.to_param, macrophage: { raw_datafile: file }}
+        response.should redirect_to(assigns(:macrophage))
+      end
+
+      it "should upload file and set file name attribute" do
+        put :update, {id: @macrophage.to_param, macrophage: { raw_datafile: file }}
+        assigns(:macrophage).raw_datafile_file_name.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file url attribute" do
+        put :update, {id: @macrophage.to_param, macrophage: { raw_datafile: file }}
+        assigns(:macrophage).raw_datafile.url.should match(/test_doc.pdf/)
+      end
+
+      it "should upload file and set file content_type attribute" do
+        put :update, {id: @macrophage.to_param, macrophage: { raw_datafile: file }}
+        assigns(:macrophage).raw_datafile_content_type.should match(/pdf/)
       end
     end
   end

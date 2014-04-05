@@ -24,13 +24,6 @@ class Project
   field :name, type: String
   field :description, type: String
 
-
-  ## VALIDATIONS -------------------------------------------------------
-
-  validates_presence_of :name
-  validates_presence_of :description
-  validates_presence_of :user_id
-
   ## RELATIONSHIPS -----------------------------------------------------
 
   belongs_to :user
@@ -38,6 +31,14 @@ class Project
   has_many :immune_responses
   has_and_belongs_to_many :groups
   has_mongoid_attached_file :charter_doc
+
+  ## VALIDATIONS -------------------------------------------------------
+
+  validates_presence_of :name
+  validates_presence_of :description
+  validates_presence_of :user_id
+  validates_attachment :charter_doc, size: { in: 0..10000.kilobytes }
+  do_not_validate_attachment_file_type :charter_doc
 
   ## GROUP METHOD INJECTION --------------------------------------------
 
