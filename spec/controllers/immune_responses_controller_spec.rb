@@ -215,13 +215,13 @@ describe ImmuneResponsesController do
 
       it "assigns the correct tags" do
         post :create, {immune_response: valid_attributes}
-        assigns(:immune_response).tags.should eq(tags)
+        assigns(:immune_response).tags.should eq(tags.split(','))
       end
 
       it "assings both existing and new tags" do
         tag_list = tags + ',tag99,tag100'
         post :create, {immune_response: valid_attributes, new_tags: 'tag99,tag100'}
-        assigns(:immune_response).tags.should eq(tag_list)
+        assigns(:immune_response).tags.should eq(tag_list.split(','))
       end
     end
 

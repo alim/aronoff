@@ -64,6 +64,8 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-active">#active</a>
+    
     <li><a href="#method-i-selection_options">#selection_options</a>
     
     <li><a href="#method-i-strain_name_options">#strain_name_options</a>
@@ -202,6 +204,44 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-active" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">active</span><span
+            class="method-args">(path)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The active method is a helper function that returns “active” or empty
+string. It is used to set a CSS class to active for highlighting the active
+menu item.</p>
+          
+
+          
+          <div class="method-source-code" id="active-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">active</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">home_index_path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">==</span> <span class="ruby-string">'/'</span>) <span class="ruby-operator">||</span>
+     (<span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-string">'/settings'</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/group/</span>).<span class="ruby-identifier">present?</span>) <span class="ruby-operator">||</span>
+     (<span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-string">'/settings'</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/project/</span>).<span class="ruby-identifier">present?</span>) <span class="ruby-operator">||</span>
+     (<span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-string">'/settings'</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/users\/edit/</span>).<span class="ruby-identifier">present?</span>) <span class="ruby-operator">||</span>
+      <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^#{path}/</span>
+    <span class="ruby-string">'active'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- active-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- active-method -->
+
+    
       <div id="method-i-selection_options" class="method-detail ">
         
         <div class="method-heading">
@@ -222,7 +262,7 @@ the id.</p>
 
           
           <div class="method-source-code" id="selection_options-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">selection_options</span>(<span class="ruby-identifier">selection_hash</span>)
   <span class="ruby-identifier">options</span> = []
   <span class="ruby-identifier">selection_hash</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">label</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">|</span>
@@ -260,7 +300,7 @@ ActiveResource.</p>
 
           
           <div class="method-source-code" id="strain_name_options-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 20</span>
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">strain_name_options</span>
   <span class="ruby-identifier">gbs_strains</span> = [
     <span class="ruby-string">'A909'</span>, <span class="ruby-string">'GB1007'</span>, <span class="ruby-string">'GB112'</span>, <span class="ruby-string">'GB115'</span>, <span class="ruby-string">'GB12'</span>, <span class="ruby-string">'GB13'</span>,
@@ -308,7 +348,7 @@ wraps the elements in button CSS code.</p>
 
           
           <div class="method-source-code" id="tag_labels-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 59</span>
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">tag_labels</span>(<span class="ruby-identifier">tags</span>)
   <span class="ruby-identifier">html</span> = <span class="ruby-string">''</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">present?</span>
@@ -332,7 +372,7 @@ wraps the elements in button CSS code.</p>
         
         <div class="method-heading">
           <span class="method-name">tag_options_list</span><span
-            class="method-args">()</span>
+            class="method-args">(tagged_object=nil)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -340,20 +380,25 @@ wraps the elements in button CSS code.</p>
         <div class="method-description">
           
           <p>The tag_options method returns an option_for_select object for all the tags
-currently in the system.</p>
+currently in the system or associated with the object that is passed as the
+optional parameter.</p>
           
 
           
           <div class="method-source-code" id="tag_options_list-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">tag_options_list</span>
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tag_options_list</span>(<span class="ruby-identifier">tagged_object</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">tag_list</span> = <span class="ruby-identifier">tag_options</span> = []
-  <span class="ruby-identifier">tag_list</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">tags</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">tags</span>
-  <span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">uniq!</span>.<span class="ruby-identifier">sort!</span>
+  <span class="ruby-identifier">tag_list</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">all_tags</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">all_tags</span>
+  <span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">uniq!</span>
+  <span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">sort!</span>
+
   <span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">tag_options</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">tag</span>, <span class="ruby-identifier">tag</span>]
   <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">tag_options</span>)
+  <span class="ruby-identifier">selected_tags</span> = <span class="ruby-identifier">tagged_object</span>.<span class="ruby-identifier">tags</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tagged_object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">tagged_object</span>.<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">present?</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">tag_options</span>, <span class="ruby-identifier">selected_tags</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- tag_options_list-source -->
           
@@ -384,7 +429,7 @@ helper method will print the value or a None string followed by a
 
           
           <div class="method-source-code" id="value_or_none-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 74</span>
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">value_or_none</span>(<span class="ruby-identifier">value</span>)
   <span class="ruby-identifier">html</span> = <span class="ruby-string">''</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">present?</span>

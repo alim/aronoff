@@ -258,7 +258,7 @@ unauthorized action. The user will be redirected to the admin_oops_url</p>
 
           
           <div class="method-source-code" id="access_denied-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 111</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">access_denied</span>(<span class="ruby-identifier">exception</span>)
   <span class="ruby-identifier">msg</span> = <span class="ruby-node">&quot;You are not authorized to access the requested #{exception.subject.class}.&quot;</span>
   <span class="ruby-identifier">display_alert</span>(<span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">target</span><span class="ruby-operator">:</span> <span class="ruby-constant">Oops</span><span class="ruby-operator">::</span><span class="ruby-constant">ADMIN</span>)
@@ -293,9 +293,9 @@ information.</p>
 
           
           <div class="method-source-code" id="after_sign_in_path_for-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 34</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">after_sign_in_path_for</span>(<span class="ruby-identifier">resource</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">User</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">resource</span>.<span class="ruby-identifier">first_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'*None*'</span> <span class="ruby-operator">||</span> 
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">User</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">resource</span>.<span class="ruby-identifier">first_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'*None*'</span> <span class="ruby-operator">||</span>
     <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">last_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'*None*'</span>)
     <span class="ruby-identifier">edit_user_registration_path</span>
   <span class="ruby-keyword">else</span>
@@ -330,7 +330,7 @@ have signed out the system.</p>
 
           
           <div class="method-source-code" id="after_sign_out_path_for-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">after_sign_out_path_for</span>(<span class="ruby-identifier">resource</span>)
   <span class="ruby-identifier">root_url</span>
 <span class="ruby-keyword">end</span></pre>
@@ -362,7 +362,7 @@ href="README_rdoc.html">README</a> file for more details.</p>
 
           
           <div class="method-source-code" id="configure_permitted_parameters-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 81</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">configure_permitted_parameters</span>
   <span class="ruby-identifier">devise_parameter_sanitizer</span>.<span class="ruby-identifier">for</span>(<span class="ruby-value">:account_update</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">permit</span>(
     <span class="ruby-value">:email</span>, <span class="ruby-value">:password</span>, <span class="ruby-value">:password_confirmation</span>, <span class="ruby-value">:current_password</span>,
@@ -400,7 +400,7 @@ use.</p>
 
           
           <div class="method-source-code" id="layout_by_resource-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 96</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">layout_by_resource</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">HomeController</span>)
     <span class="ruby-string">&quot;home&quot;</span>
@@ -440,7 +440,7 @@ Mongoid::Errors::DocumentNotFound exception across all controller actions.
 
           
           <div class="method-source-code" id="missing_document-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 122</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">missing_document</span>(<span class="ruby-identifier">exception</span>)
   <span class="ruby-identifier">msg</span> = <span class="ruby-node">&quot;We are unable to find the requested #{exception.klass} - ID ##{exception.params[0]}&quot;</span>
   <span class="ruby-identifier">display_alert</span>(<span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">target</span><span class="ruby-operator">:</span> <span class="ruby-constant">Oops</span><span class="ruby-operator">::</span><span class="ruby-constant">ADMIN</span>)
@@ -474,7 +474,7 @@ tags with a string of comma separated</p>
 
           
           <div class="method-source-code" id="process_tags-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 61</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">tag_array</span>, <span class="ruby-identifier">new_tags_string</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">tag_array</span>
     <span class="ruby-identifier">str</span> = <span class="ruby-string">''</span>
@@ -514,11 +514,11 @@ CSS class to active.</p>
 
           
           <div class="method-source-code" id="set_menu_active-source">
-            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 50</span>
+            <pre><span class="ruby-comment"># File app/controllers/application_controller.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_menu_active</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Devise</span><span class="ruby-operator">::</span><span class="ruby-constant">RegistrationsController</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span> 
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Devise</span><span class="ruby-operator">::</span><span class="ruby-constant">RegistrationsController</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user_signed_in?</span> <span class="ruby-operator">&amp;&amp;</span>
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'edit'</span>
-    <span class="ruby-ivar">@account_active</span>=<span class="ruby-string">&quot;class=active&quot;</span> 
+    <span class="ruby-ivar">@account_active</span>=<span class="ruby-string">&quot;class=active&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- set_menu_active-source -->

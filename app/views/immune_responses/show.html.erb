@@ -8,6 +8,8 @@
   </p>
 </div>
 
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
+
 <dl class="dl-horizontal">
   <dt><strong>Experiment ID:</strong></dt>
   <dd><strong><%= @immune_response.experiment_id %></strong></dd>
@@ -61,7 +63,7 @@
 
   <dt><strong>Tags:</strong></dt>
   <dd>
-    <%= value_or_none(tag_labels(@immune_response.tags_array)) %>
+    <%= value_or_none(tag_labels(@immune_response.tags)) %>
   </dd>
 
   <br/>

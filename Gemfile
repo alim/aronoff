@@ -34,7 +34,8 @@ end
 # Mongodb support - using master, since 3.0.5 does not support Rails 4
 gem 'mongoid', "~> 4.0", git: 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
-gem 'mongoid_taggable'
+#gem 'mongoid_taggable'
+gem 'mongoid-tags-arent-hard'
 
 # UI Related Gems
 gem 'twitter-bootstrap-rails', '~> 2.2.0'

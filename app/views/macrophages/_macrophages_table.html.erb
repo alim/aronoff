@@ -13,7 +13,7 @@
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-  
+
   <tbody>
     <% macrophages.each do |macrophage| %>
       <tr class="macrophage">
@@ -26,8 +26,8 @@
         <td><%= macrophage.dosage_str %></td>
         <td><%= macrophage.data %></td>
         <td><%= macrophage.datatype_str %></td>
-        <td><%= tag_labels(macrophage.tags_array) %></td>
-        
+        <td><%= tag_labels(macrophage.tags) %></td>
+
         <td>
           <% if macrophage.project.present? %>
             <%= macrophage.project.name %>
