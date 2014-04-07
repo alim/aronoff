@@ -103,7 +103,6 @@ class ImmuneResponsesController < ApplicationController
   def new
     @immune_response = ImmuneResponse.new
     @projects = Project.find_with_groups(current_user)
-    @tag_list = ImmuneResponse.tags
   end
 
   ######################################################################
@@ -116,7 +115,6 @@ class ImmuneResponsesController < ApplicationController
   ######################################################################
   def edit
     @projects = Project.find_with_groups(current_user)
-    @tag_list = ImmuneResponse.tags
   end
 
   ######################################################################

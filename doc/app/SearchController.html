@@ -74,15 +74,13 @@
     
     <li><a href="#method-i-by_bacteria">#by_bacteria</a>
     
+    <li><a href="#method-i-by_free_form">#by_free_form</a>
+    
     <li><a href="#method-i-by_tags">#by_tags</a>
     
-    <li><a href="#method-i-by_user">#by_user</a>
-    
-    <li><a href="#method-i-set_search_class">#set_search_class</a>
+    <li><a href="#method-i-free_form">#free_form</a>
     
     <li><a href="#method-i-tags">#tags</a>
-    
-    <li><a href="#method-i-user">#user</a>
     
   </ul>
 </nav>
@@ -228,16 +226,15 @@ href="Macrophage.html">Macrophage</a> data sets.</p>
 
         <div class="method-description">
           
-          <p>The bacteria method presents the user with a search form for  querying the
+          <p>The bacteria method presents the user with a search form for querying the
 database. The search form enables the user to search for experimental
 results by bacteria name.</p>
           
 
           
           <div class="method-source-code" id="bacteria-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 20</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">bacteria</span>
-  <span class="ruby-ivar">@search_bacteria_active</span>=<span class="ruby-string">&quot;class=active&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- bacteria-source -->
           
@@ -261,15 +258,15 @@ results by bacteria name.</p>
         <div class="method-description">
           
           <p>The <a href="SearchController.html#method-i-by_bacteria">#by_bacteria</a>
-method will search both the <a href="Macrophage.html">Macrophage</a> and 
-<a href="ImmuneResponse.html">ImmuneResponse</a> data by bacterial
-strain_name for matching result records. This method also support
-downloading of results via CSV file format.</p>
+method will search both the <a href="Macrophage.html">Macrophage</a> and <a
+href="ImmuneResponse.html">ImmuneResponse</a> data by bacterial strain_name
+for matching result records. This method also support downloading of
+results via CSV file format.</p>
           
 
           
           <div class="method-source-code" id="by_bacteria-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">by_bacteria</span>
   <span class="ruby-ivar">@strain_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:strain_name</span>]
 
@@ -291,7 +288,7 @@ downloading of results via CSV file format.</p>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:macrophages</span>]
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv</span> { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@macrophages</span>.<span class="ruby-identifier">to_csv</span>, 
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv</span> { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@macrophages</span>.<span class="ruby-identifier">to_csv</span>,
         <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{@strain_name}-macrophages&quot;</span> }
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv</span> { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@immune_responses</span>.<span class="ruby-identifier">to_csv</span>,
@@ -311,6 +308,38 @@ downloading of results via CSV file format.</p>
       </div><!-- by_bacteria-method -->
 
     
+      <div id="method-i-by_free_form" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">by_free_form</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Process the <a
+href="SearchController.html#method-i-free_form">#free_form</a> search
+request. We will parse the search request and process the elements from
+left to right.</p>
+          
+
+          
+          <div class="method-source-code" id="by_free_form-source">
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">by_free_form</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- by_free_form-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- by_free_form-method -->
+
+    
       <div id="method-i-by_tags" class="method-detail ">
         
         <div class="method-heading">
@@ -328,26 +357,26 @@ will allow searching the results by tags.</p>
 
           
           <div class="method-source-code" id="by_tags-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 80</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">by_tags</span>
   <span class="ruby-identifier">operator</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:search_operator</span>]
   <span class="ruby-identifier">tags</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:tags</span>]
-  
+
   <span class="ruby-comment"># Get page number</span>
   <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]
-  
+
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">operator</span> <span class="ruby-operator">==</span> <span class="ruby-string">'and'</span>
 
-    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">tagged_with_all</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">with_all_tags</span>.<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
-    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">tagged_with_all</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">with_all_tags</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
 
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">operator</span> <span class="ruby-operator">==</span> <span class="ruby-string">'or'</span>
 
-    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">tagged_with_any</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">with_any_tags</span>.<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
-    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">tagged_with_any</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">with_any_tags</span>.<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
 
   <span class="ruby-keyword">else</span>
@@ -364,10 +393,10 @@ will allow searching the results by tags.</p>
       </div><!-- by_tags-method -->
 
     
-      <div id="method-i-by_user" class="method-detail ">
+      <div id="method-i-free_form" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">by_user</span><span
+          <span class="method-name">free_form</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -375,53 +404,22 @@ will allow searching the results by tags.</p>
 
         <div class="method-description">
           
-          
+          <p>Generates a simple free form text search form.</p>
           
 
           
-          <div class="method-source-code" id="by_user-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 66</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">by_user</span>
+          <div class="method-source-code" id="free_form-source">
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">free_form</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- by_user-source -->
+          </div><!-- free_form-source -->
           
         </div>
 
         
 
         
-      </div><!-- by_user-method -->
-
-    
-      <div id="method-i-set_search_class" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">set_search_class</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The set_group_class method sets an instance variable for the CSS class that
-will highlight the menu item.</p>
-          
-
-          
-          <div class="method-source-code" id="set_search_class-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 112</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_search_class</span>
-  <span class="ruby-ivar">@search_active</span> = <span class="ruby-string">&quot;class=active&quot;</span> 
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- set_search_class-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- set_search_class-method -->
+      </div><!-- free_form-method -->
 
     
       <div id="method-i-tags" class="method-detail ">
@@ -441,9 +439,8 @@ tags.</p>
 
           
           <div class="method-source-code" id="tags-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 73</span>
+            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">tags</span>
-  <span class="ruby-ivar">@search_tags</span>=<span class="ruby-string">&quot;class=active&quot;</span>    
 <span class="ruby-keyword">end</span></pre>
           </div><!-- tags-source -->
           
@@ -453,36 +450,6 @@ tags.</p>
 
         
       </div><!-- tags-method -->
-
-    
-      <div id="method-i-user" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">user</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="user-source">
-            <pre><span class="ruby-comment"># File app/controllers/search_controller.rb, line 62</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">user</span>
-  <span class="ruby-ivar">@search_user_active</span>=<span class="ruby-string">&quot;class=active&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- user-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- user-method -->
 
     
     </section><!-- public-instance-method-details -->

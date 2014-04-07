@@ -7,7 +7,7 @@ class Macrophage
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
-  include Mongoid::Taggable
+  include Mongoid::TagsArentHard
 
   # Include shared instance methods
   include SharedInstanceMethods
@@ -87,6 +87,7 @@ class Macrophage
   field :data, type: Float
   field :data_type, type: Integer
   field :notes, type: String
+  taggable_with :tags
 
   ## RELATIONSHIPS -----------------------------------------------------
 

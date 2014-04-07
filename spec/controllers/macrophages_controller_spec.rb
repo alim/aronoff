@@ -236,13 +236,13 @@ describe MacrophagesController do
 
       it "assigns the correct tags" do
         post :create, {macrophage: valid_params}
-        assigns(:macrophage).tags.should eq(tags)
+        assigns(:macrophage).tags.should eq(tags.split(','))
       end
 
       it "assings both existing and new tags" do
         tag_list = tags + ',tag99,tag100'
         post :create, {macrophage: valid_params, new_tags: 'tag99,tag100'}
-        assigns(:macrophage).tags.should eq(tag_list)
+        assigns(:macrophage).tags.should eq(tag_list.split(','))
       end
     end
 

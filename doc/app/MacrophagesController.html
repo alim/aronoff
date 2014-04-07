@@ -80,6 +80,8 @@
     
     <li><a href="#method-i-new">#new</a>
     
+    <li><a href="#method-i-s3_download">#s3_download</a>
+    
     <li><a href="#method-i-show">#show</a>
     
     <li><a href="#method-i-update">#update</a>
@@ -235,11 +237,11 @@ to the currently signed in user.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 123</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@macrophage</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">macrophage_params</span>)
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
-  <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:macrophage</span>][<span class="ruby-value">:tags</span>], 
+  <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:macrophage</span>][<span class="ruby-value">:tags</span>],
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:new_tags</span>])
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -279,7 +281,7 @@ to the currently signed in user.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 166</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 158</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -318,11 +320,10 @@ href="Macrophage.html">Macrophage</a> record.</p>
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 110</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
   <span class="ruby-ivar">@strains</span> = <span class="ruby-identifier">get_strain_list</span>
-  <span class="ruby-ivar">@tag_list</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">tags</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -356,7 +357,7 @@ CSV file.</p>
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
 
   <span class="ruby-comment"># Get page number</span>
@@ -439,11 +440,10 @@ CSV file.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 97</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@macrophage</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
-  <span class="ruby-ivar">@tag_list</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">tags</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -453,6 +453,38 @@ CSV file.</p>
 
         
       </div><!-- new-method -->
+
+    
+      <div id="method-i-s3_download" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">s3_download</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /s3_download</p>
+
+<p>This helper action sets an expiring download url from S3.</p>
+          
+
+          
+          <div class="method-source-code" id="s3_download-source">
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">s3_download</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">raw_datafile</span>.<span class="ruby-identifier">expiring_url</span>(<span class="ruby-value">10</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- s3_download-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- s3_download-method -->
 
     
       <div id="method-i-show" class="method-detail ">
@@ -474,7 +506,7 @@ readable strings for some of the attributes.</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 89</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -503,12 +535,12 @@ readable strings for some of the attributes.</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 145</span>
+            <pre><span class="ruby-comment"># File app/controllers/macrophages_controller.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
-  <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:macrophage</span>][<span class="ruby-value">:tags</span>], 
+  <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:macrophage</span>][<span class="ruby-value">:tags</span>],
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:new_tags</span>])
-  
+
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@macrophage</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">macrophage_params</span>)
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@macrophage</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Macrophage was successfully updated.'</span> }

@@ -89,16 +89,16 @@ class SearchController < ApplicationController
 
     if operator == 'and'
 
-      @immune_responses = ImmuneResponse.tagged_with_all(tags).order_by(
+      @immune_responses = ImmuneResponse.with_all_tags(tags).order_by(
         [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
-      @macrophages = Macrophage.tagged_with_all(tags).order_by(
+      @macrophages = Macrophage.with_all_tags(tags).order_by(
         [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
 
     elsif operator == 'or'
 
-      @immune_responses = ImmuneResponse.tagged_with_any(tags).order_by(
+      @immune_responses = ImmuneResponse.with_any_tags(tags).order_by(
         [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
-      @macrophages = Macrophage.tagged_with_any(tags).order_by(
+      @macrophages = Macrophage.with_any_tags(tags).order_by(
         [[:updated_at, :desc]]).paginate(page: page, per_page: PAGE_COUNT)
 
     else
