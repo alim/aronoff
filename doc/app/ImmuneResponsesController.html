@@ -80,6 +80,8 @@
     
     <li><a href="#method-i-new">#new</a>
     
+    <li><a href="#method-i-s3_download">#s3_download</a>
+    
     <li><a href="#method-i-show">#show</a>
     
     <li><a href="#method-i-update">#update</a>
@@ -240,11 +242,11 @@ result attributes and relates the record to the project record.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 135</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 128</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@immune_response</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">immune_response_params</span>)
   <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
-  <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:immune_response</span>][<span class="ruby-value">:tags</span>], 
+  <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:immune_response</span>][<span class="ruby-value">:tags</span>],
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:new_tags</span>])
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -287,7 +289,7 @@ href="ImmuneResponse.html">ImmuneResponse</a> method.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 184</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -326,10 +328,9 @@ projects that are accessible by the current project.</p>
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 122</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
-  <span class="ruby-ivar">@tag_list</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">tags</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -361,7 +362,7 @@ response results by experiment ID and by bacterial strain name.</p>
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 29</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-comment"># Get page number</span>
   <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]
@@ -453,11 +454,10 @@ projects that are accessible by the current project.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 108</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@immune_response</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_with_groups</span>(<span class="ruby-identifier">current_user</span>)
-  <span class="ruby-ivar">@tag_list</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">tags</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -467,6 +467,38 @@ projects that are accessible by the current project.</p>
 
         
       </div><!-- new-method -->
+
+    
+      <div id="method-i-s3_download" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">s3_download</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>GET /s3_download</p>
+
+<p>This helper action sets an expiring download url from S3.</p>
+          
+
+          
+          <div class="method-source-code" id="s3_download-source">
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 190</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">s3_download</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">raw_datafile</span>.<span class="ruby-identifier">expiring_url</span>(<span class="ruby-value">10</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- s3_download-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- s3_download-method -->
 
     
       <div id="method-i-show" class="method-detail ">
@@ -488,7 +520,7 @@ the original data file.</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 97</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 92</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -521,10 +553,10 @@ result attributes and relates the record to the project record.</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 161</span>
+            <pre><span class="ruby-comment"># File app/controllers/immune_responses_controller.rb, line 154</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">nil?</span>
-  <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:immune_response</span>][<span class="ruby-value">:tags</span>], 
+  <span class="ruby-ivar">@immune_response</span>.<span class="ruby-identifier">tags</span> = <span class="ruby-identifier">process_tags</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:immune_response</span>][<span class="ruby-value">:tags</span>],
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:new_tags</span>])
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>

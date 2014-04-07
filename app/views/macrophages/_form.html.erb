@@ -1,4 +1,3 @@
-<%= render partial: 'shared/flash', locals: { flash: flash } %>
 <%= render partial: 'shared/validation_errors' %>
 
 <%= form_for @macrophage, :html => { :class => 'form-horizontal' } do |f| %>
@@ -66,10 +65,10 @@
       (You can select multiple tags using 'Ctrl' key)
     </label>
     <div class="controls">
-      <%= f.select :tags, tag_options_list(@macrophage), {}, 
+      <%= f.select :tags, tag_options_list(@macrophage), {},
         {size: 5, multiple: true, class: 'span5'} %>
         <br/><br/>
-      <%= text_field_tag :new_tags, nil, placeholder: 
+      <%= text_field_tag :new_tags, nil, placeholder:
         "Enter new tags separated by commas", class: 'span5' %>
     </div>
   </div>

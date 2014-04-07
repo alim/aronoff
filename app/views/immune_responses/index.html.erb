@@ -30,8 +30,10 @@
   </div> <!-- row -->
 </div>
 
+<%= render partial: 'shared/flash', locals: { flash: flash } %>
+
 <% if @immune_responses.present? %>
-  <%= render partial: 'immune_responses/immune_response_table', 
+  <%= render partial: 'immune_responses/immune_response_table',
       locals: { iresponses: @immune_responses } %>
 
   <!-- Export controls -------------------------------------------------->
