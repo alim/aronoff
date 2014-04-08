@@ -36,8 +36,8 @@ describe ApplicationHelper do
     }
 
     it "should return a list of options " do
-      helper.tag_options_list.should == options_for_select((@immune.tags.split(',') +
-        @macrophage.tags.split(',')).uniq.sort)
+      helper.tag_options_list.should == options_for_select((@immune.tags +
+        @macrophage.tags).uniq.sort)
     end
 
     it "should return empty options if no tags" do
@@ -48,8 +48,15 @@ describe ApplicationHelper do
       helper.tag_options_list.should == options_for_select([])
     end
 
+   it "should set selected tags" do
+      tag = @macrophage.tags.first
+      @immune.tags = tag
+      @immune.save
+      helper.tag_options_list(@immune).should include "<option selected=\"selected\" value=\"#{tag}\">#{tag}</option>"
+    end
+
     it "should set selected tags" do
-      tag = @immune.tags.split(',').first
+      tag = @immune.tags.first
       @macrophage.tags = tag
       @macrophage.save
       helper.tag_options_list(@macrophage).should include "<option selected=\"selected\" value=\"#{tag}\">#{tag}</option>"

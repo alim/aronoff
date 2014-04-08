@@ -82,7 +82,7 @@
   
   
   
-    <li><span class="include">Mongoid::Taggable</span>
+    <li><span class="include">Mongoid::TagsArentHard</span>
   
   
   
@@ -507,7 +507,7 @@ documentation</p>
 
           
           <div class="method-source-code" id="to_csv-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 303</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 307</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_csv</span>(<span class="ruby-identifier">options</span> = {})
 
   <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">options</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
@@ -584,7 +584,7 @@ type value.</p>
 
           
           <div class="method-source-code" id="cell_type_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 246</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 250</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cell_type_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">CELL_TYPE</span>, <span class="ruby-identifier">cell_type</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -617,7 +617,7 @@ compartment option value.</p>
 
           
           <div class="method-source-code" id="compartment_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 262</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 266</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">compartment_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">COMP_OPTIONS</span>, <span class="ruby-identifier">compartment</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -650,7 +650,7 @@ cyto_chemo_kine option value.</p>
 
           
           <div class="method-source-code" id="cyto_chemo_kine_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 294</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 298</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cyto_chemo_kine_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">CYTO_OPTIONS</span>, <span class="ruby-identifier">cyto_chemo_kine</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -681,7 +681,7 @@ href="Macrophage.html">Macrophage</a> model object is destroyed.</p>
 
           
           <div class="method-source-code" id="delete_file-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 237</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 241</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_file</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">raw_datafile</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
@@ -714,7 +714,7 @@ value.</p>
 
           
           <div class="method-source-code" id="model_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 254</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 258</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">model_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">MODEL_OPTIONS</span>, <span class="ruby-identifier">model</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -745,7 +745,7 @@ string of the strain status option value.</p>
 
           
           <div class="method-source-code" id="strain_status_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 270</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 274</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">strain_status_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">STRAIN_STATUS_OPTIONS</span>, <span class="ruby-identifier">strain_status</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -776,7 +776,7 @@ of the treamtment option value.</p>
 
           
           <div class="method-source-code" id="treatment_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 278</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 282</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">treatment_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">TREATMENT_OPTIONS</span>, <span class="ruby-identifier">treatment</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -808,7 +808,7 @@ value.</p>
 
           
           <div class="method-source-code" id="units_str-source">
-            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 286</span>
+            <pre><span class="ruby-comment"># File app/models/immune_response.rb, line 290</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">units_str</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">attribute_str</span>(<span class="ruby-constant">UNIT_OPTIONS</span>, <span class="ruby-identifier">units</span>)
 <span class="ruby-keyword">end</span></pre>

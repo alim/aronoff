@@ -9,7 +9,7 @@ class ImmuneResponse
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
-  include Mongoid::Taggable
+  include Mongoid::TagsArentHard
 
   # Include shared instance methods
   include SharedInstanceMethods
@@ -172,6 +172,7 @@ class ImmuneResponse
   field :cyto_chemo_kine, type: Integer
   field :units, type: Integer
   field :notes, type: String
+  taggable_with :tags
 
   ## RELATIONSHIPS -----------------------------------------------------
 
