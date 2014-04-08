@@ -1,12 +1,5 @@
 Aronoff::Application.routes.draw do
 
-  get   "search/bacteria"
-  post  "search/by_bacteria"
-  get   "search/free_form"
-  post  "search/by_free_form"
-  get   "search/tags"
-  post  "search/by_tags"
-
   resources :immune_responses do
     member do
       get 's3_download'
@@ -25,7 +18,6 @@ Aronoff::Application.routes.draw do
   	# Route for notifying and re-invite
 		member do
 			put 'notify'
-			put 'remove_member'
 		end
 	end
 
@@ -42,6 +34,15 @@ Aronoff::Application.routes.draw do
   	end # users
 	end
 
+  # Search controller routes
+  get   "search/bacteria"
+  post  "search/by_bacteria"
+  get   "search/free_form"
+  post  "search/by_free_form"
+  get   "search/tags"
+  post  "search/by_tags"
+
+  # Home controller routes
   get   "home/index"
   get   "home/support"
   get   "home/contact"
