@@ -10,7 +10,7 @@
   				<%= image_tag 'Your Logo.png' %>
   			</td>
   			<td align="left">
-  				<h3>Example Web Application<h3>
+  				<h3>Aronoff Lab Repository<h3>
   			</td>
   		</tr>
   	</table>
@@ -20,7 +20,7 @@
      	You are receiving this email because you have been added to
      	a user group. This group membership gives you
      	administrative privileges for one or more resources on the
-     	<a href="http://www.example.com">Example Web Application</a> 
+     	<%= link_to 'Aronoff Lab Repository' home_index_url %>
      	service. The details of your group membership are listed below:<br/>
     </p>
 		<br/><br/>
@@ -64,7 +64,7 @@
     			<%= @user.email %><br/>
     		</td>
     	</tr>
-    	
+
     	<% if @password %>
 		  	<tr>
 		  		<td width="30%", align="left">
@@ -81,9 +81,9 @@
 		  	</tr>
     	<% end %>
     </table>
-		
+
 		<h3 align="right">
-			<a href="https://www.example.com/sign_in">Login</a>
+      <%= link_to 'Login', new_user_session_url %>
 		</h3>
 
   </body>
