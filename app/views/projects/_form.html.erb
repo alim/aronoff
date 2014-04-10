@@ -10,10 +10,10 @@
   <div class="control-group">
     <%= f.label :description, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_area :description, class: 'text_area tinymce' %>
+      <%= f.text_area :description, class: 'text_area' %>
     </div>
   </div>
-  
+
   <div class="control-group">
     <label class="control-label">Project Documentation</label>
     <div class="controls">
@@ -24,11 +24,11 @@
       <%= f.file_field :charter_doc %>
     </div>
   </div>
-  
+
 
 	<!-- -----------------------------------------------------------------
-	  Generate a checkbox list of Groups that can be related to the 
-	  resource.  The group_list method below is defined in the 
+	  Generate a checkbox list of Groups that can be related to the
+	  resource.  The group_list method below is defined in the
 	  group_helper.rb file.
 	------------------------------------------------------------------ -->
 	<% @owned_groups = group_list(user: current_user, resource: @project) %>
@@ -41,7 +41,7 @@
 		  will also give them access to other items related to
 			the records.
 		</p>
-	
+
 		<div class="control-group">
 			<%= f.label @list_name, class: 'control-label' %>
 				<% @owned_groups.each do |group| %>
@@ -54,9 +54,9 @@
 				<% end %>
 		</div>
 		<br/>
-	<% end %>	
+	<% end %>
 	<!-- END OF GROUP LISTING ---------------------------------------- -->
-	
+
   <div class="form-actions">
     <%= f.submit nil, class: 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
