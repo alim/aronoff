@@ -182,7 +182,6 @@ class ImmuneResponse
 
   ## VALIDATIONS -------------------------------------------------------
 
-  validates_uniqueness_of :experiment_id
   validates_presence_of :experiment_id
 
   validates_presence_of :strain_name
