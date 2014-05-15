@@ -367,16 +367,16 @@ will allow searching the results by tags.</p>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">operator</span> <span class="ruby-operator">==</span> <span class="ruby-string">'and'</span>
 
-    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">with_all_tags</span>.<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">with_all_tags</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
     <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">with_all_tags</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
 
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">operator</span> <span class="ruby-operator">==</span> <span class="ruby-string">'or'</span>
 
-    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">with_any_tags</span>.<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@immune_responses</span> = <span class="ruby-constant">ImmuneResponse</span>.<span class="ruby-identifier">with_any_tags</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
-    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">with_any_tags</span>.<span class="ruby-identifier">order_by</span>(
+    <span class="ruby-ivar">@macrophages</span> = <span class="ruby-constant">Macrophage</span>.<span class="ruby-identifier">with_any_tags</span>(<span class="ruby-identifier">tags</span>).<span class="ruby-identifier">order_by</span>(
       [[<span class="ruby-value">:updated_at</span>, <span class="ruby-value">:desc</span>]]).<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
 
   <span class="ruby-keyword">else</span>
