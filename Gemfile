@@ -35,6 +35,7 @@ end
 gem 'mongoid', "~> 4.0", git: 'git://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 gem 'mongoid-tags-arent-hard'
+gem 'dumper'
 
 # UI Related Gems
 gem 'twitter-bootstrap-rails', '~> 2.2.0'
