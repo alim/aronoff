@@ -19,7 +19,6 @@ env:
   - GROUP_EMAIL_SUBJECT="Group Membership Notification"
   - secure: E9mwJ4E95deUbMjm62uRfyHbM/uaCszKVsIKSnJqX3Z9KlOYKVKz3avfRi6vE7NxZTPTuTTUD167u3ILONQzg8a1szjaxF7VlMJesKcTom8REU89PgIcGIrDJMDicZ3ecxEeULffFENgKBNAsanSHLDPX4XkzNKn4+c0irQNCjg=
   - secure: NiIBM5qDLPftSemhcUk6anZ6Ssj6NIZYia+7CY5SmqvL0q4b97arzOf8HX4TxhDRyNYtOKppg8St+tf2GRK6tDBD0VM2Ow8wP38gJEiGV/400qFZjiqkwyNaoK0TGLEmnykOp5+dsbTpJ4C+WxMWv2QWXMDNTjwoDQDUhLMLsqY=
-  - secure: Dpa0Khg2F24Ck/7KaP4Lxk42O+SDVhPtqID03XEDvbTRuyjltoWTEhLbb9ovtCgZX6LbsWStlsDlTGbrG720bP2SagnV0OHvUn+fxl/I6hbyjcn4r4bPcmfbEzv9Hl9CjUcbr8GOAmbNPjL2kTZD4RORKKSUcj0pajO0StzkaP4=
 branches:
   only:
   - master
