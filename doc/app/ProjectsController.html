@@ -198,8 +198,8 @@ It is the primary resource to which other records are related. Being a
 primary resource allows us to manage, authorization for group access to a
 project and all its related records.</p>
 
-<p>The controller uses an injection model for relating a project to a  a
-group. See lib/group_access.rb for injected methods.</p>
+<p>The controller uses an injection model for relating a project to a a group.
+See lib/group_access.rb for injected methods.</p>
 
   </div><!-- description -->
 
@@ -280,7 +280,7 @@ that the user selected.</p>
           
           <p>DELETE /projects/1 DELETE /projects/1.json</p>
 
-<p>The destroy project method will delete the project, but does not  destroy
+<p>The destroy project method will delete the project, but does not destroy
 the related groups that were given access to the project.</p>
           
 
@@ -351,21 +351,21 @@ to select groups that will be given access to the project.</p>
           <p>GET /projects GET /projects.json</p>
 
 <p>The index method displays the current users list of projects. If the signed
-in user is a User::SERVICE_ADMIN, then all projects are  listed.</p>
+in user is a User::SERVICE_ADMIN, then all projects are listed.</p>
           
 
           
           <div class="method-source-code" id="index-source">
             <pre><span class="ruby-comment"># File app/controllers/projects_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
- 
+
   <span class="ruby-comment"># Get page number</span>
               <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]
-               
+
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-constant">User</span><span class="ruby-operator">::</span><span class="ruby-constant">SERVICE_ADMIN</span>
-    <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,      <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)        
+    <span class="ruby-ivar">@projects</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,      <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@projects</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,    <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)      
+    <span class="ruby-ivar">@projects</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>,    <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-constant">PAGE_COUNT</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
@@ -426,7 +426,7 @@ those groups to the user.</p>
           <p>GET /projects/1 GET /projects/1.json</p>
 
 <p>The show method will show the project record. The corresponding view will
-show the owner name and list of user group names  associated with the
+show the owner name and list of user group names associated with the
 project.</p>
           
 
@@ -459,7 +459,7 @@ project.</p>
           <p>PATCH/PUT /projects/1 PATCH/PUT /projects/1.json</p>
 
 <p>The update will update the <a href="Project.html">Project</a> model object
-including any  changes to the group access privileges that the user
+including any changes to the group access privileges that the user
 selected.</p>
           
 
@@ -468,18 +468,18 @@ selected.</p>
             <pre><span class="ruby-comment"># File app/controllers/projects_controller.rb, line 112</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
 
-  <span class="ruby-comment"># Check to see if the project group_ids hash is blank. This </span>
+  <span class="ruby-comment"># Check to see if the project group_ids hash is blank. This</span>
   <span class="ruby-comment"># indicates that the user has deselected all groups, so we</span>
   <span class="ruby-comment">#  need to assign an empty array so the event relationship will</span>
   <span class="ruby-comment"># be cleared.</span>
               <span class="ruby-identifier">params</span>[<span class="ruby-value">:project</span>][<span class="ruby-value">:group_ids</span>] <span class="ruby-operator">||=</span> []
-              
+
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">project_params</span>)
-    
+
       <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">group_relate</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:project</span>][<span class="ruby-value">:group_ids</span>])
       <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">save</span>
-      
+
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@project</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Project was successfully updated.'</span> }
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
     <span class="ruby-keyword">else</span>
